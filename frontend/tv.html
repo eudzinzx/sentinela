@@ -1,0 +1,729 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>NEXORA Health | Chamada</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+
+    body {
+
+      min-height: 100vh;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-family:
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at top right,
+          rgba(18, 184, 212, 0.25),
+          transparent 35%
+        ),
+
+        radial-gradient(
+          circle at bottom left,
+          rgba(255, 255, 255, 0.08),
+          transparent 30%
+        ),
+
+        linear-gradient(
+          135deg,
+          #073b88,
+          #0b5ed7,
+          #087fae
+        );
+
+      overflow: hidden;
+
+    }
+
+
+    /* ==================================
+       CONTAINER
+    ================================== */
+
+    .container {
+
+      width: 90%;
+
+      max-width: 1200px;
+
+      text-align: center;
+
+    }
+
+
+    /* ==================================
+       LOGO
+    ================================== */
+
+    .logo {
+
+      width: 80px;
+      height: 80px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      margin:
+        0 auto 22px;
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.12);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.2);
+
+      font-size: 40px;
+
+    }
+
+
+    /* ==================================
+       MARCA
+    ================================== */
+
+    .marca {
+
+      margin-bottom: 8px;
+
+      font-size: 15px;
+
+      font-weight: 600;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      color:
+        rgba(255, 255, 255, 0.7);
+
+    }
+
+
+    h1 {
+
+      margin-bottom: 40px;
+
+      font-size: 32px;
+
+      font-weight: 500;
+
+    }
+
+
+    /* ==================================
+       CARD DA CHAMADA
+    ================================== */
+
+    .chamada {
+
+      padding:
+        50px 40px;
+
+      border-radius: 30px;
+
+      background:
+        rgba(255, 255, 255, 0.12);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+      box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.18);
+
+      backdrop-filter:
+        blur(15px);
+
+    }
+
+
+    /* ==================================
+       LABEL
+    ================================== */
+
+    .label {
+
+      margin-bottom: 18px;
+
+      font-size: 19px;
+
+      font-weight: 500;
+
+      color:
+        rgba(255, 255, 255, 0.75);
+
+    }
+
+
+    /* ==================================
+       NOME
+    ================================== */
+
+    #nomePaciente {
+
+      font-size:
+        clamp(45px, 8vw, 100px);
+
+      font-weight: 800;
+
+      line-height: 1.05;
+
+      letter-spacing: -3px;
+
+      word-break: break-word;
+
+    }
+
+
+    .aguardando {
+
+      opacity: 0.65;
+
+    }
+
+
+    /* ==================================
+       LOCALIZAÇÃO
+    ================================== */
+
+    .localizacao {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 20px;
+
+      max-width: 750px;
+
+      margin:
+        40px auto 0;
+
+    }
+
+
+    .local-box {
+
+      padding:
+        22px 25px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, 0.11);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    }
+
+
+    .local-icone {
+
+      margin-bottom: 7px;
+
+      font-size: 28px;
+
+    }
+
+
+    .local-label {
+
+      margin-bottom: 5px;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      color:
+        rgba(255, 255, 255, 0.6);
+
+    }
+
+
+    .local-valor {
+
+      font-size: 30px;
+
+      font-weight: 800;
+
+    }
+
+
+    /* ==================================
+       HORÁRIO
+    ================================== */
+
+    #horario {
+
+      margin-top: 25px;
+
+      font-size: 15px;
+
+      color:
+        rgba(255, 255, 255, 0.65);
+
+    }
+
+
+    /* ==================================
+       ANIMAÇÃO
+    ================================== */
+
+    .novo-paciente {
+
+      animation:
+        aparecer 0.6s ease;
+
+    }
+
+
+    @keyframes aparecer {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          scale(0.85)
+          translateY(20px);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          scale(1)
+          translateY(0);
+
+      }
+
+    }
+
+
+    /* ==================================
+       RODAPÉ
+    ================================== */
+
+    .rodape {
+
+      margin-top: 30px;
+
+      font-size: 14px;
+
+      color:
+        rgba(255, 255, 255, 0.55);
+
+    }
+
+
+    /* ==================================
+       RESPONSIVO
+    ================================== */
+
+    @media (max-width: 600px) {
+
+      .chamada {
+
+        padding:
+          40px 20px;
+
+      }
+
+
+      h1 {
+
+        font-size: 24px;
+
+        margin-bottom: 30px;
+
+      }
+
+
+      .localizacao {
+
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        margin-top: 30px;
+
+      }
+
+
+      .local-box {
+
+        padding: 18px;
+
+      }
+
+
+      .local-valor {
+
+        font-size: 25px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <main class="container">
+
+
+    <!-- ==================================
+         LOGO
+    ================================== -->
+
+    <div class="logo">
+      🩺
+    </div>
+
+
+    <!-- ==================================
+         MARCA
+    ================================== -->
+
+    <div class="marca">
+      NEXORA Health
+    </div>
+
+
+    <h1>
+      Chamada de pacientes
+    </h1>
+
+
+    <!-- ==================================
+         CHAMADA
+    ================================== -->
+
+    <section class="chamada">
+
+
+      <div class="label">
+        Chamando paciente
+      </div>
+
+
+      <!-- NOME -->
+
+      <div
+        id="nomePaciente"
+        class="aguardando"
+      >
+        Aguardando chamada...
+      </div>
+
+
+      <!-- ==================================
+           SALA E GUICHÊ
+      ================================== -->
+
+      <div class="localizacao">
+
+
+        <!-- SALA -->
+
+        <div class="local-box">
+
+          <div class="local-icone">
+            🚪
+          </div>
+
+          <div class="local-label">
+            Sala
+          </div>
+
+          <div
+            id="sala"
+            class="local-valor"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <!-- GUICHÊ -->
+
+        <div class="local-box">
+
+          <div class="local-icone">
+            🪪
+          </div>
+
+          <div class="local-label">
+            Guichê
+          </div>
+
+          <div
+            id="guiche"
+            class="local-valor"
+          >
+            —
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- HORÁRIO -->
+
+      <div id="horario"></div>
+
+
+    </section>
+
+
+    <div class="rodape">
+      Por favor, dirija-se ao local indicado acima.
+    </div>
+
+
+  </main>
+
+
+  <script>
+
+
+    /* ==================================
+       ELEMENTOS
+    ================================== */
+
+    const nomePaciente =
+      document.getElementById(
+        "nomePaciente"
+      );
+
+
+    const sala =
+      document.getElementById(
+        "sala"
+      );
+
+
+    const guiche =
+      document.getElementById(
+        "guiche"
+      );
+
+
+    const horario =
+      document.getElementById(
+        "horario"
+      );
+
+
+    /* ==================================
+       ATUALIZAR TV
+    ================================== */
+
+    function atualizarTV() {
+
+      const dados =
+        localStorage.getItem(
+          "pacienteTV"
+        );
+
+
+      /* ==============================
+         SEM CHAMADA
+      ============================== */
+
+      if (!dados) {
+
+        nomePaciente.textContent =
+          "Aguardando chamada...";
+
+        nomePaciente.classList.add(
+          "aguardando"
+        );
+
+        sala.textContent =
+          "—";
+
+        guiche.textContent =
+          "—";
+
+        horario.textContent =
+          "";
+
+        return;
+
+      }
+
+
+      /* ==============================
+         LER DADOS
+      ============================== */
+
+      try {
+
+        const paciente =
+          JSON.parse(dados);
+
+
+        /* ==============================
+           NOME
+        ============================== */
+
+        nomePaciente.textContent =
+          paciente.nome ||
+          "Paciente";
+
+
+        /* ==============================
+           SALA
+        ============================== */
+
+        sala.textContent =
+          paciente.sala ||
+          "—";
+
+
+        /* ==============================
+           GUICHÊ
+        ============================== */
+
+        guiche.textContent =
+          paciente.guiche ||
+          "—";
+
+
+        /* ==============================
+           HORÁRIO
+        ============================== */
+
+        if (paciente.horario) {
+
+          horario.textContent =
+            `Chamado às ${paciente.horario}`;
+
+        } else {
+
+          horario.textContent =
+            "";
+
+        }
+
+
+        /* ==============================
+           ANIMAÇÃO
+        ============================== */
+
+        nomePaciente.classList.remove(
+          "aguardando"
+        );
+
+
+        nomePaciente.classList.remove(
+          "novo-paciente"
+        );
+
+
+        void nomePaciente.offsetWidth;
+
+
+        nomePaciente.classList.add(
+          "novo-paciente"
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro ao ler chamada:",
+          erro
+        );
+
+      }
+
+    }
+
+
+    /* ==================================
+       RECEBER NOVA CHAMADA
+    ================================== */
+
+    window.addEventListener(
+      "storage",
+      function(evento) {
+
+        if (
+          evento.key ===
+          "pacienteTV"
+        ) {
+
+          atualizarTV();
+
+        }
+
+      }
+    );
+
+
+    /* ==================================
+       INICIALIZAÇÃO
+    ================================== */
+
+    atualizarTV();
+
+
+  </script>
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,140 @@
+body{
+    margin:0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background:linear-gradient(135deg,#d9f0ff,#eef7ff);
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:35px auto;
+    background:#ffffff;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+header{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+header h1,
+header h2{
+    color:#0b5ed7;
+    margin-bottom:8px;
+}
+
+header p{
+    color:#666;
+    margin-top:0;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:5px;
+    font-weight:bold;
+    color:#333;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:15px;
+    transition:.3s;
+    box-sizing:border-box;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#0b5ed7;
+    outline:none;
+    box-shadow:0 0 8px rgba(13,110,253,.25);
+}
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+button{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#0b5ed7;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:#084298;
+    transform:translateY(-2px);
+}
+
+.card{
+    background:#fff;
+    border-left:6px solid #0b5ed7;
+    border-radius:12px;
+    padding:18px;
+    margin:20px 0;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card h3{
+    margin-top:0;
+    color:#0b5ed7;
+}
+
+.verde,
+.amarelo,
+.vermelho{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:20px;
+    font-weight:bold;
+    color:#fff;
+}
+
+.verde{
+    background:#28a745;
+}
+
+.amarelo{
+    background:#ffc107;
+    color:#222;
+}
+
+.vermelho{
+    background:#dc3545;
+}
+
+.resultado{
+    margin-top:20px;
+    padding:15px;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:10px;
+}
+
+hr{
+    border:none;
+    border-top:2px solid #eee;
+    margin:30px 0;
+}

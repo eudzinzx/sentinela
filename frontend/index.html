@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>NEXORA Health | Sistema Hospitalar</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+
+      --azul: #0b5ed7;
+      --azul-escuro: #073b88;
+      --ciano: #12b8d4;
+
+      --texto: #172033;
+      --cinza: #667085;
+      --borda: #d9e2ec;
+
+      --fundo: #f4f8fc;
+      --branco: #ffffff;
+
+    }
+
+
+    body {
+
+      min-height: 100vh;
+
+      font-family:
+        "Inter",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      padding: 20px;
+
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(18, 184, 212, 0.16),
+          transparent 28%
+        ),
+
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(11, 94, 215, 0.14),
+          transparent 30%
+        ),
+
+        linear-gradient(
+          135deg,
+          #f7fbff,
+          #eef5fb
+        );
+
+      color: var(--texto);
+
+    }
+
+
+    /* ==============================
+       CONTAINER PRINCIPAL
+    ============================== */
+
+    .login-wrapper {
+
+      width: 100%;
+
+      max-width: 1000px;
+
+      min-height: 580px;
+
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      background:
+        var(--branco);
+
+      border-radius: 28px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 30px 80px
+        rgba(25, 65, 110, 0.15);
+
+    }
+
+
+    /* ==============================
+       LADO INSTITUCIONAL
+    ============================== */
+
+    .painel-esquerdo {
+
+      position: relative;
+
+      padding: 55px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      color: white;
+
+      overflow: hidden;
+
+      background:
+        linear-gradient(
+          145deg,
+          #062f70 0%,
+          #0b5ed7 55%,
+          #0a8fc0 100%
+        );
+
+    }
+
+
+    .painel-esquerdo::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 350px;
+      height: 350px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255, 255, 255, 0.06);
+
+      right: -150px;
+      top: -130px;
+
+    }
+
+
+    .painel-esquerdo::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 280px;
+      height: 280px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(255, 255, 255, 0.05);
+
+      left: -150px;
+      bottom: -130px;
+
+    }
+
+
+    .logo-grande {
+
+      position: relative;
+
+      z-index: 1;
+
+      width: 76px;
+      height: 76px;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      margin-bottom: 28px;
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.13);
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.25);
+
+      font-size: 38px;
+
+      box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.15);
+
+    }
+
+
+    .painel-esquerdo h1 {
+
+      position: relative;
+
+      z-index: 1;
+
+      font-size: 42px;
+
+      letter-spacing: -1.5px;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    .painel-esquerdo h1 span {
+
+      color:
+        #55e5f5;
+
+    }
+
+
+    .descricao {
+
+      position: relative;
+
+      z-index: 1;
+
+      max-width: 390px;
+
+      font-size: 16px;
+
+      line-height: 1.7;
+
+      color:
+        rgba(255, 255, 255, 0.78);
+
+      margin-bottom: 35px;
+
+    }
+
+
+    /* ==============================
+       BENEFÍCIOS
+    ============================== */
+
+    .recursos {
+
+      position: relative;
+
+      z-index: 1;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 15px;
+
+    }
+
+
+    .recurso {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      font-size: 14px;
+
+      color:
+        rgba(255, 255, 255, 0.9);
+
+    }
+
+
+    .recurso-icon {
+
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 10px;
+
+      background:
+        rgba(255, 255, 255, 0.12);
+
+      font-size: 15px;
+
+    }
+
+
+    /* ==============================
+       LOGIN
+    ============================== */
+
+    .painel-login {
+
+      padding: 55px;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+    }
+
+
+    .login-header {
+
+      margin-bottom: 30px;
+
+    }
+
+
+    .login-header h2 {
+
+      font-size: 27px;
+
+      margin-bottom: 8px;
+
+      letter-spacing: -0.5px;
+
+    }
+
+
+    .login-header p {
+
+      color:
+        var(--cinza);
+
+      font-size: 14px;
+
+      line-height: 1.5;
+
+    }
+
+
+    /* ==============================
+       CAMPOS
+    ============================== */
+
+    .campo {
+
+      margin-bottom: 18px;
+
+    }
+
+
+    .campo label {
+
+      display: block;
+
+      margin-bottom: 8px;
+
+      color:
+        #344054;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+    }
+
+
+    .input-wrapper {
+
+      position: relative;
+
+    }
+
+
+    .input-icon {
+
+      position: absolute;
+
+      left: 16px;
+      top: 50%;
+
+      transform:
+        translateY(-50%);
+
+      font-size: 17px;
+
+      color:
+        #98a2b3;
+
+    }
+
+
+    input {
+
+      width: 100%;
+
+      height: 54px;
+
+      border:
+        1px solid var(--borda);
+
+      border-radius: 13px;
+
+      background:
+        #fbfdff;
+
+      padding:
+        0 16px 0 46px;
+
+      font-size: 14px;
+
+      color:
+        var(--texto);
+
+      outline: none;
+
+      transition:
+        0.2s ease;
+
+    }
+
+
+    input::placeholder {
+
+      color:
+        #98a2b3;
+
+    }
+
+
+    input:focus {
+
+      background:
+        white;
+
+      border-color:
+        var(--azul);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(11, 94, 215, 0.09);
+
+    }
+
+
+    /* ==============================
+       BOTÃO
+    ============================== */
+
+    .botao-login {
+
+      width: 100%;
+
+      height: 54px;
+
+      margin-top: 10px;
+
+      border: none;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--azul),
+          #087ce8
+        );
+
+      color:
+        white;
+
+      font-size: 15px;
+
+      font-weight: 700;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 22px
+        rgba(11, 94, 215, 0.22);
+
+      transition:
+        0.2s ease;
+
+    }
+
+
+    .botao-login:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 14px 28px
+        rgba(11, 94, 215, 0.28);
+
+    }
+
+
+    .botao-login:active {
+
+      transform:
+        translateY(0);
+
+    }
+
+
+    .botao-login:disabled {
+
+      opacity: 0.65;
+
+      cursor:
+        not-allowed;
+
+      transform:
+        none;
+
+    }
+
+
+    /* ==============================
+       STATUS
+    ============================== */
+
+    #mensagem {
+
+      display: none;
+
+      margin-top: 18px;
+
+      padding: 13px;
+
+      border-radius: 11px;
+
+      text-align: center;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+    }
+
+
+    #mensagem.erro {
+
+      display: block;
+
+      background:
+        #fff0f1;
+
+      color:
+        #d92d20;
+
+    }
+
+
+    #mensagem.carregando {
+
+      display: block;
+
+      background:
+        #eef5ff;
+
+      color:
+        var(--azul);
+
+    }
+
+
+    #mensagem.sucesso {
+
+      display: block;
+
+      background:
+        #eafaf3;
+
+      color:
+        #16a36a;
+
+    }
+
+
+    /* ==============================
+       RODAPÉ
+    ============================== */
+
+    .seguranca {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 6px;
+
+      margin-top: 25px;
+
+      font-size: 11px;
+
+      color:
+        #98a2b3;
+
+    }
+
+
+    .rodape {
+
+      margin-top: 12px;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      color:
+        #b0b8c4;
+
+    }
+
+
+    /* ==============================
+       RESPONSIVO
+    ============================== */
+
+    @media (max-width: 800px) {
+
+      .login-wrapper {
+
+        grid-template-columns:
+          1fr;
+
+        max-width: 500px;
+
+      }
+
+
+      .painel-esquerdo {
+
+        padding: 35px;
+
+        min-height: 300px;
+
+      }
+
+
+      .painel-esquerdo h1 {
+
+        font-size: 32px;
+
+      }
+
+
+      .descricao {
+
+        margin-bottom: 20px;
+
+      }
+
+
+      .recursos {
+
+        display: none;
+
+      }
+
+
+      .painel-login {
+
+        padding: 35px;
+
+      }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+      body {
+
+        padding: 0;
+
+      }
+
+
+      .login-wrapper {
+
+        min-height: 100vh;
+
+        border-radius: 0;
+
+        box-shadow: none;
+
+      }
+
+
+      .painel-esquerdo {
+
+        min-height: 260px;
+
+        padding:
+          30px 25px;
+
+      }
+
+
+      .painel-login {
+
+        padding:
+          30px 25px;
+
+      }
+
+
+      .logo-grande {
+
+        width: 60px;
+        height: 60px;
+
+        font-size: 30px;
+
+      }
+
+
+      .painel-esquerdo h1 {
+
+        font-size: 29px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <main class="login-wrapper">
+
+
+    <!-- ==========================
+         PAINEL INSTITUCIONAL
+    =========================== -->
+
+    <section class="painel-esquerdo">
+
+
+      <div class="logo-grande">
+        ✚
+      </div>
+
+
+      <h1>
+
+        NEXORA
+        <span>Health</span>
+
+      </h1>
+
+
+      <p class="descricao">
+
+        Sistema inteligente de gestão hospitalar,
+        desenvolvido para conectar profissionais,
+        pacientes e atendimento em um único ambiente.
+
+      </p>
+
+
+      <div class="recursos">
+
+
+        <div class="recurso">
+
+          <div class="recurso-icon">
+            ✓
+          </div>
+
+          <span>
+            Atendimento rápido e organizado
+          </span>
+
+        </div>
+
+
+        <div class="recurso">
+
+          <div class="recurso-icon">
+            🔒
+          </div>
+
+          <span>
+            Ambiente seguro para seus dados
+          </span>
+
+        </div>
+
+
+        <div class="recurso">
+
+          <div class="recurso-icon">
+            ♥
+          </div>
+
+          <span>
+            Tecnologia focada no cuidado
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <!-- ==========================
+         PAINEL DE LOGIN
+    =========================== -->
+
+    <section class="painel-login">
+
+
+      <div class="login-header">
+
+        <h2>
+          Acesso ao sistema
+        </h2>
+
+        <p>
+          Entre com suas credenciais para continuar.
+        </p>
+
+      </div>
+
+
+      <form id="loginForm">
+
+
+        <!-- ==========================
+             USUÁRIO
+        =========================== -->
+
+        <div class="campo">
+
+          <label for="usuario">
+            Usuário
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              👤
+            </span>
+
+            <input
+              id="usuario"
+              type="text"
+              placeholder="Digite seu usuário"
+              autocomplete="username"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- ==========================
+             SENHA
+        =========================== -->
+
+        <div class="campo">
+
+          <label for="senha">
+            Senha
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              🔒
+            </span>
+
+            <input
+              id="senha"
+              type="password"
+              placeholder="Digite sua senha"
+              autocomplete="current-password"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <!-- ==========================
+             BOTÃO
+        =========================== -->
+
+        <button
+          class="botao-login"
+          type="submit"
+          id="botaoEntrar"
+        >
+
+          Entrar no sistema →
+
+        </button>
+
+
+      </form>
+
+
+      <!-- MENSAGEM -->
+
+      <div id="mensagem"></div>
+
+
+      <!-- SEGURANÇA -->
+
+      <div class="seguranca">
+
+        🔐 Ambiente protegido e seguro
+
+      </div>
+
+
+      <!-- RODAPÉ -->
+
+      <div class="rodape">
+
+        NEXORA Health © 2026
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+  <script>
+
+
+    /* ==================================
+       ELEMENTOS
+    ================================== */
+
+    const formulario =
+      document.getElementById(
+        "loginForm"
+      );
+
+
+    const usuario =
+      document.getElementById(
+        "usuario"
+      );
+
+
+    const senha =
+      document.getElementById(
+        "senha"
+      );
+
+
+    const mensagem =
+      document.getElementById(
+        "mensagem"
+      );
+
+
+    const botao =
+      document.getElementById(
+        "botaoEntrar"
+      );
+
+
+    /* ==================================
+       EVENTO DO FORMULÁRIO
+    ================================== */
+
+    formulario.addEventListener(
+      "submit",
+      login
+    );
+
+
+    /* ==================================
+       FUNÇÃO DE LOGIN
+    ================================== */
+
+    async function login(evento) {
+
+      evento.preventDefault();
+
+
+      /* ==============================
+         PEGAR VALORES
+      ============================== */
+
+      const usuarioValor =
+        usuario.value.trim();
+
+      const senhaValor =
+        senha.value;
+
+
+      /* ==============================
+         VALIDAÇÃO
+      ============================== */
+
+      if (
+        !usuarioValor ||
+        !senhaValor
+      ) {
+
+        mostrarMensagem(
+          "Preencha usuário e senha.",
+          "erro"
+        );
+
+        return;
+
+      }
+
+
+      /* ==============================
+         LOADING
+      ============================== */
+
+      botao.disabled = true;
+
+      botao.textContent =
+        "Entrando...";
+
+
+      mostrarMensagem(
+        "Autenticando suas credenciais...",
+        "carregando"
+      );
+
+
+      /* ==============================
+         LOGIN EXCLUSIVO DA TV
+         
+         Usuário: tv
+         Senha: 123
+      ============================== */
+
+      if (
+        usuarioValor.toLowerCase() === "tv" &&
+        senhaValor === "123"
+      ) {
+
+        mostrarMensagem(
+          "Acesso à TV autorizado. Abrindo painel...",
+          "sucesso"
+        );
+
+
+        /*
+         * Pequeno intervalo para
+         * mostrar a mensagem de sucesso.
+         */
+
+        setTimeout(
+          function() {
+
+            window.location.href =
+              "tv.html";
+
+          },
+          500
+        );
+
+
+        return;
+
+      }
+
+
+      /* ==============================
+         LOGIN DOS OUTROS USUÁRIOS
+      ============================== */
+
+      try {
+
+        const resposta =
+          await fetch(
+            "http://localhost:3000/login",
+            {
+              method: "POST",
+
+              headers: {
+
+                "Content-Type":
+                  "application/json"
+
+              },
+
+              body: JSON.stringify({
+
+                usuario:
+                  usuarioValor,
+
+                senha:
+                  senhaValor
+
+              })
+
+            }
+          );
+
+
+        /* ==============================
+           TENTAR LER JSON
+        ============================== */
+
+        let data;
+
+        try {
+
+          data =
+            await resposta.json();
+
+        } catch {
+
+          data = {};
+
+        }
+
+
+        /* ==============================
+           LOGIN INVÁLIDO
+        ============================== */
+
+        if (!resposta.ok) {
+
+          throw new Error(
+            data.mensagem ||
+            "Usuário ou senha inválidos."
+          );
+
+        }
+
+
+        /* ==============================
+           TRIAGEM
+        ============================== */
+
+        if (
+          data.tipo ===
+          "triagem"
+        ) {
+
+          window.location.href =
+            "triagem.html";
+
+          return;
+
+        }
+
+
+        /* ==============================
+           MÉDICO
+        ============================== */
+
+        if (
+          data.tipo ===
+          "medico"
+        ) {
+
+          window.location.href =
+            "medico.html";
+
+          return;
+
+        }
+
+
+        /* ==============================
+           ATENDIMENTO
+        ============================== */
+
+        if (
+          data.tipo ===
+          "atendimento"
+        ) {
+
+          window.location.href =
+            "atendimento.html";
+
+          return;
+
+        }
+
+
+        /* ==============================
+           TV PELO SERVIDOR
+           
+           Caso futuramente você também
+           cadastre a TV no banco.
+        ============================== */
+
+        if (
+          data.tipo ===
+          "tv"
+        ) {
+
+          window.location.href =
+            "tv.html";
+
+          return;
+
+        }
+
+
+        /* ==============================
+           PERFIL DESCONHECIDO
+        ============================== */
+
+        throw new Error(
+          "Perfil de usuário não reconhecido."
+        );
+
+
+      } catch (erro) {
+
+        console.error(
+          "Erro no login:",
+          erro
+        );
+
+
+        mostrarMensagem(
+          erro.message ||
+          "Não foi possível conectar ao servidor.",
+          "erro"
+        );
+
+
+        botao.disabled = false;
+
+        botao.textContent =
+          "Entrar no sistema →";
+
+      }
+
+    }
+
+
+    /* ==================================
+       MOSTRAR MENSAGEM
+    ================================== */
+
+    function mostrarMensagem(
+      texto,
+      tipo
+    ) {
+
+      mensagem.textContent =
+        texto;
+
+      mensagem.className =
+        tipo;
+
+    }
+
+
+    /* ==================================
+       ENTER PARA ENTRAR
+    ================================== */
+
+    usuario.addEventListener(
+      "keydown",
+      function(evento) {
+
+        if (
+          evento.key ===
+          "Enter"
+        ) {
+
+          evento.preventDefault();
+
+          senha.focus();
+
+        }
+
+      }
+    );
+
+
+    senha.addEventListener(
+      "keydown",
+      function(evento) {
+
+        if (
+          evento.key ===
+          "Enter"
+        ) {
+
+          evento.preventDefault();
+
+          formulario.requestSubmit();
+
+        }
+
+      }
+    );
+
+
+  </script>
+
+
+</body>
+
+</html>

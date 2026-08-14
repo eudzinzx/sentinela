@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NEXORA Health | Atendimento</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --azul: #0b5ed7;
+      --azul-escuro: #073b88;
+      --azul-claro: #eaf3ff;
+      --ciano: #14b8d4;
+      --verde: #16a36a;
+      --vermelho: #dc3545;
+      --texto: #172033;
+      --texto-secundario: #667085;
+      --borda: #d9e1ec;
+      --fundo: #f4f8fc;
+      --branco: #ffffff;
+      --sombra: 0 20px 60px rgba(25, 65, 110, 0.12);
+    }
+
+    body {
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(20, 184, 212, 0.12), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(11, 94, 215, 0.10), transparent 30%),
+        var(--fundo);
+      color: var(--texto);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 650px;
+    }
+
+    /* =========================
+       CABEÇALHO
+    ========================= */
+
+    .cabecalho {
+      background: linear-gradient(
+        135deg,
+        var(--azul-escuro),
+        var(--azul)
+      );
+
+      color: white;
+      padding: 30px;
+      border-radius: 24px 24px 0 0;
+
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cabecalho::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.07);
+      right: -80px;
+      top: -100px;
+    }
+
+    .icone {
+      width: 62px;
+      height: 62px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 18px;
+
+      font-size: 32px;
+      font-weight: 700;
+
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .marca {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+    }
+
+    .subtitulo {
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 14px;
+    }
+
+    .status {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 50px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      content: "";
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      background: #55e6a5;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+
+    /* =========================
+       FORMULÁRIO
+    ========================= */
+
+    form {
+      background: var(--branco);
+      padding: 36px;
+      box-shadow: var(--sombra);
+    }
+
+    .titulo-formulario {
+      margin-bottom: 28px;
+    }
+
+    .titulo-formulario h2 {
+      font-size: 23px;
+      color: var(--texto);
+      margin-bottom: 6px;
+    }
+
+    .titulo-formulario p {
+      color: var(--texto-secundario);
+      font-size: 14px;
+    }
+
+    .campo {
+      margin-bottom: 22px;
+    }
+
+    .campo label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #344054;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 52px;
+      padding: 0 16px;
+
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+
+      background: #fbfcfe;
+      color: var(--texto);
+
+      font-size: 15px;
+      outline: none;
+
+      transition: 0.2s ease;
+    }
+
+    input::placeholder {
+      color: #98a2b3;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--azul);
+      background: white;
+
+      box-shadow:
+        0 0 0 4px rgba(11, 94, 215, 0.09);
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    /* =========================
+       FOTO
+    ========================= */
+
+    .seletor-arquivo {
+      width: 100%;
+      height: 120px;
+
+      border: 2px dashed #cbd8e8;
+      border-radius: 14px;
+
+      background: #f8fbff;
+
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--azul) !important;
+      cursor: pointer;
+
+      transition: 0.2s ease;
+    }
+
+    .seletor-arquivo:hover {
+      border-color: var(--azul);
+      background: var(--azul-claro);
+    }
+
+    #foto {
+      display: none;
+    }
+
+    .preview {
+      display: none;
+      width: 120px;
+      height: 120px;
+
+      object-fit: cover;
+
+      margin: 16px auto 0;
+
+      border-radius: 16px;
+      border: 4px solid white;
+
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* =========================
+       BOTÕES
+    ========================= */
+
+    .botoes {
+      display: flex;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      flex: 1;
+
+      height: 52px;
+      border: none;
+      border-radius: 12px;
+
+      background: linear-gradient(
+        135deg,
+        var(--azul),
+        #0878ee
+      );
+
+      color: white;
+
+      font-size: 15px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      box-shadow: 0 8px 18px rgba(11, 94, 215, 0.20);
+
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(11, 94, 215, 0.28);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    button.voltar {
+      flex: 0 0 120px;
+
+      background: white;
+      color: #475467;
+
+      border: 1px solid var(--borda);
+
+      box-shadow: none;
+    }
+
+    button.voltar:hover {
+      background: #f8fafc;
+      border-color: #b9c5d4;
+      box-shadow: none;
+    }
+
+    /* =========================
+       MENSAGENS
+    ========================= */
+
+    .mensagem {
+      display: none;
+      margin-top: 20px;
+      padding: 14px 16px;
+
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+
+      text-align: center;
+    }
+
+    .mensagem.carregando {
+      display: block;
+      background: #eef5ff;
+      color: var(--azul);
+    }
+
+    .mensagem.sucesso {
+      display: block;
+      background: #eafaf3;
+      color: var(--verde);
+    }
+
+    .mensagem.erro {
+      display: block;
+      background: #fff0f1;
+      color: var(--vermelho);
+    }
+
+    /* =========================
+       RODAPÉ
+    ========================= */
+
+    footer {
+      background: #f9fbfd;
+
+      border: 1px solid #e5eaf1;
+      border-top: none;
+
+      padding: 18px;
+
+      text-align: center;
+
+      color: #98a2b3;
+      font-size: 12px;
+
+      border-radius: 0 0 24px 24px;
+    }
+
+    .seguranca {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+
+      margin-top: 8px;
+
+      color: #667085;
+      font-size: 11px;
+    }
+
+    /* =========================
+       RESPONSIVO
+    ========================= */
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0;
+        align-items: stretch;
+      }
+
+      .container {
+        max-width: none;
+      }
+
+      .cabecalho {
+        border-radius: 0;
+        padding: 25px 20px;
+      }
+
+      .icone {
+        width: 52px;
+        height: 52px;
+        font-size: 26px;
+      }
+
+      .marca {
+        font-size: 22px;
+      }
+
+      .status {
+        display: none;
+      }
+
+      form {
+        padding: 28px 20px;
+        box-shadow: none;
+      }
+
+      footer {
+        border-radius: 0;
+      }
+
+      .botoes {
+        flex-direction: column;
+      }
+
+      button.voltar {
+        flex: none;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+
+      <div class="icone">✚</div>
+
+      <div>
+        <h1 class="marca">NEXORA Health</h1>
+        <p class="subtitulo">
+          Tecnologia e cuidado em um só lugar
+        </p>
+      </div>
+
+      <div class="status">
+        Atendimento online
+      </div>
+
+    </header>
+
+    <!-- FORMULÁRIO -->
+    <form id="form-atendimento">
+
+      <div class="titulo-formulario">
+        <h2>Cadastro do paciente</h2>
+
+        <p>
+          Preencha os dados abaixo para iniciar o atendimento.
+        </p>
+      </div>
+
+      <!-- NOME -->
+      <div class="campo">
+
+        <label for="nome">
+          Nome completo
+        </label>
+
+        <input
+          type="text"
+          id="nome"
+          placeholder="Digite o nome do paciente"
+          autocomplete="name"
+          required
+        >
+
+      </div>
+
+      <!-- CPF -->
+      <div class="campo">
+
+        <label for="cpf">
+          CPF
+        </label>
+
+        <input
+          type="text"
+          id="cpf"
+          placeholder="000.000.000-00"
+          maxlength="14"
+          inputmode="numeric"
+          autocomplete="off"
+          required
+        >
+
+      </div>
+
+      <!-- TIPO -->
+      <div class="campo">
+
+        <label for="tipo">
+          Tipo de atendimento
+        </label>
+
+        <select id="tipo" required>
+
+          <option value="" disabled selected>
+            Selecione uma opção
+          </option>
+
+          <option value="Convenio">
+            Convênio
+          </option>
+
+          <option value="Particular">
+            Particular
+          </option>
+
+        </select>
+
+      </div>
+
+      <!-- FOTO -->
+      <div class="campo">
+
+        <label>
+          Foto do paciente
+        </label>
+
+        <label class="seletor-arquivo" for="foto">
+          📷 &nbsp; Selecionar uma foto
+        </label>
+
+        <input
+          type="file"
+          id="foto"
+          accept="image/*"
+        >
+
+        <img
+          id="preview"
+          class="preview"
+          alt="Prévia da foto do paciente"
+        >
+
+      </div>
+
+      <!-- BOTÕES -->
+      <div class="botoes">
+
+        <button type="submit">
+          ✓ &nbsp; Cadastrar paciente
+        </button>
+
+        <button
+          type="button"
+          class="voltar"
+          onclick="voltar()"
+        >
+          ← Voltar
+        </button>
+
+      </div>
+
+      <p
+        id="mensagem"
+        class="mensagem"
+        aria-live="polite"
+      ></p>
+
+    </form>
+
+    <!-- RODAPÉ -->
+    <footer>
+
+      NEXORA Health © 2026
+
+      <div class="seguranca">
+        🔒 Seus dados são tratados com segurança
+      </div>
+
+    </footer>
+
+  </main>
+
+
+  <script>
+
+    const formulario =
+      document.getElementById("form-atendimento");
+
+    const campoNome =
+      document.getElementById("nome");
+
+    const campoCpf =
+      document.getElementById("cpf");
+
+    const campoTipo =
+      document.getElementById("tipo");
+
+    const campoFoto =
+      document.getElementById("foto");
+
+    const preview =
+      document.getElementById("preview");
+
+    const mensagem =
+      document.getElementById("mensagem");
+
+
+    /* =========================
+       MÁSCARA DO CPF
+    ========================= */
+
+    campoCpf.addEventListener("input", () => {
+
+      let cpf = campoCpf.value
+        .replace(/\D/g, "")
+        .slice(0, 11);
+
+      cpf = cpf
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+      campoCpf.value = cpf;
+
+    });
+
+
+    /* =========================
+       PREVISUALIZAÇÃO DA FOTO
+    ========================= */
+
+    campoFoto.addEventListener("change", () => {
+
+      const arquivo = campoFoto.files[0];
+
+      if (!arquivo) {
+
+        preview.removeAttribute("src");
+        preview.style.display = "none";
+
+        return;
+      }
+
+      const url =
+        URL.createObjectURL(arquivo);
+
+      preview.src = url;
+      preview.style.display = "block";
+
+    });
+
+
+    /* =========================
+       ENVIO DO FORMULÁRIO
+    ========================= */
+
+    formulario.addEventListener(
+      "submit",
+      cadastrar
+    );
+
+
+    async function cadastrar(evento) {
+
+      evento.preventDefault();
+
+      mensagem.textContent =
+        "Enviando cadastro...";
+
+      mensagem.className =
+        "mensagem carregando";
+
+
+      const paciente = {
+
+        nome: campoNome.value.trim(),
+
+        cpf: campoCpf.value,
+
+        tipo: campoTipo.value
+
+      };
+
+
+      try {
+
+        const resposta = await fetch(
+          "http://localhost:3000/atendimento",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(paciente)
+          }
+        );
+
+
+        if (!resposta.ok) {
+
+          throw new Error(
+            "Não foi possível cadastrar o paciente."
+          );
+
+        }
+
+
+        mensagem.textContent =
+          "✓ Paciente enviado para a triagem com sucesso!";
+
+        mensagem.className =
+          "mensagem sucesso";
+
+
+        formulario.reset();
+
+        preview.removeAttribute("src");
+
+        preview.style.display = "none";
+
+
+      } catch (erro) {
+
+        console.error(erro);
+
+        mensagem.textContent =
+          "Não foi possível conectar ao servidor. Verifique se a API está ativa.";
+
+        mensagem.className =
+          "mensagem erro";
+
+      }
+
+    }
+
+
+    /* =========================
+       BOTÃO VOLTAR
+    ========================= */
+
+    function voltar() {
+
+      window.location.href =
+        "index.html";
+
+    }
+
+  </script>
+
+</body>
+</html>
