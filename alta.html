@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>NEXORA Health | Alta</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    }
+
+    :root {
+      --azul: #0b5ed7;
+      --azul-escuro: #073b88;
+      --azul-claro: #eaf3ff;
+      --ciano: #14b8d4;
+      --verde: #16a36a;
+      --vermelho: #dc3545;
+      --fundo: #f4f8fc;
+      --branco: #ffffff;
+      --texto: #243447;
+      --cinza: #6b7c93;
+      --borda: #dce6f0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--fundo);
+      color: var(--texto);
+    }
+
+    /* HEADER */
+
+    header {
+      height: 75px;
+      background: linear-gradient(
+        135deg,
+        var(--azul-escuro),
+        var(--azul),
+        #087fae
+      );
+
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 35px;
+
+      box-shadow: 0 4px 15px rgba(7, 59, 136, 0.20);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .logo-icon {
+      width: 43px;
+      height: 43px;
+      border-radius: 13px;
+      background: rgba(255,255,255,0.16);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 24px;
+      font-weight: bold;
+
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .logo h1 {
+      font-size: 21px;
+      letter-spacing: .5px;
+    }
+
+    .logo span {
+      display: block;
+      font-size: 11px;
+      opacity: .8;
+      margin-top: 2px;
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 14px;
+    }
+
+    .status {
+      background: rgba(255,255,255,.14);
+      padding: 9px 14px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    /* CONTAINER */
+
+    .container {
+      max-width: 1250px;
+      margin: 35px auto;
+      padding: 0 25px;
+    }
+
+    .page-title {
+      margin-bottom: 25px;
+    }
+
+    .page-title h2 {
+      font-size: 28px;
+      color: var(--azul-escuro);
+      margin-bottom: 6px;
+    }
+
+    .page-title p {
+      color: var(--cinza);
+      font-size: 14px;
+    }
+
+    /* CARDS */
+
+    .card {
+      background: var(--branco);
+      border-radius: 18px;
+      padding: 25px;
+      margin-bottom: 22px;
+
+      border: 1px solid var(--borda);
+
+      box-shadow: 0 8px 25px rgba(30, 80, 130, 0.07);
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+
+      margin-bottom: 22px;
+      padding-bottom: 15px;
+
+      border-bottom: 1px solid var(--borda);
+    }
+
+    .card-title-icon {
+      width: 38px;
+      height: 38px;
+
+      border-radius: 11px;
+
+      background: var(--azul-claro);
+      color: var(--azul);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 18px;
+    }
+
+    .card-title h3 {
+      font-size: 17px;
+      color: var(--azul-escuro);
+    }
+
+    .card-title p {
+      color: var(--cinza);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    /* GRID */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .campo {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .campo.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #40566d;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+
+      padding: 12px 14px;
+
+      outline: none;
+
+      font-size: 14px;
+      color: var(--texto);
+
+      background: #fbfdff;
+
+      transition: .2s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(11, 94, 215, .10);
+      background: white;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.5;
+    }
+
+    /* PACIENTE */
+
+    .patient-highlight {
+      background: linear-gradient(
+        135deg,
+        #f0f7ff,
+        #f8fcff
+      );
+
+      border: 1px solid #d8eaff;
+      border-radius: 14px;
+
+      padding: 18px;
+
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      margin-bottom: 20px;
+    }
+
+    .patient-avatar {
+      width: 55px;
+      height: 55px;
+
+      border-radius: 50%;
+
+      background: linear-gradient(
+        135deg,
+        var(--azul),
+        var(--ciano)
+      );
+
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .patient-info h4 {
+      color: var(--azul-escuro);
+      font-size: 16px;
+      margin-bottom: 3px;
+    }
+
+    .patient-info span {
+      color: var(--cinza);
+      font-size: 12px;
+    }
+
+    /* TIPO DE ALTA */
+
+    .alta-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .alta-option {
+      position: relative;
+    }
+
+    .alta-option input {
+      display: none;
+    }
+
+    .alta-option label {
+      display: block;
+
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+
+      padding: 16px;
+
+      cursor: pointer;
+
+      transition: .2s;
+      background: white;
+    }
+
+    .alta-option label strong {
+      display: block;
+      color: var(--azul-escuro);
+      margin-bottom: 5px;
+    }
+
+    .alta-option label span {
+      font-size: 12px;
+      color: var(--cinza);
+      font-weight: normal;
+    }
+
+    .alta-option input:checked + label {
+      border-color: var(--azul);
+      background: var(--azul-claro);
+      box-shadow: 0 0 0 2px rgba(11,94,215,.08);
+    }
+
+    /* RESUMO */
+
+    .resumo-box {
+      background: #f8fbff;
+      border-left: 4px solid var(--ciano);
+
+      padding: 16px 18px;
+
+      border-radius: 8px;
+
+      margin-top: 20px;
+
+      color: #52677c;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* BOTÕES */
+
+    .acoes {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+
+      margin-top: 25px;
+      margin-bottom: 40px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+
+      border-radius: 10px;
+
+      padding: 13px 20px;
+
+      font-size: 14px;
+      font-weight: 600;
+
+      transition: .2s;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--azul-escuro);
+      border: 1px solid var(--borda);
+    }
+
+    .btn-pdf {
+      background: #eaf8f2;
+      color: var(--verde);
+      border: 1px solid #cceede;
+    }
+
+    .btn-print {
+      background: #eef6ff;
+      color: var(--azul);
+      border: 1px solid #d6e8ff;
+    }
+
+    .btn-save {
+      background: linear-gradient(
+        135deg,
+        var(--azul),
+        var(--azul-escuro)
+      );
+
+      color: white;
+
+      box-shadow: 0 5px 15px rgba(11,94,215,.2);
+    }
+
+    /* AVISO */
+
+    .aviso {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      background: #fff9e8;
+      border: 1px solid #f3e1a5;
+
+      padding: 15px;
+
+      border-radius: 11px;
+
+      color: #725d1d;
+
+      font-size: 12px;
+
+      line-height: 1.5;
+    }
+
+    .aviso-icon {
+      font-size: 18px;
+    }
+
+    /* RODAPÉ */
+
+    footer {
+      text-align: center;
+      color: #8495a7;
+
+      font-size: 12px;
+
+      padding: 20px;
+    }
+
+    /* TOAST */
+
+    .toast {
+      position: fixed;
+
+      right: 25px;
+      bottom: 25px;
+
+      background: var(--verde);
+      color: white;
+
+      padding: 14px 20px;
+
+      border-radius: 10px;
+
+      box-shadow: 0 8px 25px rgba(0,0,0,.15);
+
+      transform: translateY(100px);
+      opacity: 0;
+
+      transition: .3s;
+
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* RESPONSIVO */
+
+    @media (max-width: 800px) {
+
+      header {
+        padding: 0 18px;
+      }
+
+      .header-info {
+        display: none;
+      }
+
+      .grid,
+      .grid-3,
+      .alta-options {
+        grid-template-columns: 1fr;
+      }
+
+      .acoes {
+        flex-direction: column;
+      }
+
+      button {
+        justify-content: center;
+      }
+
+      .container {
+        padding: 0 15px;
+        margin-top: 25px;
+      }
+    }
+
+    /* IMPRESSÃO */
+
+    @media print {
+
+      body {
+        background: white;
+      }
+
+      header {
+        background: white !important;
+        color: black;
+        box-shadow: none;
+        border-bottom: 2px solid #ddd;
+      }
+
+      .logo-icon {
+        color: black;
+        border-color: #ddd;
+      }
+
+      .header-info,
+      .acoes,
+      footer,
+      .aviso {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 100%;
+        margin: 15px;
+        padding: 0;
+      }
+
+      .card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+      }
+
+      input,
+      select,
+      textarea {
+        border: none;
+        background: white;
+        padding-left: 0;
+      }
+
+      textarea {
+        min-height: 80px;
+      }
+
+      .page-title h2 {
+        color: black;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- CABEÇALHO -->
+
+  <header>
+
+    <div class="logo">
+
+      <div class="logo-icon">
+        ✚
+      </div>
+
+      <div>
+        <h1>NEXORA Health</h1>
+        <span>Sistema Integrado de Atendimento</span>
+      </div>
+
+    </div>
+
+    <div class="header-info">
+
+      <div class="status">
+        ● Atendimento em andamento
+      </div>
+
+      <span>Alta Hospitalar</span>
+
+    </div>
+
+  </header>
+
+
+  <main class="container">
+
+    <!-- TÍTULO -->
+
+    <div class="page-title">
+
+      <h2>Alta Hospitalar</h2>
+
+      <p>
+        Registro e emissão das informações referentes à alta do paciente.
+      </p>
+
+    </div>
+
+
+    <!-- PACIENTE -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <div class="card-title-icon">
+          👤
+        </div>
+
+        <div>
+          <h3>Identificação do paciente</h3>
+          <p>Informações básicas do atendimento</p>
+        </div>
+
+      </div>
+
+
+      <div class="patient-highlight">
+
+        <div class="patient-avatar">
+          DP
+        </div>
+
+        <div class="patient-info">
+
+          <h4 id="nomePacienteDisplay">
+            Paciente não informado
+          </h4>
+
+          <span>
+            Documento: <strong id="documentoDisplay">---</strong>
+            &nbsp; • &nbsp;
+            Prontuário: <strong id="prontuarioDisplay">---</strong>
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="campo">
+
+          <label for="nomePaciente">
+            Nome completo
+          </label>
+
+          <input
+            type="text"
+            id="nomePaciente"
+            placeholder="Digite o nome do paciente"
+            oninput="atualizarPaciente()"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="prontuario">
+            Número do prontuário
+          </label>
+
+          <input
+            type="text"
+            id="prontuario"
+            placeholder="Ex.: NH-2026-00125"
+            oninput="atualizarPaciente()"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="documento">
+            Documento
+          </label>
+
+          <input
+            type="text"
+            id="documento"
+            placeholder="CPF ou documento"
+            oninput="atualizarPaciente()"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="dataEntrada">
+            Data de entrada
+          </label>
+
+          <input
+            type="date"
+            id="dataEntrada"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DADOS DA ALTA -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <div class="card-title-icon">
+          ✓
+        </div>
+
+        <div>
+          <h3>Informações da alta</h3>
+          <p>Dados principais da liberação hospitalar</p>
+        </div>
+
+      </div>
+
+
+      <div class="grid-3">
+
+        <div class="campo">
+
+          <label for="dataAlta">
+            Data da alta
+          </label>
+
+          <input
+            type="date"
+            id="dataAlta"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="horaAlta">
+            Horário da alta
+          </label>
+
+          <input
+            type="time"
+            id="horaAlta"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="profissional">
+            Profissional responsável
+          </label>
+
+          <input
+            type="text"
+            id="profissional"
+            placeholder="Nome do profissional"
+          >
+
+        </div>
+
+      </div>
+
+
+      <br>
+
+
+      <label>
+        Tipo de alta
+      </label>
+
+      <div class="alta-options">
+
+        <div class="alta-option">
+
+          <input
+            type="radio"
+            name="tipoAlta"
+            id="altaNormal"
+            value="Alta médica"
+            checked
+          >
+
+          <label for="altaNormal">
+
+            <strong>Alta médica</strong>
+
+            <span>
+              Paciente liberado após avaliação médica.
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <div class="alta-option">
+
+          <input
+            type="radio"
+            name="tipoAlta"
+            id="altaAdministrativa"
+            value="Alta administrativa"
+          >
+
+          <label for="altaAdministrativa">
+
+            <strong>Alta administrativa</strong>
+
+            <span>
+              Encerramento administrativo do atendimento.
+            </span>
+
+          </label>
+
+        </div>
+
+
+        <div class="alta-option">
+
+          <input
+            type="radio"
+            name="tipoAlta"
+            id="altaTransferencia"
+            value="Transferência"
+          >
+
+          <label for="altaTransferencia">
+
+            <strong>Transferência</strong>
+
+            <span>
+              Encaminhamento para outra unidade.
+            </span>
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- DIAGNÓSTICO -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <div class="card-title-icon">
+          +
+        </div>
+
+        <div>
+          <h3>Resumo clínico</h3>
+          <p>Informações referentes ao atendimento</p>
+        </div>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="campo full">
+
+          <label for="diagnostico">
+            Diagnóstico / condição de alta
+          </label>
+
+          <textarea
+            id="diagnostico"
+            placeholder="Informe o diagnóstico ou condição registrada na alta..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="campo full">
+
+          <label for="resumo">
+            Resumo do atendimento
+          </label>
+
+          <textarea
+            id="resumo"
+            placeholder="Descreva de forma resumida o atendimento realizado..."
+          ></textarea>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ORIENTAÇÕES -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <div class="card-title-icon">
+          ℹ
+        </div>
+
+        <div>
+          <h3>Orientações para o paciente</h3>
+          <p>Cuidados e recomendações após a alta</p>
+        </div>
+
+      </div>
+
+
+      <div class="grid">
+
+        <div class="campo full">
+
+          <label for="orientacoes">
+            Orientações
+          </label>
+
+          <textarea
+            id="orientacoes"
+            placeholder="Digite as orientações fornecidas ao paciente..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="retorno">
+            Retorno / acompanhamento
+          </label>
+
+          <input
+            type="text"
+            id="retorno"
+            placeholder="Ex.: Retorno em 15 dias"
+          >
+
+        </div>
+
+
+        <div class="campo">
+
+          <label for="especialidade">
+            Especialidade / setor
+          </label>
+
+          <input
+            type="text"
+            id="especialidade"
+            placeholder="Ex.: Cardiologia"
+          >
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- OBSERVAÇÕES -->
+
+    <section class="card">
+
+      <div class="card-title">
+
+        <div class="card-title-icon">
+          ☑
+        </div>
+
+        <div>
+          <h3>Observações finais</h3>
+          <p>Informações adicionais da alta</p>
+        </div>
+
+      </div>
+
+
+      <div class="campo">
+
+        <label for="observacoes">
+          Observações
+        </label>
+
+        <textarea
+          id="observacoes"
+          placeholder="Digite observações adicionais, se necessário..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="resumo-box">
+
+        <strong>Resumo da emissão:</strong>
+
+        <br>
+
+        Este documento registra as informações referentes à alta
+        hospitalar e deve ser utilizado conforme os procedimentos
+        internos da instituição.
+
+      </div>
+
+    </section>
+
+
+    <!-- AVISO -->
+
+    <div class="aviso">
+
+      <div class="aviso-icon">
+        ⚠
+      </div>
+
+      <div>
+
+        <strong>Importante:</strong>
+
+        confira todas as informações antes de salvar ou emitir
+        o documento de alta.
+
+      </div>
+
+    </div>
+
+
+    <!-- BOTÕES -->
+
+    <div class="acoes">
+
+      <button
+        class="btn-secondary"
+        onclick="limparFormulario()"
+      >
+        ↺ Limpar
+      </button>
+
+
+      <button
+        class="btn-pdf"
+        onclick="baixarPDF()"
+      >
+        ↓ Baixar PDF
+      </button>
+
+
+      <button
+        class="btn-print"
+        onclick="imprimirAlta()"
+      >
+        🖨 Imprimir / Print
+      </button>
+
+
+      <button
+        class="btn-save"
+        onclick="salvarAlta()"
+      >
+        ✓ Salvar Alta
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <footer>
+
+    NEXORA Health © 2026
+    <br>
+    Sistema Integrado de Atendimento Hospitalar
+
+  </footer>
+
+
+  <!-- TOAST -->
+
+  <div
+    class="toast"
+    id="toast"
+  >
+    ✓ Alta salva com sucesso!
+  </div>
+
+
+  <script>
+
+    /* ATUALIZA O CARD DO PACIENTE */
+
+    function atualizarPaciente() {
+
+      const nome =
+        document.getElementById("nomePaciente").value;
+
+      const documento =
+        document.getElementById("documento").value;
+
+      const prontuario =
+        document.getElementById("prontuario").value;
+
+
+      document.getElementById("nomePacienteDisplay").textContent =
+        nome || "Paciente não informado";
+
+      document.getElementById("documentoDisplay").textContent =
+        documento || "---";
+
+      document.getElementById("prontuarioDisplay").textContent =
+        prontuario || "---";
+    }
+
+
+    /* SALVAR */
+
+    function salvarAlta() {
+
+      const nome =
+        document.getElementById("nomePaciente").value.trim();
+
+      if (!nome) {
+
+        alert("Digite o nome do paciente antes de salvar.");
+
+        document
+          .getElementById("nomePaciente")
+          .focus();
+
+        return;
+      }
+
+
+      const dadosAlta = {
+
+        paciente:
+          document.getElementById("nomePaciente").value,
+
+        prontuario:
+          document.getElementById("prontuario").value,
+
+        documento:
+          document.getElementById("documento").value,
+
+        dataEntrada:
+          document.getElementById("dataEntrada").value,
+
+        dataAlta:
+          document.getElementById("dataAlta").value,
+
+        horaAlta:
+          document.getElementById("horaAlta").value,
+
+        profissional:
+          document.getElementById("profissional").value,
+
+        tipoAlta:
+          document.querySelector(
+            'input[name="tipoAlta"]:checked'
+          )?.value,
+
+        diagnostico:
+          document.getElementById("diagnostico").value,
+
+        resumo:
+          document.getElementById("resumo").value,
+
+        orientacoes:
+          document.getElementById("orientacoes").value,
+
+        retorno:
+          document.getElementById("retorno").value,
+
+        especialidade:
+          document.getElementById("especialidade").value,
+
+        observacoes:
+          document.getElementById("observacoes").value,
+
+        dataRegistro:
+          new Date().toLocaleString("pt-BR")
+      };
+
+
+      localStorage.setItem(
+        "nexoraAlta",
+        JSON.stringify(dadosAlta)
+      );
+
+
+      mostrarToast(
+        "✓ Alta salva com sucesso!"
+      );
+    }
+
+
+    /* CARREGAR DADOS SALVOS */
+
+    function carregarAlta() {
+
+      const dados =
+        localStorage.getItem("nexoraAlta");
+
+      if (!dados) return;
+
+      const alta =
+        JSON.parse(dados);
+
+
+      document.getElementById("nomePaciente").value =
+        alta.paciente || "";
+
+      document.getElementById("prontuario").value =
+        alta.prontuario || "";
+
+      document.getElementById("documento").value =
+        alta.documento || "";
+
+      document.getElementById("dataEntrada").value =
+        alta.dataEntrada || "";
+
+      document.getElementById("dataAlta").value =
+        alta.dataAlta || "";
+
+      document.getElementById("horaAlta").value =
+        alta.horaAlta || "";
+
+      document.getElementById("profissional").value =
+        alta.profissional || "";
+
+      document.getElementById("diagnostico").value =
+        alta.diagnostico || "";
+
+      document.getElementById("resumo").value =
+        alta.resumo || "";
+
+      document.getElementById("orientacoes").value =
+        alta.orientacoes || "";
+
+      document.getElementById("retorno").value =
+        alta.retorno || "";
+
+      document.getElementById("especialidade").value =
+        alta.especialidade || "";
+
+      document.getElementById("observacoes").value =
+        alta.observacoes || "";
+
+
+      const tipo =
+        document.querySelector(
+          `input[name="tipoAlta"][value="${alta.tipoAlta}"]`
+        );
+
+      if (tipo) {
+        tipo.checked = true;
+      }
+
+
+      atualizarPaciente();
+    }
+
+
+    /* PDF */
+
+    function baixarPDF() {
+
+      const nome =
+        document.getElementById("nomePaciente").value.trim();
+
+      if (!nome) {
+
+        alert(
+          "Preencha o nome do paciente antes de gerar o PDF."
+        );
+
+        return;
+      }
+
+
+      /*
+        O navegador abrirá a janela de impressão.
+        Basta selecionar "Salvar como PDF".
+      */
+
+      window.print();
+    }
+
+
+    /* PRINT */
+
+    function imprimirAlta() {
+
+      window.print();
+    }
+
+
+    /* LIMPAR */
+
+    function limparFormulario() {
+
+      const confirmar =
+        confirm(
+          "Deseja realmente limpar todos os dados da alta?"
+        );
+
+      if (!confirmar) return;
+
+
+      document.querySelectorAll(
+        "input, textarea"
+      ).forEach(campo => {
+
+        if (
+          campo.type !== "radio" &&
+          campo.type !== "checkbox"
+        ) {
+
+          campo.value = "";
+
+        }
+
+      });
+
+
+      document.getElementById("altaNormal").checked = true;
+
+      localStorage.removeItem("nexoraAlta");
+
+      atualizarPaciente();
+    }
+
+
+    /* TOAST */
+
+    function mostrarToast(mensagem) {
+
+      const toast =
+        document.getElementById("toast");
+
+      toast.textContent = mensagem;
+
+      toast.classList.add("show");
+
+
+      setTimeout(() => {
+
+        toast.classList.remove("show");
+
+      }, 3000);
+    }
+
+
+    /* DATA E HORA AUTOMÁTICAS */
+
+    function configurarDataHora() {
+
+      const agora = new Date();
+
+      const ano =
+        agora.getFullYear();
+
+      const mes =
+        String(
+          agora.getMonth() + 1
+        ).padStart(2, "0");
+
+      const dia =
+        String(
+          agora.getDate()
+        ).padStart(2, "0");
+
+      const hora =
+        String(
+          agora.getHours()
+        ).padStart(2, "0");
+
+      const minuto =
+        String(
+          agora.getMinutes()
+        ).padStart(2, "0");
+
+
+      document.getElementById("dataAlta").value =
+        `${ano}-${mes}-${dia}`;
+
+      document.getElementById("horaAlta").value =
+        `${hora}:${minuto}`;
+    }
+
+
+    /* INICIALIZAÇÃO */
+
+    window.addEventListener(
+      "DOMContentLoaded",
+      () => {
+
+        carregarAlta();
+
+        if (
+          !document.getElementById("dataAlta").value
+        ) {
+
+          configurarDataHora();
+
+        }
+
+        atualizarPaciente();
+
+      }
+    );
+
+  </script>
+
+</body>
+
+</html>
