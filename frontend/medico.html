@@ -568,20 +568,6 @@
     }
 
 
-    .btn-tv {
-
-      border:
-        1px solid
-        #cbd9e8;
-
-      color:
-        var(--azul-escuro);
-
-      background:
-        white;
-    }
-
-
     /* =========================
        ALTA
     ========================= */
@@ -827,6 +813,57 @@
 
 
     /* =========================
+       ÁREA DE CHAMADA
+    ========================= */
+
+    .chamada-card {
+
+      border:
+        1px solid
+        #cfe0f5;
+
+      background:
+        linear-gradient(
+          180deg,
+          #ffffff,
+          #f7fbff
+        );
+    }
+
+
+    .chamada-icon {
+
+      width: 43px;
+      height: 43px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        #eaf3ff;
+
+      font-size: 21px;
+    }
+
+
+    .botao-tv {
+
+      margin-top: 4px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #087fae,
+          var(--ciano)
+        );
+    }
+
+
+    /* =========================
        ESTADOS
     ========================= */
 
@@ -981,9 +1018,7 @@
   <main class="dashboard">
 
 
-    <!-- =========================
-         COLUNA ESQUERDA
-    ========================= -->
+    <!-- COLUNA ESQUERDA -->
 
     <div class="coluna">
 
@@ -1033,7 +1068,7 @@
 
 
       <!-- =========================
-           ESCOLHER PACIENTE PARA ALTA
+           ALTA HOSPITALAR
       ========================= -->
 
       <section class="card alta-card">
@@ -1091,13 +1126,167 @@
       </section>
 
 
+
+      <!-- =========================
+           ENVIAR PARA TV
+      ========================= -->
+
+      <section class="card chamada-card">
+
+        <div class="card-header">
+
+          <div>
+
+            <h2>
+              📺 Chamada de paciente
+            </h2>
+
+            <p>
+              Defina a sala e o guichê para o paciente.
+            </p>
+
+          </div>
+
+
+          <div class="chamada-icon">
+            📺
+          </div>
+
+        </div>
+
+
+
+        <!-- PACIENTE -->
+
+        <div class="campo">
+
+          <label for="pacienteChamada">
+            Paciente
+          </label>
+
+
+          <select
+            id="pacienteChamada"
+            class="select-alta"
+          >
+
+            <option value="">
+              Selecione um paciente
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- SALA -->
+
+        <div class="campo">
+
+          <label for="salaPaciente">
+            Sala
+          </label>
+
+
+          <select
+            id="salaPaciente"
+            class="select-alta"
+          >
+
+            <option value="">
+              Selecione a sala
+            </option>
+
+            <option value="Sala 01">
+              Sala 01
+            </option>
+
+            <option value="Sala 02">
+              Sala 02
+            </option>
+
+            <option value="Sala 03">
+              Sala 03
+            </option>
+
+            <option value="Sala 04">
+              Sala 04
+            </option>
+
+            <option value="Sala 05">
+              Sala 05
+            </option>
+
+            <option value="Sala 06">
+              Sala 06
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- GUICHÊ -->
+
+        <div class="campo">
+
+          <label for="guichePaciente">
+            Guichê
+          </label>
+
+
+          <select
+            id="guichePaciente"
+            class="select-alta"
+          >
+
+            <option value="">
+              Selecione o guichê
+            </option>
+
+            <option value="Guichê 01">
+              Guichê 01
+            </option>
+
+            <option value="Guichê 02">
+              Guichê 02
+            </option>
+
+            <option value="Guichê 03">
+              Guichê 03
+            </option>
+
+            <option value="Guichê 04">
+              Guichê 04
+            </option>
+
+            <option value="Guichê 05">
+              Guichê 05
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <button
+          class="botao-principal botao-tv"
+          onclick="enviarParaTV()"
+        >
+          📺 Enviar chamada para TV
+        </button>
+
+      </section>
+
+
     </div>
 
 
 
-    <!-- =========================
-         COLUNA DIREITA
-    ========================= -->
+    <!-- COLUNA DIREITA -->
 
     <div class="coluna">
 
@@ -1124,8 +1313,6 @@
 
 
 
-        <!-- PACIENTE -->
-
         <div class="campo">
 
           <label for="pacienteSelecionado">
@@ -1143,8 +1330,6 @@
 
 
 
-        <!-- ALERTA DE ALERGIA -->
-
         <div
           class="alerta-alergia"
           id="alertaAlergia"
@@ -1152,8 +1337,6 @@
         </div>
 
 
-
-        <!-- DIAGNÓSTICO -->
 
         <div class="campo">
 
@@ -1169,8 +1352,6 @@
         </div>
 
 
-
-        <!-- MEDICAÇÃO -->
 
         <div class="campo">
 
@@ -1189,8 +1370,6 @@
         </div>
 
 
-
-        <!-- OBSERVAÇÕES -->
 
         <div class="campo">
 
@@ -1250,30 +1429,15 @@
 
       return String(texto)
 
-        .replace(
-          /&/g,
-          "&amp;"
-        )
+        .replace(/&/g, "&amp;")
 
-        .replace(
-          /</g,
-          "&lt;"
-        )
+        .replace(/</g, "&lt;")
 
-        .replace(
-          />/g,
-          "&gt;"
-        )
+        .replace(/>/g, "&gt;")
 
-        .replace(
-          /"/g,
-          "&quot;"
-        )
+        .replace(/"/g, "&quot;")
 
-        .replace(
-          /'/g,
-          "&#039;"
-        );
+        .replace(/'/g, "&#039;");
 
     }
 
@@ -1288,9 +1452,7 @@
       try {
 
         const resposta =
-          await fetch(
-            "/triagens"
-          );
+          await fetch("/triagens");
 
 
         if (!resposta.ok) {
@@ -1318,6 +1480,8 @@
 
 
         carregarPacientesAlta();
+
+        carregarPacientesChamada();
 
         carregarMedicacoes();
 
@@ -1560,14 +1724,6 @@
                     🩺 Atender paciente
                   </button>
 
-
-                  <button
-                    class="btn btn-tv"
-                    onclick="chamarPacienteTV(${index})"
-                  >
-                    📺 Chamar na TV
-                  </button>
-
                 </div>
 
               </div>
@@ -1617,13 +1773,26 @@
       ).value = nome;
 
 
+      /*
+        Também seleciona automaticamente
+        o paciente na área de chamada.
+      */
+
+      const pacienteChamada =
+        document.getElementById(
+          "pacienteChamada"
+        );
+
+      if (pacienteChamada) {
+
+        pacienteChamada.value =
+          String(index);
+
+      }
+
+
       mostrarAlertaAlergia(
         paciente
-      );
-
-
-      chamarPacienteTV(
-        index
       );
 
 
@@ -1699,60 +1868,6 @@
         alerta.innerHTML = "";
 
       }
-
-    }
-
-
-
-    /* =========================
-       CHAMAR NA TV
-    ========================= */
-
-    function chamarPacienteTV(
-      index
-    ) {
-
-      const paciente =
-        pacientesAtuais[index];
-
-
-      if (!paciente) return;
-
-
-      const nome =
-        paciente.nome ||
-        paciente.paciente ||
-        `Paciente ${index + 1}`;
-
-
-      const dadosTV = {
-
-        nome: nome,
-
-        prioridade:
-          paciente.prioridade ||
-          paciente.risco ||
-          "Normal",
-
-        horario:
-          new Date()
-            .toLocaleTimeString(
-              "pt-BR",
-              {
-                hour: "2-digit",
-                minute: "2-digit"
-              }
-            )
-
-      };
-
-
-      localStorage.setItem(
-        "pacienteTV",
-        JSON.stringify(
-          dadosTV
-        )
-      );
 
     }
 
@@ -1917,26 +2032,91 @@
 
 
     /* =========================
-       IR PARA ALTA
+       CARREGAR PACIENTES PARA CHAMADA
     ========================= */
 
-    function irParaAlta() {
+    function carregarPacientesChamada() {
 
       const select =
         document.getElementById(
-          "pacienteAlta"
+          "pacienteChamada"
         );
 
 
-      /*
-        Verifica se o médico
-        escolheu algum paciente.
-      */
+      if (!select) return;
 
-      if (!select.value) {
+
+      select.innerHTML = `
+
+        <option value="">
+          Selecione um paciente
+        </option>
+
+      `;
+
+
+      pacientesAtuais.forEach(
+        (paciente, index) => {
+
+          const option =
+            document.createElement(
+              "option"
+            );
+
+
+          const nome =
+            paciente.nome ||
+            paciente.paciente ||
+            `Paciente ${index + 1}`;
+
+
+          option.value =
+            index;
+
+
+          option.textContent =
+            nome;
+
+
+          select.appendChild(
+            option
+          );
+
+        }
+      );
+
+    }
+
+
+
+    /* =========================
+       ENVIAR PARA TV
+    ========================= */
+
+    function enviarParaTV() {
+
+      const pacienteSelect =
+        document.getElementById(
+          "pacienteChamada"
+        );
+
+
+      const sala =
+        document.getElementById(
+          "salaPaciente"
+        ).value;
+
+
+      const guiche =
+        document.getElementById(
+          "guichePaciente"
+        ).value;
+
+
+      if (!pacienteSelect.value) {
 
         alert(
-          "Selecione um paciente para dar alta."
+          "Selecione um paciente."
         );
 
         return;
@@ -1944,20 +2124,33 @@
       }
 
 
-      /*
-        Pega o índice do paciente.
-      */
+      if (!sala) {
+
+        alert(
+          "Selecione a sala."
+        );
+
+        return;
+
+      }
+
+
+      if (!guiche) {
+
+        alert(
+          "Selecione o guichê."
+        );
+
+        return;
+
+      }
+
 
       const index =
         Number(
-          select.value
+          pacienteSelect.value
         );
 
-
-      /*
-        Pega o paciente correto
-        da lista atual.
-      */
 
       const paciente =
         pacientesAtuais[index];
@@ -1974,10 +2167,102 @@
       }
 
 
+      const nome =
+        paciente.nome ||
+        paciente.paciente ||
+        `Paciente ${index + 1}`;
+
+
+      const chamada = {
+
+        nome: nome,
+
+        sala: sala,
+
+        guiche: guiche,
+
+        prioridade:
+          paciente.prioridade ||
+          paciente.risco ||
+          "Normal",
+
+        horario:
+          new Date()
+            .toLocaleTimeString(
+              "pt-BR",
+              {
+                hour: "2-digit",
+                minute: "2-digit"
+              }
+            ),
+
+        paciente: paciente
+
+      };
+
+
+      localStorage.setItem(
+        "chamadaTV",
+        JSON.stringify(
+          chamada
+        )
+      );
+
+
       /*
-        Guarda TODOS os dados do
-        paciente selecionado.
+        Abre a página da TV.
       */
+
+      window.location.href =
+        "tv.html";
+
+    }
+
+
+
+    /* =========================
+       IR PARA ALTA
+    ========================= */
+
+    function irParaAlta() {
+
+      const select =
+        document.getElementById(
+          "pacienteAlta"
+        );
+
+
+      if (!select.value) {
+
+        alert(
+          "Selecione um paciente para dar alta."
+        );
+
+        return;
+
+      }
+
+
+      const index =
+        Number(
+          select.value
+        );
+
+
+      const paciente =
+        pacientesAtuais[index];
+
+
+      if (!paciente) {
+
+        alert(
+          "Paciente não encontrado."
+        );
+
+        return;
+
+      }
+
 
       localStorage.setItem(
         "pacienteAlta",
@@ -1987,19 +2272,11 @@
       );
 
 
-      /*
-        Guarda também o índice.
-      */
-
       localStorage.setItem(
         "pacienteAltaIndex",
         String(index)
       );
 
-
-      /*
-        Vai para a página de alta.
-      */
 
       window.location.href =
         "alta.html";
@@ -2183,11 +2460,6 @@
           null;
 
 
-        localStorage.removeItem(
-          "pacienteTV"
-        );
-
-
         carregar();
 
       }
@@ -2215,11 +2487,6 @@
 
     carregar();
 
-
-    /*
-      Atualiza a lista de pacientes
-      a cada 30 segundos.
-    */
 
     setInterval(
       carregar,
