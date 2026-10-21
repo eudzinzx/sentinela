@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -107,7 +106,7 @@
             text-decoration: none;
             border-radius: 10px;
             font-size: 13px;
-            transition: 0.2s;
+            transition: .2s;
         }
 
         .menu-item span {
@@ -334,7 +333,7 @@
         /* PAINÉIS */
         .content-grid {
             display: grid;
-            grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+            grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
             align-items: start;
             gap: 23px;
         }
@@ -401,7 +400,7 @@
             background: #fbfdff;
             color: var(--texto);
             font-size: 13px;
-            transition: 0.2s;
+            transition: .2s;
         }
 
         .form-group input:focus,
@@ -439,7 +438,7 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 5px 12px #0b5ed725;
-            transition: 0.2s;
+            transition: .2s;
         }
 
         #btnCadastrar span {
@@ -452,7 +451,7 @@
         }
 
         #btnCadastrar:disabled {
-            opacity: 0.65;
+            opacity: .65;
             cursor: wait;
             transform: none;
         }
@@ -509,7 +508,7 @@
             border: 1px solid #f5cccc;
         }
 
-        /* LISTA */
+        /* LISTA DE USUÁRIOS */
         .lista-topo {
             display: flex;
             justify-content: space-between;
@@ -634,7 +633,7 @@
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.2s;
+            transition: .2s;
         }
 
         .btn-atualizar:hover {
@@ -642,7 +641,6 @@
             border-color: var(--azul);
         }
 
-        /* RODAPÉ */
         footer {
             display: flex;
             justify-content: space-between;
@@ -931,7 +929,7 @@
 
             <section class="content-grid">
 
-                <!-- FORMULÁRIO DE CADASTRO -->
+                <!-- CADASTRO -->
                 <div class="panel cadastro-panel" id="cadastro">
 
                     <div class="panel-header">
@@ -953,11 +951,12 @@
                                 id="usuario"
                                 placeholder="Ex.: joao.silva"
                                 autocomplete="username"
+                                minlength="3"
                                 required
                             >
 
                             <small>
-                                Nome utilizado para identificar o acesso.
+                                Utilize pelo menos 3 caracteres.
                             </small>
                         </div>
 
@@ -969,8 +968,13 @@
                                 id="senha"
                                 placeholder="Digite uma senha"
                                 autocomplete="new-password"
+                                minlength="8"
                                 required
                             >
+
+                            <small>
+                                Utilize pelo menos 8 caracteres.
+                            </small>
                         </div>
 
                         <div class="form-group">
@@ -1062,11 +1066,13 @@
         const mensagem = document.getElementById("mensagem");
         const btnCadastrar = document.getElementById("btnCadastrar");
 
+        // MOSTRAR MENSAGENS
         function mostrarMensagem(texto, tipo) {
             mensagem.textContent = texto;
             mensagem.className = "mensagem " + tipo;
         }
 
+        // TRADUZIR O NOME DO SETOR
         function nomeSetor(tipo) {
             const setores = {
                 atendimento: "Atendimento",
@@ -1074,9 +1080,10 @@
                 medico: "Médico"
             };
 
-            return setores[tipo] || tipo;
+            return setores[tipo] || "Não informado";
         }
 
+        // EVITAR INSERÇÃO DE HTML NÃO CONFIÁVEL
         function escaparHTML(valor) {
             return String(valor ?? "").replace(/[&<>"']/g, function (caractere) {
                 return {
@@ -1089,16 +1096,74 @@
             });
         }
 
+        // LER A RESPOSTA DO SERVIDOR SEM QUEBRAR QUANDO FOR HTML
+        async function lerRespostaJSON(resposta) {
+            const texto = await resposta.text();
+
+            let dados;
+
+            try {
+                dados = texto ? JSON.parse(texto) : {};
+            } catch {
+                if (texto.trim().startsWith("<")) {
+                    throw new Error(
+                        "O servidor retornou HTML em vez de JSON. " +
+                        "Verifique se a rota da API existe e se o endereço está correto."
+                    );
+                }
+
+                throw new Error(
+                    "O servidor retornou uma resposta inválida."
+                );
+            }
+
+            if (!resposta.ok) {
+                throw new Error(
+                    dados.erro ||
+                    dados.mensagem ||
+                    "Erro na solicitação ao servidor."
+                );
+            }
+
+            if (dados.erro) {
+                throw new Error(dados.erro);
+            }
+
+            return dados;
+        }
+
         // CADASTRAR USUÁRIO
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const usuario = document.getElementById("usuario").value.trim();
+            const usuario = document
+                .getElementById("usuario")
+                .value.trim();
+
             const senha = document.getElementById("senha").value;
             const tipo = document.getElementById("tipo").value;
 
-            if (!usuario || !senha || !tipo) {
-                mostrarMensagem("Preencha todos os campos.", "erro");
+            if (usuario.length < 3) {
+                mostrarMensagem(
+                    "O nome de usuário precisa ter pelo menos 3 caracteres.",
+                    "erro"
+                );
+                return;
+            }
+
+            if (senha.length < 8) {
+                mostrarMensagem(
+                    "A senha precisa ter pelo menos 8 caracteres.",
+                    "erro"
+                );
+                return;
+            }
+
+            if (!tipo) {
+                mostrarMensagem(
+                    "Selecione o setor do usuário.",
+                    "erro"
+                );
                 return;
             }
 
@@ -1109,22 +1174,17 @@
                 const resposta = await fetch("/usuario", {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
                     },
                     body: JSON.stringify({
-                        usuario,
-                        senha,
-                        tipo
+                        usuario: usuario,
+                        senha: senha,
+                        tipo: tipo
                     })
                 });
 
-                const dados = await resposta.json();
-
-                if (!resposta.ok || dados.erro) {
-                    throw new Error(
-                        dados.erro || "Não foi possível cadastrar o usuário."
-                    );
-                }
+                await lerRespostaJSON(resposta);
 
                 mostrarMensagem(
                     "Usuário cadastrado com sucesso!",
@@ -1136,8 +1196,11 @@
                 await carregarUsuarios();
 
             } catch (erro) {
+                console.error("Erro ao cadastrar usuário:", erro);
+
                 mostrarMensagem(
-                    erro.message || "Erro ao conectar com o servidor.",
+                    erro.message ||
+                    "Não foi possível conectar ao servidor.",
                     "erro"
                 );
             } finally {
@@ -1153,16 +1216,23 @@
                 '<div class="carregando">Carregando usuários...</div>';
 
             try {
-                const resposta = await fetch("/usuarios");
+                const resposta = await fetch("/usuarios", {
+                    headers: {
+                        "Accept": "application/json"
+                    }
+                });
 
-                if (!resposta.ok) {
-                    throw new Error("Falha ao buscar usuários.");
-                }
+                const dados = await lerRespostaJSON(resposta);
 
-                const usuarios = await resposta.json();
+                // Aceita tanto um array quanto { usuarios: [...] }
+                const usuarios = Array.isArray(dados)
+                    ? dados
+                    : dados.usuarios;
 
                 if (!Array.isArray(usuarios)) {
-                    throw new Error("Resposta inválida do servidor.");
+                    throw new Error(
+                        "A API precisa retornar uma lista de usuários em JSON."
+                    );
                 }
 
                 document.getElementById("totalUsuarios").textContent =
@@ -1216,29 +1286,29 @@
                 }).join("");
 
             } catch (erro) {
-                document.getElementById("totalUsuarios").textContent = "—";
+                console.error("Erro ao carregar usuários:", erro);
 
+                document.getElementById("totalUsuarios").textContent = "—";
                 document.getElementById("contadorUsuarios").textContent =
                     "Indisponível";
 
                 lista.innerHTML = `
                     <div class="estado-vazio">
                         <h3>Não foi possível carregar</h3>
-                        <p>
-                            Verifique se o servidor está funcionando.
-                        </p>
+                        <p>${escaparHTML(erro.message)}</p>
+                        <p>Verifique se o servidor está funcionando.</p>
                     </div>
                 `;
             }
         }
 
-        // ATUALIZAR LISTA
+        // ATUALIZAR A LISTA
         document.getElementById("btnAtualizar").addEventListener(
             "click",
             carregarUsuarios
         );
 
-        // CARREGAR AO ABRIR A PÁGINA
+        // CARREGAR QUANDO ABRIR A PÁGINA
         carregarUsuarios();
     </script>
 
