@@ -1332,11 +1332,12 @@
 
       }
     );
+
 window.addEventListener("keydown", function(e) {
-  if (e.ctrlkey && e.altKey && (e.Key === "a" || e.Key === "A")) {
-    e.preventDefault():
-    window.locatiion.href = "admin.html"
-  }
+    if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "a") {
+        e.preventDefault();
+        window.location.href = "admin.html";
+    }
 });
 
   </script>
