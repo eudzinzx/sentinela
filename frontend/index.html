@@ -1,19 +1,15 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#061a3a">
 
   <title>NEXORA Health | Sistema Hospitalar</title>
 
   <style>
-
     * {
       margin: 0;
       padding: 0;
@@ -21,1328 +17,1239 @@
     }
 
     :root {
-
       --azul: #0b5ed7;
       --azul-escuro: #073b88;
       --ciano: #12b8d4;
-
+      --ciano-claro: #68efff;
       --texto: #172033;
       --cinza: #667085;
       --borda: #d9e2ec;
-
-      --fundo: #f4f8fc;
       --branco: #ffffff;
-
     }
-
 
     body {
-
       min-height: 100vh;
-
-      font-family:
-        "Inter",
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
+      padding: 35px;
       display: flex;
-
-      justify-content: center;
       align-items: center;
-
-      padding: 20px;
-
-      background:
-        radial-gradient(
-          circle at 15% 20%,
-          rgba(18, 184, 212, 0.16),
-          transparent 28%
-        ),
-
-        radial-gradient(
-          circle at 85% 80%,
-          rgba(11, 94, 215, 0.14),
-          transparent 30%
-        ),
-
-        linear-gradient(
-          135deg,
-          #f7fbff,
-          #eef5fb
-        );
-
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      font-family: "Inter", "Segoe UI", Arial, sans-serif;
       color: var(--texto);
-
+      background:
+        radial-gradient(ellipse at 15% 15%, rgba(18, 184, 212, .22), transparent 35%),
+        radial-gradient(ellipse at 85% 80%, rgba(11, 94, 215, .28), transparent 38%),
+        linear-gradient(135deg, #04132d, #073b88 55%, #061a3a);
     }
 
+    /* FUNDO TECNOLÓGICO */
 
-    /* ==============================
-       CONTAINER PRINCIPAL
-    ============================== */
+    .fundo {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .orbita {
+      position: absolute;
+      width: 550px;
+      height: 550px;
+      border: 1px solid rgba(104, 239, 255, .12);
+      border-radius: 50%;
+      animation: girar 35s linear infinite;
+    }
+
+    .orbita::before,
+    .orbita::after {
+      content: "";
+      position: absolute;
+      inset: 35px;
+      border: 1px solid rgba(104, 239, 255, .09);
+      border-radius: 50%;
+    }
+
+    .orbita::after {
+      inset: 85px;
+      border-style: dashed;
+    }
+
+    .orbita-1 {
+      top: -240px;
+      right: -120px;
+    }
+
+    .orbita-2 {
+      width: 420px;
+      height: 420px;
+      bottom: -230px;
+      left: -100px;
+      animation-direction: reverse;
+      animation-duration: 45s;
+    }
+
+    .luz {
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: var(--ciano);
+      filter: blur(130px);
+      opacity: .17;
+      animation: pulsar 6s ease-in-out infinite alternate;
+    }
+
+    .luz-1 {
+      top: 8%;
+      left: 8%;
+    }
+
+    .luz-2 {
+      bottom: 5%;
+      right: 8%;
+      background: var(--azul);
+      animation-delay: 2s;
+    }
+
+    .grade {
+      position: absolute;
+      inset: 0;
+      opacity: .13;
+      background-image:
+        linear-gradient(rgba(104, 239, 255, .15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(104, 239, 255, .15) 1px, transparent 1px);
+      background-size: 55px 55px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+
+    .particula {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ciano-claro);
+      box-shadow: 0 0 14px var(--ciano);
+      animation: flutuar 7s ease-in-out infinite alternate;
+    }
+
+    .p1 { top: 20%; left: 18%; }
+    .p2 { top: 70%; left: 10%; animation-delay: 1s; }
+    .p3 { top: 35%; right: 13%; animation-delay: 2s; }
+    .p4 { bottom: 17%; right: 25%; animation-delay: 3s; }
+    .p5 { top: 12%; right: 40%; animation-delay: 1.5s; }
+
+    /* CONTEÚDO PRINCIPAL */
+
+    .pagina {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1180px;
+    }
+
+    .topo {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .marca-topo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .marca-simbolo {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(104, 239, 255, .4);
+      border-radius: 13px;
+      background: rgba(18, 184, 212, .13);
+      color: var(--ciano-claro);
+      font-size: 24px;
+      box-shadow: 0 0 25px rgba(18, 184, 212, .13);
+    }
+
+    .marca-texto strong {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 1.7px;
+    }
+
+    .marca-texto span {
+      display: block;
+      margin-top: 4px;
+      color: #a9d7f5;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .status-sistema {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 1px solid rgba(104, 239, 255, .2);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .06);
+      color: #d5f8ff;
+      font-size: 11px;
+      backdrop-filter: blur(12px);
+    }
+
+    .status-ponto {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ciano-claro);
+      box-shadow: 0 0 12px var(--ciano);
+      animation: piscar 2s infinite;
+    }
+
+    /* CARTÃO */
 
     .login-wrapper {
-
-      width: 100%;
-
-      max-width: 1000px;
-
-      min-height: 580px;
-
       display: grid;
-
-      grid-template-columns:
-        1fr 1fr;
-
-      background:
-        var(--branco);
-
-      border-radius: 28px;
-
+      grid-template-columns: 1.04fr .96fr;
+      min-height: 650px;
       overflow: hidden;
-
+      border: 1px solid rgba(255, 255, 255, .28);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, .96);
       box-shadow:
-        0 30px 80px
-        rgba(25, 65, 110, 0.15);
-
+        0 35px 100px rgba(0, 0, 0, .28),
+        0 0 55px rgba(18, 184, 212, .10);
+      animation: entrada .8s ease both;
     }
 
-
-    /* ==============================
-       LADO INSTITUCIONAL
-    ============================== */
+    /* LADO VISUAL */
 
     .painel-esquerdo {
-
       position: relative;
-
-      padding: 55px;
-
-      display: flex;
-
-      flex-direction: column;
-
-      justify-content: center;
-
-      color: white;
-
+      isolation: isolate;
       overflow: hidden;
-
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 50px;
+      color: white;
       background:
-        linear-gradient(
-          145deg,
-          #062f70 0%,
-          #0b5ed7 55%,
-          #0a8fc0 100%
-        );
-
+        radial-gradient(circle at 75% 25%, rgba(104, 239, 255, .22), transparent 32%),
+        linear-gradient(150deg, #041d4a, #0b5ed7 58%, #087fae);
     }
-
 
     .painel-esquerdo::before {
-
       content: "";
-
       position: absolute;
-
-      width: 350px;
-      height: 350px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(255, 255, 255, 0.06);
-
-      right: -150px;
-      top: -130px;
-
+      inset: 0;
+      z-index: -1;
+      opacity: .25;
+      background-image:
+        linear-gradient(35deg, transparent 48%, rgba(104, 239, 255, .25) 49%, transparent 50%),
+        linear-gradient(145deg, transparent 48%, rgba(104, 239, 255, .15) 49%, transparent 50%);
+      background-size: 100px 100px;
+      mask-image: linear-gradient(to bottom right, black, transparent 85%);
     }
 
-
-    .painel-esquerdo::after {
-
-      content: "";
-
+    .anel-decorativo {
       position: absolute;
-
-      width: 280px;
-      height: 280px;
-
+      width: 370px;
+      height: 370px;
+      right: -125px;
+      top: 100px;
+      border: 1px solid rgba(104, 239, 255, .25);
       border-radius: 50%;
-
-      background:
-        rgba(255, 255, 255, 0.05);
-
-      left: -150px;
-      bottom: -130px;
-
+      box-shadow:
+        0 0 0 25px rgba(104, 239, 255, .035),
+        0 0 0 60px rgba(104, 239, 255, .025);
+      animation: girar 45s linear infinite;
+      pointer-events: none;
     }
 
+    .anel-decorativo::before,
+    .anel-decorativo::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(104, 239, 255, .2);
+      border-radius: 50%;
+    }
+
+    .anel-decorativo::before {
+      inset: 45px;
+    }
+
+    .anel-decorativo::after {
+      inset: 90px;
+      border-style: dashed;
+    }
+
+    .conteudo-marca,
+    .painel-inferior {
+      position: relative;
+      z-index: 1;
+    }
 
     .logo-grande {
-
-      position: relative;
-
-      z-index: 1;
-
       width: 76px;
       height: 76px;
-
-      display: flex;
-
-      justify-content: center;
-      align-items: center;
-
+      display: grid;
+      place-items: center;
       margin-bottom: 28px;
-
-      border-radius: 22px;
-
-      background:
-        rgba(255, 255, 255, 0.13);
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.25);
-
-      font-size: 38px;
-
-      box-shadow:
-        0 12px 30px
-        rgba(0, 0, 0, 0.15);
-
+      border: 1px solid rgba(255, 255, 255, .35);
+      border-radius: 23px;
+      background: rgba(255, 255, 255, .13);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, .15);
+      backdrop-filter: blur(15px);
+      color: white;
+      font-size: 40px;
+      transition: transform .3s ease;
     }
 
+    .logo-grande:hover {
+      transform: rotate(-6deg) scale(1.06);
+    }
 
     .painel-esquerdo h1 {
-
-      position: relative;
-
-      z-index: 1;
-
-      font-size: 42px;
-
-      letter-spacing: -1.5px;
-
-      margin-bottom: 12px;
-
+      max-width: 430px;
+      margin-bottom: 18px;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -1.8px;
     }
-
 
     .painel-esquerdo h1 span {
-
-      color:
-        #55e5f5;
-
+      display: block;
+      color: var(--ciano-claro);
     }
-
 
     .descricao {
-
-      position: relative;
-
-      z-index: 1;
-
       max-width: 390px;
-
-      font-size: 16px;
-
-      line-height: 1.7;
-
-      color:
-        rgba(255, 255, 255, 0.78);
-
-      margin-bottom: 35px;
-
+      color: rgba(255, 255, 255, .82);
+      font-size: 14px;
+      line-height: 1.9;
     }
 
-
-    /* ==============================
-       BENEFÍCIOS
-    ============================== */
+    .linha-destaque {
+      width: 65px;
+      height: 4px;
+      margin: 25px 0;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--ciano-claro), transparent);
+    }
 
     .recursos {
-
-      position: relative;
-
-      z-index: 1;
-
-      display: flex;
-
-      flex-direction: column;
-
-      gap: 15px;
-
+      display: grid;
+      gap: 12px;
     }
-
 
     .recurso {
-
       display: flex;
-
       align-items: center;
-
       gap: 12px;
-
-      font-size: 14px;
-
-      color:
-        rgba(255, 255, 255, 0.9);
-
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, .09);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .055);
+      backdrop-filter: blur(8px);
+      transition: transform .25s ease, background .25s ease;
     }
 
+    .recurso:hover {
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, .11);
+    }
 
     .recurso-icon {
-
-      width: 32px;
-      height: 32px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 10px;
-
-      background:
-        rgba(255, 255, 255, 0.12);
-
-      font-size: 15px;
-
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(104, 239, 255, .13);
+      color: var(--ciano-claro);
+      font-size: 18px;
     }
 
+    .recurso strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
 
-    /* ==============================
-       LOGIN
-    ============================== */
+    .recurso span {
+      display: block;
+      color: rgba(255, 255, 255, .72);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .painel-inferior {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 35px;
+      color: rgba(255, 255, 255, .7);
+      font-size: 11px;
+    }
+
+    .mini-cruz {
+      color: var(--ciano-claro);
+      font-size: 18px;
+    }
+
+    /* FORMULÁRIO */
 
     .painel-login {
-
-      padding: 55px;
-
       display: flex;
-
       flex-direction: column;
-
       justify-content: center;
-
+      padding: 55px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(18, 184, 212, .08), transparent 28%),
+        #ffffff;
     }
 
+    .etiqueta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 18px;
+      color: var(--azul);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .etiqueta::before {
+      content: "";
+      width: 25px;
+      height: 3px;
+      border-radius: 4px;
+      background: var(--ciano);
+    }
 
     .login-header {
-
-      margin-bottom: 30px;
-
+      margin-bottom: 32px;
     }
-
 
     .login-header h2 {
-
-      font-size: 27px;
-
-      margin-bottom: 8px;
-
-      letter-spacing: -0.5px;
-
+      margin-bottom: 12px;
+      color: #102a50;
+      font-size: clamp(27px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -1.3px;
     }
-
 
     .login-header p {
-
-      color:
-        var(--cinza);
-
-      font-size: 14px;
-
-      line-height: 1.5;
-
+      color: var(--cinza);
+      font-size: 13px;
+      line-height: 1.8;
     }
 
+    .form-tag {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 25px;
+      color: #52647c;
+      font-size: 11px;
+      font-weight: 700;
+    }
 
-    /* ==============================
-       CAMPOS
-    ============================== */
+    .form-tag span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ciano);
+      box-shadow: 0 0 10px rgba(18, 184, 212, .45);
+    }
+
+    /* CAMPOS */
 
     .campo {
-
-      margin-bottom: 18px;
-
+      margin-bottom: 21px;
     }
-
 
     .campo label {
-
       display: block;
-
-      margin-bottom: 8px;
-
-      color:
-        #344054;
-
-      font-size: 13px;
-
-      font-weight: 600;
-
+      margin-bottom: 9px;
+      color: #344054;
+      font-size: 12px;
+      font-weight: 700;
     }
-
 
     .input-wrapper {
-
       position: relative;
-
     }
-
 
     .input-icon {
-
       position: absolute;
-
-      left: 16px;
       top: 50%;
-
-      transform:
-        translateY(-50%);
-
+      left: 16px;
+      transform: translateY(-50%);
+      color: #8497ae;
       font-size: 17px;
-
-      color:
-        #98a2b3;
-
+      pointer-events: none;
+      transition: color .2s ease;
     }
 
-
-    input {
-
+    .input-wrapper input {
       width: 100%;
-
-      height: 54px;
-
-      border:
-        1px solid var(--borda);
-
-      border-radius: 13px;
-
-      background:
-        #fbfdff;
-
-      padding:
-        0 16px 0 46px;
-
-      font-size: 14px;
-
-      color:
-        var(--texto);
-
+      height: 56px;
+      padding: 0 49px 0 47px;
       outline: none;
-
-      transition:
-        0.2s ease;
-
+      border: 1px solid #dce5f0;
+      border-radius: 13px;
+      background: #f8fbff;
+      color: var(--texto);
+      font-size: 13px;
+      transition: border-color .25s, box-shadow .25s, background .25s;
     }
 
-
-    input::placeholder {
-
-      color:
-        #98a2b3;
-
+    .input-wrapper input::placeholder {
+      color: #9aa9bc;
     }
 
-
-    input:focus {
-
-      background:
-        white;
-
-      border-color:
-        var(--azul);
-
-      box-shadow:
-        0 0 0 4px
-        rgba(11, 94, 215, 0.09);
-
+    .input-wrapper input:hover {
+      border-color: #a8c8ef;
     }
 
+    .input-wrapper input:focus {
+      border-color: var(--azul);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(11, 94, 215, .09);
+    }
 
-    /* ==============================
-       BOTÃO
-    ============================== */
+    .input-wrapper:focus-within .input-icon {
+      color: var(--azul);
+    }
+
+    .mostrar-senha {
+      position: absolute;
+      top: 50%;
+      right: 11px;
+      width: 34px;
+      height: 34px;
+      transform: translateY(-50%);
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: #73849b;
+      cursor: pointer;
+      font-size: 17px;
+    }
+
+    .mostrar-senha:hover {
+      background: #edf4fc;
+      color: var(--azul);
+    }
+
+    .mostrar-senha:focus-visible,
+    .botao-login:focus-visible {
+      outline: 3px solid #68efff;
+      outline-offset: 3px;
+    }
+
+    /* BOTÃO */
 
     .botao-login {
-
+      position: relative;
       width: 100%;
-
-      height: 54px;
-
-      margin-top: 10px;
-
-      border: none;
-
+      min-height: 57px;
+      margin-top: 7px;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .15);
       border-radius: 13px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul),
-          #087ce8
-        );
-
-      color:
-        white;
-
-      font-size: 15px;
-
-      font-weight: 700;
-
+      background: linear-gradient(110deg, #073b88, #0b5ed7 65%, #087fae);
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
       cursor: pointer;
-
-      box-shadow:
-        0 10px 22px
-        rgba(11, 94, 215, 0.22);
-
-      transition:
-        0.2s ease;
-
+      box-shadow: 0 10px 25px rgba(11, 94, 215, .22);
+      transition: transform .25s, box-shadow .25s, filter .25s;
     }
 
+    .botao-login::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 70%;
+      height: 100%;
+      transform: skewX(-25deg);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .18), transparent);
+      transition: left .65s ease;
+    }
+
+    .botao-login:hover::before {
+      left: 150%;
+    }
 
     .botao-login:hover {
-
-      transform:
-        translateY(-2px);
-
-      box-shadow:
-        0 14px 28px
-        rgba(11, 94, 215, 0.28);
-
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+      box-shadow: 0 14px 30px rgba(11, 94, 215, .3);
     }
-
 
     .botao-login:active {
-
-      transform:
-        translateY(0);
-
+      transform: translateY(0);
     }
-
 
     .botao-login:disabled {
-
-      opacity: 0.65;
-
-      cursor:
-        not-allowed;
-
-      transform:
-        none;
-
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
     }
 
+    .seta {
+      position: relative;
+      font-size: 18px;
+      transition: transform .25s;
+    }
 
-    /* ==============================
-       STATUS
-    ============================== */
+    .botao-login:hover .seta {
+      transform: translateX(4px);
+    }
+
+    /* MENSAGENS */
 
     #mensagem {
-
       display: none;
-
-      margin-top: 18px;
-
+      margin-top: 16px;
       padding: 13px;
-
+      border: 1px solid transparent;
       border-radius: 11px;
-
-      text-align: center;
-
-      font-size: 13px;
-
+      font-size: 12px;
       font-weight: 600;
-
+      line-height: 1.6;
+      text-align: center;
+      overflow-wrap: anywhere;
     }
-
 
     #mensagem.erro {
-
       display: block;
-
-      background:
-        #fff0f1;
-
-      color:
-        #d92d20;
-
+      background: #fff0f1;
+      border-color: #ffd0d2;
+      color: #d92d20;
     }
-
 
     #mensagem.carregando {
-
       display: block;
-
-      background:
-        #eef5ff;
-
-      color:
-        var(--azul);
-
+      background: #eef5ff;
+      border-color: #cfe2ff;
+      color: var(--azul);
     }
-
 
     #mensagem.sucesso {
-
       display: block;
-
-      background:
-        #eafaf3;
-
-      color:
-        #16a36a;
-
+      background: #eafaf3;
+      border-color: #b9efd5;
+      color: #16a36a;
     }
 
+    /* SEGURANÇA E RODAPÉ */
 
-    /* ==============================
-       RODAPÉ
-    ============================== */
+    .divisor {
+      height: 1px;
+      margin-top: 28px;
+      background: linear-gradient(90deg, transparent, #dce5f0, transparent);
+    }
 
     .seguranca {
-
       display: flex;
-
       justify-content: center;
-
       align-items: center;
-
-      gap: 6px;
-
-      margin-top: 25px;
-
+      gap: 8px;
+      margin-top: 20px;
+      color: #74869d;
       font-size: 11px;
-
-      color:
-        #98a2b3;
-
+      text-align: center;
     }
 
+    .seguranca-icon {
+      color: var(--azul);
+    }
 
     .rodape {
-
       margin-top: 12px;
-
+      color: #9aa9bc;
+      font-size: 10px;
       text-align: center;
-
-      font-size: 11px;
-
-      color:
-        #b0b8c4;
-
     }
 
+    /* ANIMAÇÕES */
 
-    /* ==============================
-       RESPONSIVO
-    ============================== */
-
-    @media (max-width: 800px) {
-
-      .login-wrapper {
-
-        grid-template-columns:
-          1fr;
-
-        max-width: 500px;
-
+    @keyframes entrada {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(.99);
       }
-
-
-      .painel-esquerdo {
-
-        padding: 35px;
-
-        min-height: 300px;
-
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
       }
-
-
-      .painel-esquerdo h1 {
-
-        font-size: 32px;
-
-      }
-
-
-      .descricao {
-
-        margin-bottom: 20px;
-
-      }
-
-
-      .recursos {
-
-        display: none;
-
-      }
-
-
-      .painel-login {
-
-        padding: 35px;
-
-      }
-
     }
 
+    @keyframes girar {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-    @media (max-width: 480px) {
+    @keyframes pulsar {
+      from { opacity: .10; transform: scale(.9); }
+      to { opacity: .24; transform: scale(1.15); }
+    }
 
+    @keyframes flutuar {
+      from { transform: translateY(0); opacity: .4; }
+      to { transform: translateY(-20px); opacity: 1; }
+    }
+
+    @keyframes piscar {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+
+    /* TABLETS */
+
+    @media (max-width: 900px) {
       body {
-
-        padding: 0;
-
+        padding: 24px;
       }
-
 
       .login-wrapper {
-
-        min-height: 100vh;
-
-        border-radius: 0;
-
-        box-shadow: none;
-
+        grid-template-columns: .9fr 1.1fr;
       }
-
 
       .painel-esquerdo {
-
-        min-height: 260px;
-
-        padding:
-          30px 25px;
-
+        padding: 35px;
       }
-
 
       .painel-login {
-
-        padding:
-          30px 25px;
-
+        padding: 38px;
       }
 
+      .recurso {
+        padding: 9px;
+      }
+    }
+
+    /* CELULARES */
+
+    @media (max-width: 700px) {
+      body {
+        min-height: 100vh;
+        padding: 16px;
+        align-items: flex-start;
+      }
+
+      .topo {
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+
+      .status-sistema {
+        padding: 8px 10px;
+        font-size: 10px;
+      }
+
+      .login-wrapper {
+        max-width: 520px;
+        margin: 0 auto;
+        grid-template-columns: 1fr;
+        border-radius: 24px;
+      }
+
+      .painel-esquerdo {
+        min-height: auto;
+        padding: 30px;
+      }
 
       .logo-grande {
-
-        width: 60px;
-        height: 60px;
-
-        font-size: 30px;
-
+        width: 58px;
+        height: 58px;
+        margin-bottom: 20px;
+        border-radius: 18px;
+        font-size: 31px;
       }
-
 
       .painel-esquerdo h1 {
-
-        font-size: 29px;
-
+        font-size: 34px;
       }
 
+      .descricao {
+        font-size: 13px;
+      }
+
+      .linha-destaque {
+        margin: 18px 0;
+      }
+
+      .recursos {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .recurso {
+        padding: 9px;
+      }
+
+      .painel-inferior {
+        margin-top: 22px;
+      }
+
+      .painel-login {
+        padding: 34px 30px;
+      }
+
+      .login-header {
+        margin-bottom: 25px;
+      }
+
+      .login-header h2 {
+        font-size: 29px;
+      }
+
+      .form-tag {
+        margin-bottom: 20px;
+      }
+
+      .anel-decorativo {
+        width: 250px;
+        height: 250px;
+        top: 50px;
+        right: -120px;
+      }
     }
 
+    @media (max-width: 420px) {
+      body {
+        padding: 10px;
+      }
+
+      .marca-texto strong {
+        font-size: 12px;
+      }
+
+      .marca-texto span {
+        font-size: 9px;
+      }
+
+      .marca-simbolo {
+        width: 37px;
+        height: 37px;
+      }
+
+      .status-sistema {
+        gap: 6px;
+        font-size: 9px;
+      }
+
+      .painel-esquerdo {
+        padding: 25px;
+      }
+
+      .painel-login {
+        padding: 30px 24px;
+      }
+
+      .painel-esquerdo h1 {
+        font-size: 30px;
+      }
+
+      .login-header h2 {
+        font-size: 26px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
-
 </head>
-
 
 <body>
 
+  <!-- FUNDO ANIMADO -->
 
-  <main class="login-wrapper">
+  <div class="fundo" aria-hidden="true">
+    <div class="grade"></div>
+    <div class="orbita orbita-1"></div>
+    <div class="orbita orbita-2"></div>
+    <div class="luz luz-1"></div>
+    <div class="luz luz-2"></div>
+    <div class="particula p1"></div>
+    <div class="particula p2"></div>
+    <div class="particula p3"></div>
+    <div class="particula p4"></div>
+    <div class="particula p5"></div>
+  </div>
 
+  <main class="pagina">
 
-    <!-- ==========================
-         PAINEL INSTITUCIONAL
-    =========================== -->
+    <!-- CABEÇALHO EXTERNO -->
 
-    <section class="painel-esquerdo">
+    <header class="topo">
 
+      <div class="marca-topo">
+        <div class="marca-simbolo" aria-hidden="true">✚</div>
 
-      <div class="logo-grande">
-        ✚
+        <div class="marca-texto">
+          <strong>NEXORA HEALTH</strong>
+          <span>HEALTHCARE SYSTEM</span>
+        </div>
       </div>
 
-
-      <h1>
-
-        NEXORA
-        <span>Health</span>
-
-      </h1>
-
-
-      <p class="descricao">
-
-        Sistema inteligente de gestão hospitalar,
-        desenvolvido para conectar profissionais,
-        pacientes e atendimento em um único ambiente.
-
-      </p>
-
-
-      <div class="recursos">
-
-
-        <div class="recurso">
-
-          <div class="recurso-icon">
-            ✓
-          </div>
-
-          <span>
-            Atendimento rápido e organizado
-          </span>
-
-        </div>
-
-
-        <div class="recurso">
-
-          <div class="recurso-icon">
-            🔒
-          </div>
-
-          <span>
-            Ambiente seguro para seus dados
-          </span>
-
-        </div>
-
-
-        <div class="recurso">
-
-          <div class="recurso-icon">
-            ♥
-          </div>
-
-          <span>
-            Tecnologia focada no cuidado
-          </span>
-
-        </div>
-
-
+      <div class="status-sistema">
+        <span class="status-ponto"></span>
+        PORTAL DE ACESSO
       </div>
+
+    </header>
+
+    <section class="login-wrapper">
+
+      <!-- PAINEL VISUAL -->
+
+      <section class="painel-esquerdo">
+
+        <div class="anel-decorativo"></div>
+
+        <div class="conteudo-marca">
+
+          <div class="logo-grande" aria-hidden="true">✚</div>
+
+          <h1>
+            O futuro da
+            <span>saúde digital.</span>
+          </h1>
+
+          <p class="descricao">
+            Uma nova experiência em gestão hospitalar.
+            Conectamos profissionais, processos e tecnologia
+            para tornar o atendimento mais organizado,
+            eficiente e inteligente.
+          </p>
+
+          <div class="linha-destaque"></div>
+
+          <div class="recursos">
+
+            <div class="recurso">
+              <div class="recurso-icon" aria-hidden="true">⌘</div>
+              <div>
+                <strong>Gestão integrada</strong>
+                <span>Informações organizadas em um só ambiente.</span>
+              </div>
+            </div>
+
+            <div class="recurso">
+              <div class="recurso-icon" aria-hidden="true">◇</div>
+              <div>
+                <strong>Fluxo inteligente</strong>
+                <span>Mais organização para a rotina hospitalar.</span>
+              </div>
+            </div>
+
+            <div class="recurso">
+              <div class="recurso-icon" aria-hidden="true">✚</div>
+              <div>
+                <strong>Tecnologia para cuidar</strong>
+                <span>Uma experiência digital centrada no cuidado.</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="painel-inferior">
+          <span class="mini-cruz">✚</span>
+          <span>Inovação, conexão e cuidado em um só lugar.</span>
+        </div>
+
+      </section>
+
+      <!-- PAINEL DE LOGIN -->
+
+      <section class="painel-login">
+
+        <header class="login-header">
+
+          <div class="etiqueta">ACESSO SEGURO</div>
+
+          <h2>Bem-vindo de volta.</h2>
+
+          <p>
+            Identifique-se para acessar seu ambiente de trabalho.
+          </p>
+
+        </header>
+
+        <div class="form-tag">
+          <span></span>
+          Entre com suas credenciais
+        </div>
+
+        <form id="loginForm">
+
+          <div class="campo">
+            <label for="usuario">Usuário</label>
+
+            <div class="input-wrapper">
+              <span class="input-icon" aria-hidden="true">♙</span>
+
+              <input
+                id="usuario"
+                name="usuario"
+                type="text"
+                placeholder="Digite seu usuário"
+                autocomplete="username"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="campo">
+            <label for="senha">Senha</label>
+
+            <div class="input-wrapper">
+              <span class="input-icon" aria-hidden="true">♙</span>
+
+              <input
+                id="senha"
+                name="senha"
+                type="password"
+                placeholder="Digite sua senha"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                class="mostrar-senha"
+                type="button"
+                id="botaoMostrarSenha"
+                aria-label="Mostrar senha"
+                aria-pressed="false"
+                title="Mostrar ou ocultar senha"
+              >◉</button>
+            </div>
+          </div>
+
+          <button
+            class="botao-login"
+            type="submit"
+            id="botaoEntrar"
+          >
+            <span id="textoBotao">Entrar no sistema</span>
+            <span class="seta" aria-hidden="true">→</span>
+          </button>
+
+        </form>
+
+        <div id="mensagem" role="status" aria-live="polite"></div>
+
+        <div class="divisor"></div>
+
+        <div class="seguranca">
+          <span class="seguranca-icon" aria-hidden="true">🔐</span>
+          <span>Utilize suas credenciais autorizadas.</span>
+        </div>
+
+        <div class="rodape">
+          NEXORA Health © 2026 · Sistema Hospitalar
+        </div>
+
+      </section>
 
     </section>
-
-
-    <!-- ==========================
-         PAINEL DE LOGIN
-    =========================== -->
-
-    <section class="painel-login">
-
-
-      <div class="login-header">
-
-        <h2>
-          Acesso ao sistema
-        </h2>
-
-        <p>
-          Entre com suas credenciais para continuar.
-        </p>
-
-      </div>
-
-
-      <form id="loginForm">
-
-
-        <!-- ==========================
-             USUÁRIO
-        =========================== -->
-
-        <div class="campo">
-
-          <label for="usuario">
-            Usuário
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              👤
-            </span>
-
-            <input
-              id="usuario"
-              type="text"
-              placeholder="Digite seu usuário"
-              autocomplete="username"
-              required
-            >
-
-          </div>
-
-        </div>
-
-
-        <!-- ==========================
-             SENHA
-        =========================== -->
-
-        <div class="campo">
-
-          <label for="senha">
-            Senha
-          </label>
-
-          <div class="input-wrapper">
-
-            <span class="input-icon">
-              🔒
-            </span>
-
-            <input
-              id="senha"
-              type="password"
-              placeholder="Digite sua senha"
-              autocomplete="current-password"
-              required
-            >
-
-          </div>
-
-        </div>
-
-
-        <!-- ==========================
-             BOTÃO
-        =========================== -->
-
-        <button
-          class="botao-login"
-          type="submit"
-          id="botaoEntrar"
-        >
-
-          Entrar no sistema →
-
-        </button>
-
-
-      </form>
-
-
-      <!-- MENSAGEM -->
-
-      <div id="mensagem"></div>
-
-
-      <!-- SEGURANÇA -->
-
-      <div class="seguranca">
-
-        🔐 Ambiente protegido e seguro
-
-      </div>
-
-
-      <!-- RODAPÉ -->
-
-      <div class="rodape">
-
-        NEXORA Health © 2026
-
-      </div>
-
-
-    </section>
-
 
   </main>
 
-
   <script>
+    const formulario = document.getElementById("loginForm");
+    const usuario = document.getElementById("usuario");
+    const senha = document.getElementById("senha");
+    const mensagem = document.getElementById("mensagem");
+    const botao = document.getElementById("botaoEntrar");
+    const textoBotao = document.getElementById("textoBotao");
+    const botaoMostrarSenha = document.getElementById("botaoMostrarSenha");
 
+    /* MOSTRAR OU OCULTAR SENHA */
 
-    /* ==================================
-       ELEMENTOS
-    ================================== */
+    botaoMostrarSenha.addEventListener("click", function () {
+      const mostrar = senha.type === "password";
 
-    const formulario =
-      document.getElementById(
-        "loginForm"
+      senha.type = mostrar ? "text" : "password";
+
+      botaoMostrarSenha.setAttribute(
+        "aria-label",
+        mostrar ? "Ocultar senha" : "Mostrar senha"
       );
 
-
-    const usuario =
-      document.getElementById(
-        "usuario"
+      botaoMostrarSenha.setAttribute(
+        "aria-pressed",
+        String(mostrar)
       );
+    });
 
+    /* MENSAGENS */
 
-    const senha =
-      document.getElementById(
-        "senha"
-      );
+    function mostrarMensagem(texto, tipo) {
+      mensagem.textContent = texto;
+      mensagem.className = tipo;
+    }
 
+    function restaurarBotao() {
+      botao.disabled = false;
+      textoBotao.textContent = "Entrar no sistema";
+    }
 
-    const mensagem =
-      document.getElementById(
-        "mensagem"
-      );
+    /* FORMULÁRIO DE LOGIN */
 
-
-    const botao =
-      document.getElementById(
-        "botaoEntrar"
-      );
-
-
-    /* ==================================
-       EVENTO DO FORMULÁRIO
-    ================================== */
-
-    formulario.addEventListener(
-      "submit",
-      login
-    );
-
-
-    /* ==================================
-       FUNÇÃO DE LOGIN
-    ================================== */
+    formulario.addEventListener("submit", login);
 
     async function login(evento) {
-
       evento.preventDefault();
 
+      const usuarioValor = usuario.value.trim();
+      const senhaValor = senha.value;
 
-      /* ==============================
-         PEGAR VALORES
-      ============================== */
-
-      const usuarioValor =
-        usuario.value.trim();
-
-      const senhaValor =
-        senha.value;
-
-
-      /* ==============================
-         VALIDAÇÃO
-      ============================== */
-
-      if (
-        !usuarioValor ||
-        !senhaValor
-      ) {
-
-        mostrarMensagem(
-          "Preencha usuário e senha.",
-          "erro"
-        );
-
+      if (!usuarioValor || !senhaValor) {
+        mostrarMensagem("Preencha usuário e senha.", "erro");
         return;
-
       }
 
-
-      /* ==============================
-         LOADING
-      ============================== */
-
       botao.disabled = true;
-
-      botao.textContent =
-        "Entrando...";
-
+      textoBotao.textContent = "Autenticando...";
 
       mostrarMensagem(
-        "Autenticando suas credenciais...",
+        "Verificando suas credenciais...",
         "carregando"
       );
 
-
-      /* ==============================
-         LOGIN EXCLUSIVO DA TV
-         
-         Usuário: tv
-         Senha: 123
-      ============================== */
+      /*
+        Mantido do código original para compatibilidade.
+        Em produção, valide a conta da TV no servidor.
+      */
 
       if (
         usuarioValor.toLowerCase() === "tv" &&
         senhaValor === "123"
       ) {
-
         mostrarMensagem(
-          "Acesso à TV autorizado. Abrindo painel...",
+          "Abrindo o painel da TV...",
           "sucesso"
         );
 
-
-        /*
-         * Pequeno intervalo para
-         * mostrar a mensagem de sucesso.
-         */
-
-        setTimeout(
-          function() {
-
-            window.location.href =
-              "tv.html";
-
-          },
-          500
-        );
-
-
+        window.location.href = "tv.html";
         return;
-
       }
 
-
-      /* ==============================
-         LOGIN DOS OUTROS USUÁRIOS
-      ============================== */
-
       try {
-
-        const resposta =
-          await fetch("/login",
-            {
-              method: "POST",
-
-              headers: {
-
-                "Content-Type":
-                  "application/json"
-
-              },
-
-              body: JSON.stringify({
-
-                usuario:
-                  usuarioValor,
-
-                senha:
-                  senhaValor
-
-              })
-
-            }
-          );
-
-
-        /* ==============================
-           TENTAR LER JSON
-        ============================== */
+        const resposta = await fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            usuario: usuarioValor,
+            senha: senhaValor
+          })
+        });
 
         let data;
 
         try {
-
-          data =
-            await resposta.json();
-
+          data = await resposta.json();
         } catch {
-
           data = {};
-
         }
-
-
-        /* ==============================
-           LOGIN INVÁLIDO
-        ============================== */
 
         if (!resposta.ok) {
-
           throw new Error(
-            data.mensagem ||
-            "Usuário ou senha inválidos."
+            data.mensagem || "Usuário ou senha inválidos."
           );
-
         }
 
+        switch (data.tipo) {
+          case "triagem":
+            window.location.href = "triagem.html";
+            return;
 
-        /* ==============================
-           TRIAGEM
-        ============================== */
+          case "medico":
+            window.location.href = "medico.html";
+            return;
 
-        if (
-          data.tipo ===
-          "triagem"
-        ) {
+          case "atendimento":
+            window.location.href = "atendimento.html";
+            return;
 
-          window.location.href =
-            "triagem.html";
+          case "tv":
+            window.location.href = "tv.html";
+            return;
 
-          return;
-
+          default:
+            throw new Error("Perfil de usuário não reconhecido.");
         }
-
-
-        /* ==============================
-           MÉDICO
-        ============================== */
-
-        if (
-          data.tipo ===
-          "medico"
-        ) {
-
-          window.location.href =
-            "medico.html";
-
-          return;
-
-        }
-
-
-        /* ==============================
-           ATENDIMENTO
-        ============================== */
-
-        if (
-          data.tipo ===
-          "atendimento"
-        ) {
-
-          window.location.href =
-            "atendimento.html";
-
-          return;
-
-        }
-
-
-        /* ==============================
-           TV PELO SERVIDOR
-           
-           Caso futuramente você também
-           cadastre a TV no banco.
-        ============================== */
-
-        if (
-          data.tipo ===
-          "tv"
-        ) {
-
-          window.location.href =
-            "tv.html";
-
-          return;
-
-        }
-
-
-        /* ==============================
-           PERFIL DESCONHECIDO
-        ============================== */
-
-        throw new Error(
-          "Perfil de usuário não reconhecido."
-        );
-
 
       } catch (erro) {
-
-        console.error(
-          "Erro no login:",
-          erro
-        );
-
+        console.error("Erro no login:", erro);
 
         mostrarMensagem(
-          erro.message ||
-          "Não foi possível conectar ao servidor.",
+          erro.message || "Não foi possível conectar ao servidor.",
           "erro"
         );
 
-
-        botao.disabled = false;
-
-        botao.textContent =
-          "Entrar no sistema →";
-
+        restaurarBotao();
       }
-
     }
 
+    /* ENTER NO CAMPO DE USUÁRIO */
 
-    /* ==================================
-       MOSTRAR MENSAGEM
-    ================================== */
-
-    function mostrarMensagem(
-      texto,
-      tipo
-    ) {
-
-      mensagem.textContent =
-        texto;
-
-      mensagem.className =
-        tipo;
-
-    }
-
-
-    /* ==================================
-       ENTER PARA ENTRAR
-    ================================== */
-
-    usuario.addEventListener(
-      "keydown",
-      function(evento) {
-
-        if (
-          evento.key ===
-          "Enter"
-        ) {
-
-          evento.preventDefault();
-
-          senha.focus();
-
-        }
-
+    usuario.addEventListener("keydown", function (evento) {
+      if (evento.key === "Enter") {
+        evento.preventDefault();
+        senha.focus();
       }
-    );
+    });
 
+    /* ATALHO CTRL + ALT + A */
 
-    senha.addEventListener(
-      "keydown",
-      function(evento) {
-
-        if (
-          evento.key ===
-          "Enter"
-        ) {
-
-          evento.preventDefault();
-
-          formulario.requestSubmit();
-
-        }
-
-      }
-    );
-
-window.addEventListener("keydown", function(e) {
-    if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "a") {
-        e.preventDefault();
+    window.addEventListener("keydown", function (evento) {
+      if (
+        evento.ctrlKey &&
+        evento.altKey &&
+        evento.key.toLowerCase() === "a"
+      ) {
+        evento.preventDefault();
         window.location.href = "admin.html";
-    }
-});
-
+      }
+    });
   </script>
 
-
 </body>
-
 </html>
