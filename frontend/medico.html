@@ -233,6 +233,8 @@
     .topbar-right {
       display: flex;
       align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
       gap: 10px;
     }
 
@@ -271,6 +273,38 @@
       margin-top: 4px;
       color: var(--cinza);
       font-size: 10px;
+    }
+
+    /* BOTÃO VOLTAR */
+
+    .btn-voltar {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: var(--azul-escuro);
+      background: white;
+      border: 1px solid var(--borda);
+      border-radius: 11px;
+      padding: 12px 15px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(20, 50, 90, .04);
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .btn-voltar:hover {
+      color: var(--azul);
+      border-color: #a9caff;
+      transform: translateY(-2px);
+    }
+
+    .btn-voltar span {
+      font-size: 17px;
+      line-height: 1;
     }
 
     /* BANNER */
@@ -650,11 +684,18 @@
       font-size: 11px;
       font-weight: 800;
       transition: .2s;
+      cursor: pointer;
     }
 
     .button:hover {
       filter: brightness(.97);
       transform: translateY(-1px);
+    }
+
+    .button:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
     }
 
     .button-primary {
@@ -878,8 +919,17 @@
         align-items: flex-start;
       }
 
+      .topbar-right {
+        gap: 7px;
+      }
+
       .date-box {
         display: none;
+      }
+
+      .btn-voltar {
+        padding: 10px 12px;
+        font-size: 11px;
       }
 
       .stats {
@@ -909,6 +959,15 @@
     }
 
     @media (max-width: 480px) {
+      .topbar {
+        flex-direction: column;
+      }
+
+      .topbar-right {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
       .profile {
         padding: 7px;
       }
@@ -1025,6 +1084,18 @@
       </div>
 
       <div class="topbar-right">
+
+        <!-- BOTÃO VOLTAR ADICIONADO -->
+        <button
+          type="button"
+          class="btn-voltar"
+          onclick="voltarPagina()"
+          aria-label="Voltar para a página anterior"
+        >
+          <span aria-hidden="true">←</span>
+          Voltar
+        </button>
+
         <div class="date-box">
           <div class="date-icon">📅</div>
           <div>
@@ -1319,6 +1390,19 @@
 <script>
   let pacientesAtuais = [];
   let pacienteSelecionadoIndex = null;
+
+  /* BOTÃO VOLTAR */
+
+  function voltarPagina() {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      mostrarMensagem(
+        "Não existe uma página anterior nesta navegação.",
+        "error"
+      );
+    }
+  }
 
   /* UTILITÁRIOS */
 
