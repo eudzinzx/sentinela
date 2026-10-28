@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,323 +18,234 @@
       --azul: #0b5ed7;
       --azul-escuro: #073b88;
       --azul-claro: #eaf3ff;
-      --ciano: #12b8d4;
+      --ciano: #14b8d4;
       --verde: #16a36a;
       --vermelho: #dc3545;
       --texto: #172033;
       --texto-secundario: #667085;
-      --borda: #e1e8f0;
-      --fundo: #f3f7fc;
+      --borda: #d9e1ec;
+      --fundo: #f4f8fc;
       --branco: #ffffff;
-      --sombra: 0 15px 45px rgba(24, 60, 110, .08);
+      --sombra: 0 20px 60px rgba(25, 65, 110, 0.12);
     }
 
     body {
       font-family: "Inter", "Segoe UI", Arial, sans-serif;
       min-height: 100vh;
-      color: var(--texto);
+
       background:
-        radial-gradient(circle at 95% 5%, rgba(18,184,212,.10), transparent 24%),
-        radial-gradient(circle at 5% 80%, rgba(11,94,215,.07), transparent 25%),
+        radial-gradient(
+          circle at top right,
+          rgba(20, 184, 212, 0.12),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at bottom left,
+          rgba(11, 94, 215, 0.10),
+          transparent 30%
+        ),
         var(--fundo);
-      padding: 30px 18px;
-    }
 
-    button, input, select, textarea {
-      font: inherit;
-    }
+      color: var(--texto);
 
-    button, label, select {
-      -webkit-tap-highlight-color: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 30px 16px;
     }
 
     .container {
       width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
+      max-width: 650px;
     }
 
     /* CABEÇALHO */
 
     .cabecalho {
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(
+        135deg,
+        var(--azul-escuro),
+        var(--azul)
+      );
+
+      color: white;
+      padding: 30px;
+      border-radius: 24px 24px 0 0;
+
       display: flex;
       align-items: center;
-      gap: 18px;
-      padding: 30px 34px;
-      color: white;
-      background: linear-gradient(125deg, #062e6b, #0b5ed7 65%, #12a9d1);
-      border-radius: 24px 24px 0 0;
+      gap: 20px;
+
+      position: relative;
+      overflow: hidden;
     }
 
-    .cabecalho::before,
     .cabecalho::after {
       content: "";
+
       position: absolute;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
-      background: rgba(255,255,255,.07);
-      pointer-events: none;
-    }
 
-    .cabecalho::before {
-      width: 270px;
-      height: 270px;
-      right: -70px;
-      top: -170px;
-    }
+      background: rgba(255, 255, 255, 0.07);
 
-    .cabecalho::after {
-      width: 160px;
-      height: 160px;
-      right: 110px;
-      bottom: -125px;
+      right: -80px;
+      top: -100px;
     }
 
     .icone {
-      position: relative;
-      z-index: 1;
-      flex-shrink: 0;
-      width: 64px;
-      height: 64px;
-      display: grid;
-      place-items: center;
-      font-size: 34px;
-      font-weight: 800;
-      color: white;
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,.12);
-    }
+      width: 62px;
+      height: 62px;
 
-    .identidade {
-      position: relative;
-      z-index: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 18px;
+
+      font-size: 32px;
+      font-weight: 700;
+
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
 
     .marca {
-      font-size: 27px;
-      font-weight: 850;
-      letter-spacing: -.8px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
     }
 
     .subtitulo {
-      margin-top: 7px;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.78);
       font-size: 14px;
-      color: rgba(255,255,255,.8);
     }
 
     .status {
-      position: relative;
-      z-index: 1;
       margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      padding: 10px 14px;
-      border: 1px solid rgba(255,255,255,.22);
-      border-radius: 30px;
-      background: rgba(255,255,255,.12);
+
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      padding: 8px 12px;
+      border-radius: 50px;
+
       font-size: 12px;
       white-space: nowrap;
     }
 
-    .status-ponto {
-      width: 8px;
-      height: 8px;
+    .status::before {
+      content: "";
+      display: inline-block;
+
+      width: 7px;
+      height: 7px;
+
+      background: #55e6a5;
       border-radius: 50%;
-      background: #65f0ae;
-      box-shadow: 0 0 0 4px rgba(101,240,174,.14);
+      margin-right: 6px;
     }
 
     /* FORMULÁRIO */
 
     form {
-      padding: 34px;
-      background: white;
+      background: var(--branco);
+      padding: 36px;
       box-shadow: var(--sombra);
     }
 
-    .introducao {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 20px;
-      padding-bottom: 26px;
-      border-bottom: 1px solid #edf1f6;
+    .titulo-formulario {
+      margin-bottom: 28px;
     }
 
-    .etiqueta {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 7px 11px;
-      color: var(--azul);
-      background: var(--azul-claro);
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .6px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
+    .titulo-formulario h2 {
+      font-size: 23px;
+      color: var(--texto);
+      margin-bottom: 6px;
     }
 
-    .introducao h2 {
-      font-size: clamp(23px, 3vw, 30px);
-      letter-spacing: -.7px;
-      margin-bottom: 8px;
-    }
-
-    .introducao p {
-      max-width: 550px;
+    .titulo-formulario p {
       color: var(--texto-secundario);
       font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .selo-seguro {
-      flex-shrink: 0;
-      padding: 12px 14px;
-      color: #16794b;
-      background: #effbf5;
-      border: 1px solid #d3f2e1;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    /* ETAPAS VISUAIS */
-
-    .progresso {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin: 25px 0 32px;
-    }
-
-    .etapa {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      min-width: 0;
-      padding: 12px 10px;
-      background: #f7f9fc;
-      border: 1px solid #e9eef5;
-      border-radius: 12px;
-    }
-
-    .etapa-numero {
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      width: 29px;
-      height: 29px;
-      color: var(--azul);
-      background: white;
-      border: 1px solid #d6e5fa;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .etapa span:last-child {
-      color: #475467;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .etapa.ativa {
-      background: #edf5ff;
-      border-color: #c8ddfc;
-    }
-
-    .etapa.ativa .etapa-numero {
-      color: white;
-      background: var(--azul);
-      border-color: var(--azul);
     }
 
     /* SEÇÕES */
 
     .secao {
-      position: relative;
-      margin: 30px 0 22px;
-      padding: 0 0 13px;
+      margin-top: 32px;
+      margin-bottom: 22px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #edf1f6;
-    }
-
-    .secao-cabecalho {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-
-    .secao-icone {
-      width: 43px;
-      height: 43px;
-      flex-shrink: 0;
-      display: grid;
-      place-items: center;
-      color: var(--azul);
-      background: linear-gradient(145deg, #eef5ff, #e4f8fc);
-      border: 1px solid #e1edfb;
-      border-radius: 13px;
-      font-size: 20px;
     }
 
     .secao h3 {
       color: var(--azul-escuro);
       font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 5px;
+
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .secao p {
       color: var(--texto-secundario);
       font-size: 12px;
-      line-height: 1.5;
+      margin-top: 4px;
     }
 
     /* CAMPOS */
 
     .campo {
-      min-width: 0;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
     .campo label {
       display: block;
       margin-bottom: 8px;
-      color: #344054;
-      font-size: 13px;
-      font-weight: 700;
-    }
 
-    .obrigatorio {
-      color: var(--vermelho);
+      font-size: 14px;
+      font-weight: 600;
+      color: #344054;
     }
 
     input,
-    select,
-    textarea {
-      display: block;
+    select {
       width: 100%;
-      min-width: 0;
-      min-height: 49px;
-      padding: 12px 14px;
-      color: var(--texto);
+      height: 52px;
+      padding: 0 16px;
+
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+
       background: #fbfcfe;
-      border: 1px solid #dce4ee;
-      border-radius: 11px;
+      color: var(--texto);
+
+      font-size: 15px;
       outline: none;
-      transition: border-color .2s, box-shadow .2s, background .2s;
-      font-size: 14px;
+      transition: 0.2s ease;
     }
 
     textarea {
+      width: 100%;
       min-height: 100px;
+      padding: 15px 16px;
+
+      border: 1px solid var(--borda);
+      border-radius: 12px;
+
+      background: #fbfcfe;
+      color: var(--texto);
+
+      font-size: 15px;
+      font-family: inherit;
+
+      outline: none;
       resize: vertical;
+      transition: 0.2s ease;
     }
 
     input::placeholder,
@@ -342,397 +253,259 @@
       color: #98a2b3;
     }
 
-    input:hover,
-    select:hover,
-    textarea:hover {
-      border-color: #b6c9e0;
-    }
-
     input:focus,
     select:focus,
     textarea:focus {
-      background: white;
       border-color: var(--azul);
-      box-shadow: 0 0 0 4px rgba(11,94,215,.09);
+      background: white;
+
+      box-shadow: 0 0 0 4px rgba(11, 94, 215, 0.09);
     }
 
-    input[type="date"] {
+    select {
       cursor: pointer;
     }
 
+    /* DUAS COLUNAS */
+
     .linha {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .linha-tres {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .dica {
-      margin-top: 7px;
-      color: #98a2b3;
-      font-size: 11px;
-      line-height: 1.5;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     /* RESPONSÁVEL */
 
     .responsavel-opcoes {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      display: flex;
       gap: 12px;
     }
 
     .opcao-responsavel {
+      flex: 1;
       position: relative;
     }
 
     .opcao-responsavel input {
       position: absolute;
-      width: 1px;
-      height: 1px;
-      min-height: 1px;
       opacity: 0;
       pointer-events: none;
     }
 
     .opcao-responsavel label {
+      height: 52px;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 52px;
-      padding: 12px;
-      margin: 0;
-      text-align: center;
-      color: #475467;
-      background: #fbfcfe;
+
       border: 1px solid var(--borda);
       border-radius: 12px;
+
+      background: #fbfcfe;
+      color: #475467;
+
       cursor: pointer;
-      transition: .2s ease;
+      transition: 0.2s ease;
+      margin: 0;
     }
 
     .opcao-responsavel input:checked + label {
-      color: var(--azul);
-      background: var(--azul-claro);
       border-color: var(--azul);
-      box-shadow: 0 0 0 3px rgba(11,94,215,.07);
+      background: var(--azul-claro);
+      color: var(--azul);
+
+      box-shadow: 0 0 0 3px rgba(11, 94, 215, 0.08);
     }
 
     .opcao-responsavel input:focus-visible + label {
-      outline: 3px solid rgba(11,94,215,.25);
-      outline-offset: 3px;
+      outline: 3px solid rgba(11, 94, 215, 0.3);
     }
 
     #campo-nome-responsavel {
       display: none;
-      padding: 17px;
-      margin-top: 15px;
-      background: #f7faff;
-      border: 1px solid #e2ebf8;
-      border-radius: 13px;
-    }
-
-    #campo-nome-responsavel .campo {
-      margin-bottom: 0;
-    }
-
-    /* TIPO DE ATENDIMENTO */
-
-    .tipos-atendimento {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .tipo-opcao {
-      position: relative;
-    }
-
-    .tipo-opcao input {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      min-height: 1px;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .tipo-opcao label {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px;
-      min-height: 78px;
-      border: 1px solid var(--borda);
-      border-radius: 13px;
-      background: #fbfcfe;
-      cursor: pointer;
-      margin: 0;
-      transition: .2s ease;
-    }
-
-    .tipo-opcao label:hover {
-      border-color: #a9c9f5;
-      background: #f7faff;
-    }
-
-    .tipo-opcao input:checked + label {
-      border-color: var(--azul);
-      background: #edf5ff;
-      box-shadow: 0 0 0 3px rgba(11,94,215,.06);
-    }
-
-    .tipo-icone {
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      border-radius: 11px;
-      background: white;
-      font-size: 20px;
-    }
-
-    .tipo-texto strong {
-      display: block;
-      color: #344054;
-      font-size: 13px;
-      margin-bottom: 4px;
-    }
-
-    .tipo-texto small {
-      color: var(--texto-secundario);
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    .tipo-opcao input:focus-visible + label {
-      outline: 3px solid rgba(11,94,215,.25);
-      outline-offset: 3px;
     }
 
     /* FOTO */
+
+    .seletor-arquivo {
+      width: 100%;
+      height: 120px;
+
+      border: 2px dashed #cbd8e8;
+      border-radius: 14px;
+
+      background: #f8fbff;
+
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+
+      color: var(--azul) !important;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .seletor-arquivo:hover {
+      border-color: var(--azul);
+      background: var(--azul-claro);
+    }
 
     #foto {
       display: none;
     }
 
-    .seletor-arquivo {
-      display: flex !important;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      min-height: 145px;
-      padding: 20px;
-      color: var(--azul) !important;
-      background: #f8fbff;
-      border: 2px dashed #c6d9ef;
-      border-radius: 15px;
-      text-align: center;
-      cursor: pointer;
-      transition: .2s ease;
-    }
-
-    .seletor-arquivo:hover {
-      background: var(--azul-claro);
-      border-color: var(--azul);
-    }
-
-    .foto-icone {
-      display: grid;
-      place-items: center;
-      width: 47px;
-      height: 47px;
-      border-radius: 14px;
-      background: white;
-      font-size: 23px;
-      box-shadow: 0 4px 12px rgba(11,94,215,.08);
-    }
-
-    .foto-titulo {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .foto-ajuda {
-      color: var(--texto-secundario);
-      font-size: 11px;
-      font-weight: 400;
-    }
-
     .preview {
       display: none;
-      width: 125px;
-      height: 125px;
+
+      width: 120px;
+      height: 120px;
+
       object-fit: cover;
       margin: 16px auto 0;
+
+      border-radius: 16px;
       border: 4px solid white;
-      border-radius: 18px;
-      box-shadow: 0 8px 25px rgba(0,0,0,.13);
+
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
 
     /* BOTÕES */
 
     .botoes {
       display: flex;
-      gap: 13px;
+      gap: 12px;
       margin-top: 30px;
-      padding-top: 25px;
-      border-top: 1px solid #edf1f6;
     }
 
     button {
-      min-height: 51px;
-      padding: 13px 20px;
+      flex: 1;
+      min-height: 52px;
+
       border: none;
       border-radius: 12px;
+
+      background: linear-gradient(
+        135deg,
+        var(--azul),
+        #0878ee
+      );
+
       color: white;
-      background: linear-gradient(130deg, var(--azul), #0878ee);
-      font-size: 14px;
-      font-weight: 800;
+      font-size: 15px;
+      font-weight: 700;
+
       cursor: pointer;
-      box-shadow: 0 7px 17px rgba(11,94,215,.19);
-      transition: transform .2s, box-shadow .2s, opacity .2s;
+
+      box-shadow: 0 8px 18px rgba(11, 94, 215, 0.20);
+      transition: 0.2s ease;
     }
 
-    button[type="submit"] {
-      flex: 1;
-    }
-
-    button:hover {
+    button:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 11px 24px rgba(11,94,215,.25);
+      box-shadow: 0 12px 25px rgba(11, 94, 215, 0.28);
     }
 
-    button:active {
+    button:active:not(:disabled) {
       transform: translateY(0);
     }
 
     button:disabled {
-      opacity: .65;
       cursor: wait;
+      opacity: 0.7;
       transform: none;
     }
 
+    button:focus-visible {
+      outline: 3px solid rgba(11, 94, 215, 0.35);
+      outline-offset: 3px;
+    }
+
     button.voltar {
-      flex: 0 0 145px;
-      color: #475467;
+      flex: 0 0 120px;
+
       background: white;
+      color: #475467;
+
       border: 1px solid var(--borda);
       box-shadow: none;
     }
 
-    button.voltar:hover {
+    button.voltar:hover:not(:disabled) {
       background: #f8fafc;
       border-color: #b9c5d4;
       box-shadow: none;
     }
 
-    /* MENSAGEM */
+    /* MENSAGENS */
 
     .mensagem {
       display: none;
+
       margin-top: 20px;
-      padding: 15px 17px;
+      padding: 14px 16px;
+
       border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.6;
+      font-size: 14px;
+      font-weight: 600;
       text-align: center;
+
+      line-height: 1.5;
+      overflow-wrap: anywhere;
     }
 
     .mensagem.carregando {
       display: block;
-      color: var(--azul);
       background: #eef5ff;
-      border: 1px solid #d8e8ff;
+      color: var(--azul);
     }
 
     .mensagem.sucesso {
       display: block;
-      color: #16794b;
       background: #eafaf3;
-      border: 1px solid #c9f0dd;
+      color: var(--verde);
     }
 
     .mensagem.erro {
       display: block;
-      color: #b42332;
       background: #fff0f1;
-      border: 1px solid #ffd5d9;
+      color: var(--vermelho);
     }
 
     /* RODAPÉ */
 
     footer {
-      padding: 22px;
-      text-align: center;
-      color: #8a96a8;
       background: #f9fbfd;
+
       border: 1px solid #e5eaf1;
       border-top: none;
-      border-radius: 0 0 24px 24px;
+
+      padding: 18px;
+      text-align: center;
+
+      color: #98a2b3;
       font-size: 12px;
+
+      border-radius: 0 0 24px 24px;
     }
 
     .seguranca {
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 7px;
-      margin-top: 9px;
+      gap: 6px;
+
+      margin-top: 8px;
       color: #667085;
       font-size: 11px;
     }
 
-    /* ACESSIBILIDADE */
+    /* RESPONSIVO */
 
-    :focus-visible {
-      outline-color: var(--azul);
-    }
-
-    /* RESPONSIVIDADE */
-
-    @media (max-width: 760px) {
-      body {
-        padding: 18px 12px;
-      }
-
-      .cabecalho {
-        padding: 24px;
-      }
-
-      form {
-        padding: 25px;
-      }
-
-      .progresso {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .linha-tres {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .introducao {
-        flex-direction: column;
-      }
-
-      .selo-seguro {
-        align-self: flex-start;
-      }
-    }
-
-    @media (max-width: 520px) {
+    @media (max-width: 600px) {
       body {
         padding: 0;
+        align-items: stretch;
       }
 
       .container {
@@ -740,26 +513,18 @@
       }
 
       .cabecalho {
-        gap: 13px;
-        padding: 23px 18px;
         border-radius: 0;
+        padding: 25px 20px;
       }
 
       .icone {
-        width: 49px;
-        height: 49px;
+        width: 52px;
+        height: 52px;
         font-size: 26px;
-        border-radius: 15px;
       }
 
       .marca {
-        font-size: 21px;
-      }
-
-      .subtitulo {
-        max-width: 200px;
-        font-size: 12px;
-        line-height: 1.5;
+        font-size: 22px;
       }
 
       .status {
@@ -767,45 +532,17 @@
       }
 
       form {
-        padding: 23px 18px;
+        padding: 28px 20px;
         box-shadow: none;
       }
 
-      .introducao h2 {
-        font-size: 24px;
+      footer {
+        border-radius: 0;
       }
 
-      .introducao p {
-        font-size: 13px;
-      }
-
-      .progresso {
-        gap: 8px;
-        margin: 22px 0 27px;
-      }
-
-      .etapa {
-        gap: 7px;
-        padding: 10px 8px;
-      }
-
-      .etapa span:last-child {
-        font-size: 11px;
-      }
-
-      .linha,
-      .linha-tres {
+      .linha {
         grid-template-columns: 1fr;
         gap: 0;
-      }
-
-      .responsavel-opcoes,
-      .tipos-atendimento {
-        grid-template-columns: 1fr;
-      }
-
-      .secao {
-        margin-top: 27px;
       }
 
       .botoes {
@@ -817,8 +554,8 @@
         width: 100%;
       }
 
-      footer {
-        border-radius: 0;
+      .responsavel-opcoes {
+        flex-direction: column;
       }
     }
 
@@ -827,380 +564,384 @@
       *::before,
       *::after {
         scroll-behavior: auto !important;
-        transition: none !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
+
   <main class="container">
 
-    <header class="cabecalho">
-      <div class="icone" aria-hidden="true">✚</div>
+    <!-- CABEÇALHO -->
 
-      <div class="identidade">
+    <header class="cabecalho">
+
+      <div class="icone">✚</div>
+
+      <div>
         <h1 class="marca">NEXORA Health</h1>
-        <p class="subtitulo">Tecnologia e cuidado em um só lugar</p>
+
+        <p class="subtitulo">
+          Tecnologia e cuidado em um só lugar
+        </p>
       </div>
 
       <div class="status">
-        <span class="status-ponto"></span>
-        Sistema de atendimento
+        Atendimento online
       </div>
+
     </header>
 
+    <!-- FORMULÁRIO -->
+
     <form id="form-atendimento">
-      <div class="introducao">
-        <div>
-          <span class="etiqueta">✦ Central de atendimento</span>
-          <h2>Cadastro do paciente</h2>
-          <p>
-            Registre as informações do paciente para iniciar o atendimento
-            hospitalar. Preencha os campos obrigatórios com atenção.
-          </p>
-        </div>
 
-        <div class="selo-seguro">🔒 Ambiente de cadastro</div>
-      </div>
+      <div class="titulo-formulario">
+        <h2>Cadastro do paciente</h2>
 
-      <div class="progresso" aria-label="Etapas do cadastro">
-        <div class="etapa ativa">
-          <span class="etapa-numero">01</span>
-          <span>Identificação</span>
-        </div>
-        <div class="etapa">
-          <span class="etapa-numero">02</span>
-          <span>Responsável</span>
-        </div>
-        <div class="etapa">
-          <span class="etapa-numero">03</span>
-          <span>Contato</span>
-        </div>
-        <div class="etapa">
-          <span class="etapa-numero">04</span>
-          <span>Atendimento</span>
-        </div>
+        <p>
+          Preencha os dados abaixo para iniciar o atendimento.
+        </p>
       </div>
 
       <!-- DADOS PESSOAIS -->
 
-      <section>
-        <div class="secao">
-          <div class="secao-cabecalho">
-            <div class="secao-icone" aria-hidden="true">👤</div>
-            <div>
-              <h3>Dados pessoais</h3>
-              <p>Informações para identificação do paciente.</p>
-            </div>
-          </div>
-        </div>
+      <div class="secao">
+        <h3>👤 Dados pessoais</h3>
+
+        <p>
+          Informações básicas para identificação do paciente.
+        </p>
+      </div>
+
+      <div class="campo">
+        <label for="nome">Nome completo</label>
+
+        <input
+          type="text"
+          id="nome"
+          placeholder="Digite o nome completo do paciente"
+          autocomplete="name"
+          required
+        >
+      </div>
+
+      <!-- DOCUMENTO E DATA -->
+
+      <div class="linha">
 
         <div class="campo">
-          <label for="nome">Nome completo <span class="obrigatorio">*</span></label>
+          <label for="documento">CPF ou RG</label>
+
           <input
             type="text"
-            id="nome"
-            placeholder="Digite o nome completo do paciente"
-            autocomplete="name"
-            maxlength="150"
+            id="documento"
+            placeholder="Digite o CPF ou RG"
+            autocomplete="off"
             required
           >
         </div>
 
-        <div class="linha">
-          <div class="campo">
-            <label for="documento">CPF ou RG <span class="obrigatorio">*</span></label>
-            <input
-              type="text"
-              id="documento"
-              placeholder="Digite o documento"
-              autocomplete="off"
-              maxlength="18"
-              required
-            >
-            <p class="dica">Digite o CPF ou RG utilizado na identificação.</p>
-          </div>
+        <div class="campo">
+          <label for="dataNascimento">Data de nascimento</label>
 
-          <div class="campo">
-            <label for="dataNascimento">Data de nascimento <span class="obrigatorio">*</span></label>
-            <input type="date" id="dataNascimento" autocomplete="bday" required>
-          </div>
+          <input
+            type="date"
+            id="dataNascimento"
+            required
+          >
         </div>
 
-        <div class="linha">
-          <div class="campo">
-            <label for="sexo">Sexo <span class="obrigatorio">*</span></label>
-            <select id="sexo" required>
-              <option value="" disabled selected>Selecione uma opção</option>
-              <option value="Feminino">Feminino</option>
-              <option value="Masculino">Masculino</option>
-              <option value="Outro">Outro</option>
-              <option value="Nao informado">Prefiro não informar</option>
-            </select>
-          </div>
+      </div>
 
-          <div class="campo">
-            <label for="estadoCivil">Estado civil <span class="obrigatorio">*</span></label>
-            <select id="estadoCivil" required>
-              <option value="" disabled selected>Selecione uma opção</option>
-              <option value="Solteiro">Solteiro(a)</option>
-              <option value="Casado">Casado(a)</option>
-              <option value="Divorciado">Divorciado(a)</option>
-              <option value="Viuvo">Viúvo(a)</option>
-              <option value="Uniao estavel">União estável</option>
-            </select>
-          </div>
+      <!-- SEXO E ESTADO CIVIL -->
+
+      <div class="linha">
+
+        <div class="campo">
+          <label for="sexo">Sexo</label>
+
+          <select id="sexo" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Outro">Outro</option>
+            <option value="Nao informado">Prefiro não informar</option>
+          </select>
         </div>
-      </section>
+
+        <div class="campo">
+          <label for="estadoCivil">Estado civil</label>
+
+          <select id="estadoCivil" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="Solteiro">Solteiro(a)</option>
+            <option value="Casado">Casado(a)</option>
+            <option value="Divorciado">Divorciado(a)</option>
+            <option value="Viuvo">Viúvo(a)</option>
+            <option value="Uniao estavel">União estável</option>
+          </select>
+        </div>
+
+      </div>
 
       <!-- RESPONSÁVEL -->
 
-      <section>
-        <div class="secao">
-          <div class="secao-cabecalho">
-            <div class="secao-icone" aria-hidden="true">👥</div>
-            <div>
-              <h3>Responsável pelo paciente</h3>
-              <p>Identifique quem ficará responsável pelo cadastro.</p>
-            </div>
+      <div class="secao">
+        <h3>👨‍👩‍👧 Responsável</h3>
+
+        <p>
+          Informe quem será responsável pelo paciente.
+        </p>
+      </div>
+
+      <div class="campo">
+
+        <label>
+          Você é o próprio responsável?
+        </label>
+
+        <div class="responsavel-opcoes">
+
+          <div class="opcao-responsavel">
+            <input
+              type="radio"
+              name="proprioResponsavel"
+              id="responsavelSim"
+              value="Sim"
+              required
+            >
+
+            <label for="responsavelSim">
+              ✓ Sim, sou o responsável
+            </label>
           </div>
-        </div>
 
-        <div class="campo">
-          <label>Você é o próprio responsável? <span class="obrigatorio">*</span></label>
+          <div class="opcao-responsavel">
+            <input
+              type="radio"
+              name="proprioResponsavel"
+              id="responsavelNao"
+              value="Nao"
+            >
 
-          <div class="responsavel-opcoes">
-            <div class="opcao-responsavel">
-              <input
-                type="radio"
-                name="proprioResponsavel"
-                id="responsavelSim"
-                value="Sim"
-                required
-              >
-              <label for="responsavelSim">✓ Sim, sou o responsável</label>
-            </div>
-
-            <div class="opcao-responsavel">
-              <input
-                type="radio"
-                name="proprioResponsavel"
-                id="responsavelNao"
-                value="Nao"
-              >
-              <label for="responsavelNao">＋ Outra pessoa é responsável</label>
-            </div>
+            <label for="responsavelNao">
+              Não, outra pessoa
+            </label>
           </div>
+
         </div>
 
-        <div class="campo" id="campo-nome-responsavel">
-          <label for="nomeResponsavel">Nome completo do responsável <span class="obrigatorio">*</span></label>
-          <input
-            type="text"
-            id="nomeResponsavel"
-            placeholder="Digite o nome do responsável"
-            autocomplete="name"
-            maxlength="150"
-          >
-        </div>
-      </section>
+      </div>
+
+      <div class="campo" id="campo-nome-responsavel">
+
+        <label for="nomeResponsavel">
+          Nome do responsável
+        </label>
+
+        <input
+          type="text"
+          id="nomeResponsavel"
+          placeholder="Digite o nome completo do responsável"
+        >
+
+      </div>
 
       <!-- CONTATO -->
 
-      <section>
-        <div class="secao">
-          <div class="secao-cabecalho">
-            <div class="secao-icone" aria-hidden="true">📞</div>
-            <div>
-              <h3>Informações de contato</h3>
-              <p>Dados para comunicação com o paciente e sua família.</p>
-            </div>
-          </div>
-        </div>
+      <div class="secao">
+        <h3>📞 Informações de contato</h3>
 
-        <div class="linha">
-          <div class="campo">
-            <label for="telefone">Telefone <span class="obrigatorio">*</span></label>
-            <input
-              type="tel"
-              id="telefone"
-              placeholder="(00) 00000-0000"
-              inputmode="tel"
-              autocomplete="tel"
-              maxlength="15"
-              required
-            >
-          </div>
+        <p>
+          Dados para comunicação e contato com o paciente.
+        </p>
+      </div>
 
-          <div class="campo">
-            <label for="email">E-mail</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="exemplo@email.com"
-              autocomplete="email"
-              maxlength="150"
-            >
-          </div>
-        </div>
+      <div class="linha">
 
         <div class="campo">
-          <label for="endereco">Endereço completo <span class="obrigatorio">*</span></label>
+          <label for="telefone">Telefone</label>
+
           <input
-            type="text"
-            id="endereco"
-            placeholder="Rua, número, bairro, cidade e estado"
-            autocomplete="street-address"
-            maxlength="250"
+            type="tel"
+            id="telefone"
+            placeholder="(00) 00000-0000"
+            inputmode="tel"
+            autocomplete="tel"
             required
           >
         </div>
 
         <div class="campo">
-          <label for="contatoEmergencia">Contato de emergência <span class="obrigatorio">*</span></label>
+          <label for="email">E-mail</label>
+
           <input
-            type="text"
-            id="contatoEmergencia"
-            placeholder="Nome e telefone de uma pessoa para contato"
-            maxlength="200"
-            required
+            type="email"
+            id="email"
+            placeholder="exemplo@email.com"
+            autocomplete="email"
           >
-          <p class="dica">Informe alguém que possa ser contatado quando necessário.</p>
         </div>
-      </section>
+
+      </div>
+
+      <!-- ENDEREÇO -->
+
+      <div class="campo">
+        <label for="endereco">Endereço completo</label>
+
+        <input
+          type="text"
+          id="endereco"
+          placeholder="Rua, número, bairro, cidade e estado"
+          autocomplete="street-address"
+          required
+        >
+      </div>
+
+      <!-- EMERGÊNCIA -->
+
+      <div class="campo">
+        <label for="contatoEmergencia">
+          Contato de emergência
+        </label>
+
+        <input
+          type="text"
+          id="contatoEmergencia"
+          placeholder="Nome e telefone do contato de emergência"
+          required
+        >
+      </div>
 
       <!-- ATENDIMENTO -->
 
-      <section>
-        <div class="secao">
-          <div class="secao-cabecalho">
-            <div class="secao-icone" aria-hidden="true">🏥</div>
-            <div>
-              <h3>Tipo de atendimento</h3>
-              <p>Selecione a modalidade utilizada pelo paciente.</p>
-            </div>
-          </div>
-        </div>
+      <div class="secao">
+        <h3>🏥 Atendimento</h3>
 
-        <div class="tipos-atendimento">
-          <div class="tipo-opcao">
-            <input
-              type="radio"
-              name="tipoAtendimento"
-              id="tipoConvenio"
-              value="Convenio"
-              required
-            >
-            <label for="tipoConvenio">
-              <span class="tipo-icone" aria-hidden="true">🩺</span>
-              <span class="tipo-texto">
-                <strong>Convênio</strong>
-                <small>Atendimento por plano de saúde</small>
-              </span>
-            </label>
-          </div>
+        <p>
+          Selecione como o atendimento será realizado.
+        </p>
+      </div>
 
-          <div class="tipo-opcao">
-            <input
-              type="radio"
-              name="tipoAtendimento"
-              id="tipoParticular"
-              value="Particular"
-              required
-            >
-            <label for="tipoParticular">
-              <span class="tipo-icone" aria-hidden="true">💳</span>
-              <span class="tipo-texto">
-                <strong>Particular</strong>
-                <small>Atendimento particular</small>
-              </span>
-            </label>
-          </div>
-        </div>
+      <div class="campo">
+        <label for="tipo">Tipo de atendimento</label>
 
-        <!-- Mantém o campo original utilizado pelo cadastro -->
-        <input type="hidden" id="tipo" value="">
-      </section>
+        <select id="tipo" required>
+          <option value="" disabled selected>
+            Selecione uma opção
+          </option>
+
+          <option value="Convenio">Convênio</option>
+          <option value="Particular">Particular</option>
+        </select>
+      </div>
 
       <!-- FOTO -->
 
-      <section>
-        <div class="secao">
-          <div class="secao-cabecalho">
-            <div class="secao-icone" aria-hidden="true">📷</div>
-            <div>
-              <h3>Foto do paciente</h3>
-              <p>Adicione uma imagem para facilitar a identificação visual.</p>
-            </div>
-          </div>
-        </div>
+      <div class="campo">
 
-        <div class="campo">
-          <label for="foto">Imagem de identificação (opcional)</label>
+        <label for="foto">Foto do paciente</label>
 
-          <label class="seletor-arquivo" for="foto">
-            <span class="foto-icone" aria-hidden="true">📷</span>
-            <span class="foto-titulo" id="texto-foto">Selecionar uma foto</span>
-            <span class="foto-ajuda">Clique aqui para escolher uma imagem do dispositivo</span>
-          </label>
+        <label class="seletor-arquivo" for="foto">
+          📷 &nbsp; Selecionar uma foto
+        </label>
 
-          <input type="file" id="foto" accept="image/*">
+        <input
+          type="file"
+          id="foto"
+          accept="image/*"
+        >
 
-          <img
-            id="preview"
-            class="preview"
-            alt="Pré-visualização da foto selecionada"
-          >
-        </div>
-      </section>
+        <img
+          id="preview"
+          class="preview"
+          alt="Prévia da foto do paciente"
+        >
+
+      </div>
 
       <!-- BOTÕES -->
 
       <div class="botoes">
-        <button type="submit" id="btnCadastrar">
+
+        <button type="submit" id="botaoCadastrar">
           ✓ &nbsp; Cadastrar paciente
         </button>
 
-        <button type="button" class="voltar" onclick="voltar()">
+        <button
+          type="button"
+          class="voltar"
+          onclick="voltar()"
+        >
           ← Voltar
         </button>
+
       </div>
 
-      <p id="mensagem" class="mensagem" role="status" aria-live="polite"></p>
+      <p
+        id="mensagem"
+        class="mensagem"
+        aria-live="polite"
+        role="status"
+      ></p>
+
     </form>
 
+    <!-- RODAPÉ -->
+
     <footer>
-      <strong>NEXORA Health</strong> © 2026
+      NEXORA Health © 2026
+
       <div class="seguranca">
-        🔒 Proteja os dados pessoais e mantenha o acesso ao sistema restrito.
+        🔒 Seus dados são tratados com segurança
       </div>
     </footer>
+
   </main>
 
   <script>
+    /*
+      CONFIGURAÇÃO DA API
+
+      Se o frontend estiver no GitHub Pages, coloque aqui
+      a URL real do backend publicado.
+
+      Exemplo de formato:
+      https://nome-do-seu-projeto.onrender.com
+
+      Não mantenha localhost quando o site estiver publicado
+      na internet, pois localhost aponta para o computador
+      de quem está acessando a página.
+    */
+
+    const API_BASE_URL = "https://SEU-BACKEND.onrender.com";
+
     const formulario = document.getElementById("form-atendimento");
     const campoCpf = document.getElementById("documento");
     const campoFoto = document.getElementById("foto");
     const preview = document.getElementById("preview");
     const mensagem = document.getElementById("mensagem");
-    const telefone = document.getElementById("telefone");
 
     const responsavelSim = document.getElementById("responsavelSim");
     const responsavelNao = document.getElementById("responsavelNao");
-    const campoNomeResponsavel = document.getElementById("campo-nome-responsavel");
+
+    const campoNomeResponsavel = document.getElementById(
+      "campo-nome-responsavel"
+    );
+
     const nomeResponsavel = document.getElementById("nomeResponsavel");
-
-    const tipoConvenio = document.getElementById("tipoConvenio");
-    const tipoParticular = document.getElementById("tipoParticular");
-    const tipo = document.getElementById("tipo");
-
-    const btnCadastrar = document.getElementById("btnCadastrar");
-    const textoFoto = document.getElementById("texto-foto");
+    const telefone = document.getElementById("telefone");
+    const botaoCadastrar = document.getElementById("botaoCadastrar");
 
     let urlFotoAtual = null;
 
-    // Exibe ou oculta o nome do responsável.
+    /* RESPONSÁVEL */
+
     responsavelSim.addEventListener("change", () => {
       campoNomeResponsavel.style.display = "none";
       nomeResponsavel.required = false;
@@ -1210,60 +951,43 @@
     responsavelNao.addEventListener("change", () => {
       campoNomeResponsavel.style.display = "block";
       nomeResponsavel.required = true;
-      nomeResponsavel.focus();
     });
 
-    // Mantém o valor do tipo no campo usado pelo cadastro original.
-    function atualizarTipo() {
-      if (tipoConvenio.checked) {
-        tipo.value = "Convenio";
-      } else if (tipoParticular.checked) {
-        tipo.value = "Particular";
-      }
-    }
+    /* MÁSCARA CPF */
 
-    tipoConvenio.addEventListener("change", atualizarTipo);
-    tipoParticular.addEventListener("change", atualizarTipo);
-
-    // Máscara para CPF. Caso seja informado RG, não é feita validação de CPF.
     campoCpf.addEventListener("input", () => {
-      let valor = campoCpf.value.trim();
+      let valor = campoCpf.value.replace(/\D/g, "").slice(0, 11);
 
-      // Se houver letras, mantém o conteúdo para permitir a digitação de RG.
-      if (/[a-zA-Z]/.test(valor)) {
-        campoCpf.value = valor.slice(0, 18);
-        return;
-      }
-
-      valor = valor.replace(/\D/g, "").slice(0, 11);
-
-      if (valor.length > 9) {
-        valor = valor.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
-      } else if (valor.length > 6) {
-        valor = valor.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
-      } else if (valor.length > 3) {
-        valor = valor.replace(/(\d{3})(\d{1,3})/, "$1.$2");
+      if (valor.length <= 11) {
+        valor = valor
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d)/, "$1.$2")
+          .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
       }
 
       campoCpf.value = valor;
     });
 
-    // Máscara para telefone brasileiro.
+    /* MÁSCARA TELEFONE */
+
     telefone.addEventListener("input", () => {
       let valor = telefone.value.replace(/\D/g, "").slice(0, 11);
 
-      if (valor.length > 10) {
-        valor = valor.replace(/(\d{2})(\d{5})(\d{1,4})/, "($1) $2-$3");
-      } else if (valor.length > 6) {
-        valor = valor.replace(/(\d{2})(\d{4})(\d{1,4})/, "($1) $2-$3");
-      } else if (valor.length > 2) {
-        valor = valor.replace(/(\d{2})(\d+)/, "($1) $2");
+      if (valor.length <= 10) {
+        valor = valor
+          .replace(/(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{4})(\d)/, "$1-$2");
+      } else {
+        valor = valor
+          .replace(/(\d{2})(\d)/, "($1) $2")
+          .replace(/(\d{5})(\d)/, "$1-$2");
       }
 
       telefone.value = valor;
     });
 
-    // Pré-visualização da foto.
+    /* PRÉ-VISUALIZAÇÃO DA FOTO */
+
     campoFoto.addEventListener("change", () => {
       const arquivo = campoFoto.files[0];
 
@@ -1275,87 +999,73 @@
       if (!arquivo) {
         preview.removeAttribute("src");
         preview.style.display = "none";
-        textoFoto.textContent = "Selecionar uma foto";
         return;
       }
 
       if (!arquivo.type.startsWith("image/")) {
         mostrarMensagem("Selecione um arquivo de imagem válido.", "erro");
         campoFoto.value = "";
+        preview.removeAttribute("src");
         preview.style.display = "none";
-        textoFoto.textContent = "Selecionar uma foto";
         return;
       }
 
       urlFotoAtual = URL.createObjectURL(arquivo);
       preview.src = urlFotoAtual;
       preview.style.display = "block";
-      textoFoto.textContent = arquivo.name;
-      mensagem.className = "mensagem";
-      mensagem.textContent = "";
     });
 
-    function mostrarMensagem(texto, classe) {
-      mensagem.textContent = texto;
-      mensagem.className = "mensagem " + classe;
-    }
-
-    function limparFormulario() {
-      formulario.reset();
-
-      campoNomeResponsavel.style.display = "none";
-      nomeResponsavel.required = false;
-      tipo.value = "";
-
-      if (urlFotoAtual) {
-        URL.revokeObjectURL(urlFotoAtual);
-        urlFotoAtual = null;
-      }
-
-      preview.removeAttribute("src");
-      preview.style.display = "none";
-      textoFoto.textContent = "Selecionar uma foto";
-    }
+    /* ENVIO DO FORMULÁRIO */
 
     formulario.addEventListener("submit", cadastrar);
 
     async function cadastrar(evento) {
       evento.preventDefault();
 
-      atualizarTipo();
-
       if (!formulario.reportValidity()) {
         return;
       }
 
-      const dataNascimento = document.getElementById("dataNascimento").value;
-
-      if (dataNascimento) {
-        const dataSelecionada = new Date(dataNascimento + "T00:00:00");
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-
-        if (dataSelecionada > hoje) {
-          mostrarMensagem(
-            "A data de nascimento não pode ser futura.",
-            "erro"
-          );
-          return;
-        }
-      }
-
-      const responsavelSelecionado =
-        document.querySelector('input[name="proprioResponsavel"]:checked');
+      const responsavelSelecionado = document.querySelector(
+        'input[name="proprioResponsavel"]:checked'
+      );
 
       if (!responsavelSelecionado) {
-        mostrarMensagem("Selecione quem é o responsável pelo paciente.", "erro");
+        mostrarMensagem(
+          "Selecione quem é o responsável pelo paciente.",
+          "erro"
+        );
+        return;
+      }
+
+      if (
+        responsavelSelecionado.value === "Nao" &&
+        !nomeResponsavel.value.trim()
+      ) {
+        mostrarMensagem(
+          "Informe o nome do responsável pelo paciente.",
+          "erro"
+        );
+
+        nomeResponsavel.focus();
+        return;
+      }
+
+      if (
+        !API_BASE_URL ||
+        API_BASE_URL.includes("SEU-BACKEND")
+      ) {
+        mostrarMensagem(
+          "Configure a URL real da API no JavaScript antes de cadastrar. O GitHub Pages não executa o servidor Node.js.",
+          "erro"
+        );
         return;
       }
 
       const paciente = {
         nome: document.getElementById("nome").value.trim(),
-        documento: campoCpf.value.trim(),
-        dataNascimento: dataNascimento,
+        documento: document.getElementById("documento").value.trim(),
+        dataNascimento: document.getElementById("dataNascimento").value,
         sexo: document.getElementById("sexo").value,
         estadoCivil: document.getElementById("estadoCivil").value,
         proprioResponsavel: responsavelSelecionado.value,
@@ -1363,70 +1073,118 @@
         endereco: document.getElementById("endereco").value.trim(),
         telefone: telefone.value.trim(),
         email: document.getElementById("email").value.trim(),
-        contatoEmergencia: document.getElementById("contatoEmergencia").value.trim(),
-        tipo: tipo.value
+        contatoEmergencia: document.getElementById(
+          "contatoEmergencia"
+        ).value.trim(),
+        tipo: document.getElementById("tipo").value
       };
 
-      btnCadastrar.disabled = true;
-      btnCadastrar.textContent = "Enviando cadastro...";
-      mostrarMensagem("Enviando os dados do paciente para a triagem...", "carregando");
+      const textoOriginalBotao = botaoCadastrar.textContent;
+
+      botaoCadastrar.disabled = true;
+      botaoCadastrar.textContent = "Enviando cadastro...";
+
+      mostrarMensagem(
+        "Enviando cadastro para o servidor...",
+        "carregando"
+      );
 
       try {
-        const resposta = await fetch("http://localhost:3000/atendimento", {
+        const base = API_BASE_URL.replace(/\/+$/, "");
+
+        const resposta = await fetch(`${base}/atendimento`, {
           method: "POST",
+
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Accept": "application/json"
           },
+
           body: JSON.stringify(paciente)
         });
 
-        let resultado = null;
-        const contentType = resposta.headers.get("content-type") || "";
+        const textoResposta = await resposta.text();
 
-        if (contentType.includes("application/json")) {
-          resultado = await resposta.json();
-        } else {
-          const textoResposta = await resposta.text();
+        let dados = {};
 
-          if (!resposta.ok) {
+        if (textoResposta.trim()) {
+          try {
+            dados = JSON.parse(textoResposta);
+          } catch {
+            if (/<html|<!doctype html/i.test(textoResposta)) {
+              throw new Error(
+                `A API devolveu uma página HTML em vez de JSON (HTTP ${resposta.status}). Confira a URL do backend e se a rota POST /atendimento existe.`
+              );
+            }
+
             throw new Error(
-              textoResposta || "Não foi possível cadastrar o paciente."
+              "O servidor retornou uma resposta inválida."
             );
           }
         }
 
         if (!resposta.ok) {
           throw new Error(
-            resultado?.mensagem ||
-            resultado?.erro ||
-            "Não foi possível cadastrar o paciente."
+            dados.mensagem ||
+            dados.erro ||
+            `Falha ao cadastrar o paciente (HTTP ${resposta.status}).`
           );
         }
 
         mostrarMensagem(
-          "✓ Paciente cadastrado com sucesso e enviado para a triagem!",
+          dados.mensagem ||
+          "✓ Paciente cadastrado com sucesso!",
           "sucesso"
         );
 
-        limparFormulario();
-      } catch (erro) {
-        console.error("Erro no cadastro:", erro);
+        formulario.reset();
 
-        mostrarMensagem(
-          erro.message && erro.message !== "Failed to fetch"
-            ? erro.message
-            : "Não foi possível conectar ao servidor. Verifique se a API está ativa.",
-          "erro"
-        );
+        campoNomeResponsavel.style.display = "none";
+        nomeResponsavel.required = false;
+
+        if (urlFotoAtual) {
+          URL.revokeObjectURL(urlFotoAtual);
+          urlFotoAtual = null;
+        }
+
+        preview.removeAttribute("src");
+        preview.style.display = "none";
+
+      } catch (erro) {
+        console.error("Erro ao cadastrar paciente:", erro);
+
+        let mensagemErro = erro.message ||
+          "Ocorreu um erro ao cadastrar o paciente.";
+
+        if (
+          erro instanceof TypeError ||
+          /Failed to fetch|NetworkError/i.test(mensagemErro)
+        ) {
+          mensagemErro =
+            "Não foi possível acessar a API. Confirme se o backend está publicado e ativo, se a URL está correta e se o CORS permite o endereço deste site.";
+        }
+
+        mostrarMensagem(mensagemErro, "erro");
+
       } finally {
-        btnCadastrar.disabled = false;
-        btnCadastrar.innerHTML = "✓ &nbsp; Cadastrar paciente";
+        botaoCadastrar.disabled = false;
+        botaoCadastrar.textContent = textoOriginalBotao;
       }
     }
+
+    /* MENSAGENS */
+
+    function mostrarMensagem(texto, tipo) {
+      mensagem.textContent = texto;
+      mensagem.className = "mensagem " + tipo;
+    }
+
+    /* BOTÃO VOLTAR */
 
     function voltar() {
       window.location.href = "index.html";
     }
   </script>
+
 </body>
 </html>
