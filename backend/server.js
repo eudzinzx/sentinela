@@ -6,17 +6,21 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors());
-app.use(express.json());
+// ========================================
+// CONFIGURAÇÕES
+// ========================================
 
-// Front-end
+app.use(cors());
+app.use(express.json({ limit: "1mb" }));
+
+// Disponibiliza os arquivos HTML, CSS e JavaScript
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-// Banco de dados em JSON
+// Banco de dados
 const DB_FILE = path.join(__dirname, "db.json");
 
 // ========================================
-// BANCO DE DADOS
+// BANCO DE DADOS JSON
 // ========================================
 
 function bancoVazio() {
@@ -46,8 +50,7 @@ function readDB() {
 
   const padrao = bancoVazio();
 
-  // Garante que todas as listas existam,
-  // inclusive em bancos criados anteriormente.
+  // Mantém os dados existentes e cria as listas ausentes.
   for (const chave of [
     "usuarios",
     "pacientes",
@@ -75,6 +78,19 @@ function writeDB(data) {
     "utf8"
   );
 }
+
+// ========================================
+// TESTE DE CONEXÃO COM A API
+// ========================================
+
+app.get("/api/health", (req, res) => {
+  return res.json({
+    conectado: true,
+    mensagem: "API NEXORA Health funcionando!",
+    porta: PORT,
+    data: new Date().toISOString()
+  });
+});
 
 // ========================================
 // USUÁRIOS - CADASTRAR
@@ -149,7 +165,6 @@ app.get("/usuarios", (req, res) => {
   try {
     const db = readDB();
 
-    // Não envia as senhas para o navegador.
     const usuarios = db.usuarios.map(u => ({
       id: u.id,
       usuario: u.usuario,
@@ -186,9 +201,10 @@ app.post("/login", (req, res) => {
 
     const db = readDB();
 
-    const user = db.usuarios.find(u =>
-      u.usuario === usuario.trim() &&
-      u.senha === senha
+    const user = db.usuarios.find(
+      u =>
+        u.usuario === usuario.trim() &&
+        u.senha === senha
     );
 
     if (!user) {
@@ -197,7 +213,6 @@ app.post("/login", (req, res) => {
       });
     }
 
-    // Retorna os dados necessários, sem enviar a senha.
     return res.json({
       id: user.id,
       usuario: user.usuario,
@@ -218,13 +233,24 @@ app.post("/login", (req, res) => {
 
 app.post("/atendimento", (req, res) => {
   try {
+    const { nome, cpf, tipo } = req.body || {};
+
+    if (
+      typeof nome !== "string" ||
+      !nome.trim()
+    ) {
+      return res.status(400).json({
+        erro: "Informe o nome do paciente."
+      });
+    }
+
     const db = readDB();
 
     const paciente = {
       id: Date.now(),
-      nome: req.body.nome,
-      cpf: req.body.cpf,
-      tipo: req.body.tipo,
+      nome: nome.trim(),
+      cpf: typeof cpf === "string" ? cpf.trim() : "",
+      tipo: typeof tipo === "string" ? tipo.trim() : "",
       status: "triagem",
       createdAt: new Date().toISOString()
     };
@@ -232,7 +258,10 @@ app.post("/atendimento", (req, res) => {
     db.pacientes.push(paciente);
     writeDB(db);
 
-    return res.status(201).json(paciente);
+    return res.status(201).json({
+      mensagem: "Paciente cadastrado com sucesso!",
+      paciente
+    });
   } catch (erro) {
     console.error("Erro no atendimento:", erro);
 
@@ -242,7 +271,10 @@ app.post("/atendimento", (req, res) => {
   }
 });
 
-// LISTAR PACIENTES
+// ========================================
+// ATENDIMENTO - LISTAR PACIENTES
+// ========================================
+
 app.get("/pacientes", (req, res) => {
   try {
     const db = readDB();
@@ -257,7 +289,7 @@ app.get("/pacientes", (req, res) => {
 });
 
 // ========================================
-// TRIAGEM
+// TRIAGEM - CADASTRAR
 // ========================================
 
 app.post("/triagem", (req, res) => {
@@ -303,7 +335,10 @@ app.post("/triagem", (req, res) => {
   }
 });
 
-// LISTAR TRIAGENS
+// ========================================
+// TRIAGEM - LISTAR
+// ========================================
+
 app.get("/triagens", (req, res) => {
   try {
     const db = readDB();
@@ -318,7 +353,7 @@ app.get("/triagens", (req, res) => {
 });
 
 // ========================================
-// MÍDIA INDOOR - TV
+// TV - CHAMAR PACIENTE
 // ========================================
 
 app.post("/tv/chamar", (req, res) => {
@@ -355,7 +390,10 @@ app.post("/tv/chamar", (req, res) => {
   }
 });
 
-// CONSULTAR CHAMADA E HISTÓRICO
+// ========================================
+// TV - CONSULTAR CHAMADA E HISTÓRICO
+// ========================================
+
 app.get("/tv/chamada", (req, res) => {
   try {
     const db = readDB();
@@ -393,7 +431,7 @@ app.get("/lista-medicacoes", (req, res) => {
 });
 
 // ========================================
-// CONSULTA MÉDICA
+// CONSULTA MÉDICA - REGISTRAR
 // ========================================
 
 app.post("/consulta", (req, res) => {
@@ -422,7 +460,10 @@ app.post("/consulta", (req, res) => {
   }
 });
 
-// LISTAR CONSULTAS/MEDICAÇÕES REGISTRADAS
+// ========================================
+// CONSULTA MÉDICA - LISTAR MEDICAÇÕES
+// ========================================
+
 app.get("/medicacoes", (req, res) => {
   try {
     const db = readDB();
@@ -444,8 +485,6 @@ app.post("/alta", (req, res) => {
   try {
     const dadosRecebidos = req.body || {};
 
-    // Aceita o campo "paciente" usado pelo formulário
-    // e também "nomePaciente", caso seja enviado assim.
     const nomePaciente =
       typeof dadosRecebidos.paciente === "string"
         ? dadosRecebidos.paciente.trim()
@@ -460,10 +499,6 @@ app.post("/alta", (req, res) => {
     }
 
     const db = readDB();
-
-    if (!Array.isArray(db.altas)) {
-      db.altas = [];
-    }
 
     const alta = {
       ...dadosRecebidos,
@@ -495,10 +530,7 @@ app.post("/alta", (req, res) => {
 app.get("/altas", (req, res) => {
   try {
     const db = readDB();
-
-    return res.json(
-      Array.isArray(db.altas) ? db.altas : []
-    );
+    return res.json(db.altas);
   } catch (erro) {
     console.error("Erro ao listar altas hospitalares:", erro);
 
@@ -509,7 +541,7 @@ app.get("/altas", (req, res) => {
 });
 
 // ========================================
-// ALTA HOSPITALAR - BUSCAR POR ID
+// ALTA HOSPITALAR - CONSULTAR POR ID
 // ========================================
 
 app.get("/alta/:id", (req, res) => {
@@ -538,7 +570,7 @@ app.get("/alta/:id", (req, res) => {
 });
 
 // ========================================
-// ROTA NÃO ENCONTRADA - SEM HTML DE ERRO
+// ROTA NÃO ENCONTRADA
 // ========================================
 
 app.use((req, res) => {
@@ -573,4 +605,5 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`NEXORA Health rodando na porta ${PORT}`);
+  console.log(`Teste da API: http://localhost:${PORT}/api/health`);
 });
