@@ -1,0 +1,1409 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA Health | Almoxarifado</title>
+
+<style>
+:root {
+  --navy: #102d54;
+  --navy2: #173e70;
+  --blue: #246bfd;
+  --cyan: #16b8c9;
+  --green: #13a875;
+  --red: #e05260;
+  --orange: #e99b32;
+  --bg: #f3f6fb;
+  --white: #ffffff;
+  --text: #26364c;
+  --muted: #8390a5;
+  --line: #e8edf5;
+  --shadow: 0 8px 30px rgba(27, 54, 93, .06);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #8bb7ff;
+  outline-offset: 2px;
+}
+
+.app { display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+
+.sidebar {
+  width: 255px;
+  background: linear-gradient(180deg, #102d54, #0b2040);
+  color: white;
+  padding: 25px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: width .25s;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 9px;
+  margin-bottom: 33px;
+}
+
+.brand-icon {
+  width: 46px;
+  height: 46px;
+  background: linear-gradient(135deg, #20d2d5, #2382ff);
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+  font-weight: 800;
+  box-shadow: 0 5px 18px #0bbdc64d;
+}
+
+.brand h2 { font-size: 17px; letter-spacing: .3px; }
+.brand p { font-size: 11px; color: #a9c5e9; margin-top: 5px; }
+
+.menu-label {
+  font-size: 10px;
+  color: #7899c5;
+  letter-spacing: 1.7px;
+  font-weight: 800;
+  padding: 0 13px;
+  margin: 20px 0 10px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav button {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: #bfd0e8;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 13px 14px;
+  border-radius: 11px;
+  text-align: left;
+  font-size: 13px;
+  transition: .2s;
+}
+
+.nav button:hover { background: #ffffff12; color: white; }
+
+.nav button.active {
+  background: linear-gradient(100deg, #286cf5, #367fff);
+  color: white;
+  box-shadow: 0 5px 15px #246bfd40;
+}
+
+.nav-icon {
+  width: 23px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.nav-count {
+  margin-left: auto;
+  background: #ffffff25;
+  border-radius: 20px;
+  padding: 3px 7px;
+  font-size: 10px;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding: 15px 10px 0;
+}
+
+.help-card {
+  padding: 16px;
+  background: #ffffff0d;
+  border: 1px solid #ffffff15;
+  border-radius: 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #c2d4ec;
+}
+
+.help-card strong { display: block; color: white; margin-bottom: 5px; }
+
+/* MAIN */
+
+.main { flex: 1; min-width: 0; }
+
+.topbar {
+  min-height: 83px;
+  background: white;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.top-left, .top-actions, .profile {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.top-title { font-size: 18px; font-weight: 800; color: var(--navy); }
+.breadcrumb { font-size: 11px; color: var(--muted); margin-top: 5px; }
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  position: relative;
+  font-size: 17px;
+}
+
+.icon-btn:hover { background: #f2f7ff; }
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  border: 2px solid white;
+  background: var(--red);
+  border-radius: 50%;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.profile { padding-left: 15px; border-left: 1px solid var(--line); }
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #d6e8ff, #b7d0ff);
+  color: #174da7;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+
+.profile strong { font-size: 12px; display: block; }
+.profile small { display: block; color: var(--muted); font-size: 10px; margin-top: 4px; }
+
+.content { padding: 28px 30px; max-width: 1700px; margin: auto; }
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--blue);
+  letter-spacing: 1.5px;
+  margin-bottom: 9px;
+}
+
+.page-heading h1 { font-size: 27px; color: var(--navy); letter-spacing: -.6px; }
+.page-heading p { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+.btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 750;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: .2s;
+}
+
+.btn:hover { transform: translateY(-1px); filter: brightness(.97); }
+.btn-primary { background: var(--blue); color: white; box-shadow: 0 5px 12px #246bfd25; }
+.btn-success { background: var(--green); color: white; }
+.btn-light { background: #eef3fa; color: #40536e; }
+.btn-danger { background: #fff0f1; color: #c73847; }
+.btn-small { padding: 8px 10px; font-size: 11px; }
+
+/* WELCOME BANNER */
+
+.hero {
+  border-radius: 20px;
+  padding: 27px 30px;
+  color: white;
+  background:
+    radial-gradient(circle at 85% 10%, #64e3e542, transparent 25%),
+    linear-gradient(115deg, #123d77, #246bfd 65%, #14b8c9);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 23px;
+  box-shadow: 0 12px 28px #1b5ed31e;
+}
+
+.hero h2 { font-size: 22px; margin-bottom: 10px; }
+.hero p { font-size: 12px; color: #e2edff; line-height: 1.8; max-width: 550px; }
+.hero-actions { display: flex; gap: 10px; margin-top: 19px; flex-wrap: wrap; }
+.hero .btn-primary { background: white; color: var(--blue); box-shadow: none; }
+.hero .btn-light { background: #ffffff20; color: white; }
+.hero-graphic { font-size: 83px; opacity: .85; padding: 0 20px; }
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 23px;
+}
+
+.stat {
+  background: white;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition: .2s;
+}
+
+.stat:hover { transform: translateY(-3px); box-shadow: 0 12px 25px #1b365d12; }
+
+.stat-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.stat-label { color: var(--muted); font-size: 11px; font-weight: 650; }
+.stat-icon { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; font-size: 20px; }
+.blue-bg { background: #eaf1ff; }
+.green-bg { background: #e2f8ed; }
+.orange-bg { background: #fff1dc; }
+.red-bg { background: #ffeaec; }
+.cyan-bg { background: #e0f9fb; }
+
+.stat-value { font-size: 28px; font-weight: 850; color: var(--navy); margin: 15px 0 6px; }
+.stat-note { color: var(--muted); font-size: 10px; }
+.stat-note strong { color: var(--green); }
+
+/* GENERAL CARDS */
+
+.grid-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(270px, .9fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+.panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.panel-heading h2 { font-size: 15px; color: var(--navy); }
+.panel-heading p { color: var(--muted); font-size: 11px; margin-top: 6px; }
+.text-link { border: 0; background: none; color: var(--blue); font-size: 11px; font-weight: 750; }
+
+/* CHART */
+
+.chart-legend { display: flex; gap: 15px; font-size: 10px; color: var(--muted); }
+.legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+
+.chart { display: flex; height: 180px; gap: 12px; padding-top: 14px; }
+.chart-y {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #9ba7b7;
+  padding-bottom: 23px;
+}
+
+.chart-bars {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  align-items: stretch;
+  border-bottom: 1px solid var(--line);
+  background: repeating-linear-gradient(to bottom, transparent 0 39px, #edf1f7 40px 41px);
+}
+
+.bar-group {
+  display: flex;
+  flex: 1;
+  align-items: end;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+  min-width: 0;
+}
+
+.bar {
+  width: min(22px, 38%);
+  min-height: 3px;
+  border-radius: 5px 5px 0 0;
+  transition: height .35s;
+}
+
+.bar-in { background: linear-gradient(180deg, #31d2bf, #11a990); }
+.bar-out { background: linear-gradient(180deg, #78a9ff, #286bfd); }
+
+.bar-label {
+  position: absolute;
+  bottom: -20px;
+  font-size: 9px;
+  color: #8794a7;
+}
+
+.chart-foot { font-size: 10px; color: var(--muted); margin-top: 20px; }
+
+/* STOCK ALERTS */
+
+.alert-item { display: flex; gap: 11px; padding: 13px 0; border-bottom: 1px solid #edf1f6; }
+.alert-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.alert-icon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-size: 18px; }
+.alert-item strong { display: block; font-size: 11px; }
+.alert-item p { font-size: 10px; color: var(--muted); margin-top: 5px; line-height: 1.5; }
+.alert-tag { display: inline-block; font-size: 9px; font-weight: 800; margin-top: 7px; padding: 4px 7px; border-radius: 6px; }
+.tag-red { color: #bc3340; background: #ffeaec; }
+.tag-orange { color: #a66a0b; background: #fff2d9; }
+.tag-blue { color: #245bc0; background: #e9f0ff; }
+
+/* TABLE */
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.searchbox { flex: 1; min-width: 190px; position: relative; }
+.searchbox input {
+  width: 100%; padding: 12px 14px 12px 38px;
+  border: 1px solid var(--line); border-radius: 10px; outline: none;
+  background: #fbfcfe; font-size: 12px;
+}
+.searchbox span { position: absolute; left: 13px; top: 11px; color: var(--muted); }
+.toolbar select {
+  border: 1px solid var(--line); border-radius: 10px; background: white;
+  padding: 11px; font-size: 11px; color: var(--text); max-width: 180px;
+}
+
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+th { background: #f7f9fd; color: #8290a4; font-size: 9px; letter-spacing: .7px; text-align: left; padding: 14px 12px; }
+td { padding: 14px 12px; border-bottom: 1px solid #edf1f6; font-size: 11px; }
+tbody tr:hover { background: #f8fbff; }
+.product-cell { display: flex; align-items: center; gap: 10px; }
+.product-emoji { width: 37px; height: 37px; border-radius: 11px; display: grid; place-items: center; background: #eef4ff; font-size: 18px; }
+.product-name { font-size: 11px; font-weight: 750; color: var(--navy); }
+.product-code { color: var(--muted); font-size: 9px; margin-top: 4px; }
+.pill { display: inline-block; padding: 6px 8px; border-radius: 20px; font-size: 9px; font-weight: 800; }
+.pill-ok { background: #e0f8eb; color: #148252; }
+.pill-low { background: #fff0d7; color: #a3680d; }
+.pill-out { background: #ffe5e7; color: #c03242; }
+.pill-exp { background: #f0e8ff; color: #7041b9; }
+.row-actions { display: flex; gap: 5px; }
+.row-btn { border: 1px solid var(--line); background: white; border-radius: 7px; padding: 7px 8px; font-size: 11px; }
+.row-btn:hover { background: #edf4ff; border-color: #bcd2ff; }
+.empty { text-align: center; padding: 35px; color: var(--muted); white-space: normal; }
+
+/* HISTORY */
+
+.history-item { display: flex; align-items: center; gap: 11px; padding: 13px 0; border-bottom: 1px solid #edf1f6; }
+.history-item:last-child { border-bottom: 0; }
+.history-icon { width: 39px; height: 39px; flex-shrink: 0; border-radius: 12px; display: grid; place-items: center; font-size: 17px; }
+.history-info { flex: 1; min-width: 0; }
+.history-info strong { display: block; font-size: 11px; }
+.history-info small { display: block; color: var(--muted); font-size: 9px; margin-top: 5px; }
+.history-amount { font-weight: 850; font-size: 11px; white-space: nowrap; }
+.plus { color: var(--green); }
+.minus { color: var(--red); }
+
+/* CATEGORY BARS */
+
+.category-item { margin: 18px 0; }
+.category-label { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 9px; }
+.category-label span:last-child { color: var(--muted); }
+.progress { height: 7px; border-radius: 20px; background: #edf1f7; overflow: hidden; }
+.progress span { height: 100%; display: block; border-radius: 20px; background: linear-gradient(90deg, #246bfd, #16b8c9); }
+
+/* PAGES */
+
+.view { display: none; }
+.view.active { display: block; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* MODALS */
+
+.modal {
+  position: fixed; inset: 0; background: #07172bb8; z-index: 50;
+  display: none; align-items: center; justify-content: center;
+  padding: 18px; overflow-y: auto; backdrop-filter: blur(4px);
+}
+.modal.open { display: flex; }
+.modal-box {
+  background: white; border-radius: 19px; width: 100%; max-width: 600px;
+  padding: 26px; box-shadow: 0 25px 80px #0003; margin: auto;
+}
+.modal-head { display: flex; justify-content: space-between; gap: 15px; align-items: center; margin-bottom: 22px; }
+.modal-head h2 { font-size: 19px; color: var(--navy); }
+.modal-head p { font-size: 11px; color: var(--muted); margin-top: 5px; }
+.close { border: 0; width: 35px; height: 35px; border-radius: 10px; background: #edf2f8; font-size: 20px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.field { margin-bottom: 14px; }
+.field.full { grid-column: 1 / -1; }
+.field label { display: block; font-size: 11px; font-weight: 750; margin-bottom: 7px; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: 12px; border: 1px solid #dfe6f0;
+  border-radius: 9px; background: white; outline: none; font-size: 12px;
+}
+.field textarea { min-height: 75px; resize: vertical; }
+.modal-footer { display: flex; justify-content: flex-end; gap: 9px; margin-top: 15px; flex-wrap: wrap; }
+
+.toast {
+  position: fixed; right: 25px; bottom: 25px; z-index: 100;
+  padding: 15px 19px; border-radius: 12px; background: #123c69; color: white;
+  box-shadow: 0 10px 35px #0002; font-size: 12px; max-width: 340px;
+  transform: translateY(20px); opacity: 0; pointer-events: none; transition: .25s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+footer { text-align: center; color: #98a4b5; font-size: 10px; padding: 18px 0 5px; }
+
+/* RESPONSIVO */
+
+@media (max-width: 1250px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-main { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 800px) {
+  .app { display: block; }
+  .sidebar { width: 100%; padding: 15px; }
+  .brand { margin-bottom: 16px; }
+  .menu-label { margin-top: 10px; }
+  .nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .nav button { justify-content: flex-start; padding: 11px 8px; gap: 7px; font-size: 10px; }
+  .nav-icon { font-size: 15px; width: 18px; }
+  .sidebar-bottom { display: none; }
+  .topbar { padding: 14px 18px; }
+  .content { padding: 20px 18px; }
+  .profile { padding-left: 0; border: 0; }
+}
+
+@media (max-width: 520px) {
+  .stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat { padding: 14px; }
+  .stat-value { font-size: 24px; }
+  .stat-label { font-size: 10px; }
+  .stat-icon { width: 34px; height: 34px; font-size: 16px; }
+  .topbar { align-items: flex-start; }
+  .top-title { font-size: 15px; }
+  .profile .profile-text { display: none; }
+  .top-actions { gap: 6px; }
+  .page-heading h1 { font-size: 22px; }
+  .hero { padding: 22px; }
+  .hero h2 { font-size: 19px; }
+  .hero-graphic { display: none; }
+  .panel { padding: 15px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .field.full { grid-column: auto; }
+  .modal-box { padding: 20px; }
+  .nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nav button { font-size: 11px; }
+}
+@media print {
+  .sidebar, .topbar, .hero-actions, .toolbar, .btn, .row-actions,
+  .icon-btn, .page-heading button { display: none !important; }
+  .app { display: block; }
+  .content { padding: 0; }
+  .view { display: none !important; }
+  .view.active { display: block !important; }
+  body { background: white; }
+  .panel, .stat { box-shadow: none; break-inside: avoid; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-icon">✚</div>
+    <div>
+      <h2>NEXORA Health</h2>
+      <p>Gestão hospitalar inteligente</p>
+    </div>
+  </div>
+
+  <div class="menu-label">PRINCIPAL</div>
+  <nav class="nav" id="nav">
+    <button class="active" data-view="dashboard"><span class="nav-icon">▦</span> Visão geral</button>
+    <button data-view="estoque"><span class="nav-icon">📦</span> Estoque <span class="nav-count" id="navProdutos">0</span></button>
+    <button data-view="movimentacoes"><span class="nav-icon">🔄</span> Movimentações</button>
+    <button data-view="validade"><span class="nav-icon">🗓️</span> Lotes e validade</button>
+    <button data-view="fornecedores"><span class="nav-icon">🚚</span> Fornecedores</button>
+    <button data-view="relatorios"><span class="nav-icon">📊</span> Relatórios</button>
+  </nav>
+
+  <div class="menu-label">OPERAÇÃO</div>
+  <nav class="nav">
+    <button id="navNovo"><span class="nav-icon">＋</span> Novo material</button>
+    <button id="navEntrada"><span class="nav-icon">📥</span> Registrar entrada</button>
+    <button id="navSaida"><span class="nav-icon">📤</span> Registrar saída</button>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="help-card">
+      <strong>🏥 Almoxarifado seguro</strong>
+      Organize materiais, acompanhe os níveis de estoque e reduza o risco de falta de suprimentos.
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <header class="topbar">
+    <div class="top-left">
+      <div>
+        <div class="top-title">Centro de controle</div>
+        <div class="breadcrumb">NEXORA Health / <span id="breadcrumb">Visão geral</span></div>
+      </div>
+    </div>
+
+    <div class="top-actions">
+      <button class="icon-btn" id="btnAlertas" title="Ver alertas" aria-label="Ver alertas">🔔<span class="notification-dot"></span></button>
+      <button class="icon-btn" id="btnImprimir" title="Imprimir relatório" aria-label="Imprimir">🖨️</button>
+      <div class="profile">
+        <div class="avatar">AL</div>
+        <div class="profile-text">
+          <strong>Administrador</strong>
+          <small>Almoxarifado</small>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- DASHBOARD -->
+    <section class="view active" id="view-dashboard">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">PAINEL DE CONTROLE</div>
+          <h1>Visão geral do almoxarifado</h1>
+          <p>Acompanhe os materiais, as movimentações e os alertas do hospital.</p>
+        </div>
+        <button class="btn btn-primary" id="btnAdicionar">＋ Cadastrar material</button>
+      </div>
+
+      <div class="hero">
+        <div>
+          <h2>Estoque organizado, hospital preparado. ✨</h2>
+          <p>Tenha mais controle dos suprimentos hospitalares, acompanhe entradas e saídas e identifique rapidamente o que precisa de reposição.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroEntrada">＋ Registrar entrada</button>
+            <button class="btn btn-light" id="heroEstoque">Ver estoque →</button>
+          </div>
+        </div>
+        <div class="hero-graphic">🏥</div>
+      </div>
+
+      <div class="stats">
+        <article class="stat">
+          <div class="stat-head"><span class="stat-label">Tipos de materiais</span><span class="stat-icon blue-bg">📦</span></div>
+          <div class="stat-value" id="statProdutos">0</div>
+          <div class="stat-note">Materiais cadastrados</div>
+        </article>
+        <article class="stat">
+          <div class="stat-head"><span class="stat-label">Unidades disponíveis</span><span class="stat-icon green-bg">✓</span></div>
+          <div class="stat-value" id="statUnidades">0</div>
+          <div class="stat-note">Soma das quantidades registradas</div>
+        </article>
+        <article class="stat">
+          <div class="stat-head"><span class="stat-label">Precisam de reposição</span><span class="stat-icon orange-bg">⚠️</span></div>
+          <div class="stat-value" id="statBaixo">0</div>
+          <div class="stat-note">Estoque baixo ou esgotado</div>
+        </article>
+        <article class="stat">
+          <div class="stat-head"><span class="stat-label">Próximos vencimentos</span><span class="stat-icon red-bg">🗓️</span></div>
+          <div class="stat-value" id="statValidade">0</div>
+          <div class="stat-note">Lotes vencidos ou próximos do vencimento</div>
+        </article>
+      </div>
+
+      <div class="grid-main">
+        <div>
+          <section class="panel">
+            <div class="panel-heading">
+              <div><h2>📈 Fluxo de movimentações</h2><p>Entradas e saídas nos últimos 7 dias</p></div>
+              <div class="chart-legend">
+                <span><i class="legend-dot" style="background:#11a990"></i>Entradas</span>
+                <span><i class="legend-dot" style="background:#286bfd"></i>Saídas</span>
+              </div>
+            </div>
+            <div class="chart">
+              <div class="chart-y"><span>100</span><span>75</span><span>50</span><span>25</span><span>0</span></div>
+              <div class="chart-bars" id="chartBars"></div>
+            </div>
+            <div class="chart-foot">O gráfico é atualizado conforme as movimentações registradas nesta sessão.</div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading">
+              <div><h2>📦 Materiais do estoque</h2><p>Resumo dos itens cadastrados</p></div>
+              <button class="text-link" data-go="estoque">Ver todos →</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>MATERIAL</th><th>QUANTIDADE</th><th>ESTOQUE MÍNIMO</th><th>SITUAÇÃO</th></tr></thead>
+                <tbody id="dashboardTabela"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+
+        <div>
+          <section class="panel">
+            <div class="panel-heading"><div><h2>🚨 Central de alertas</h2><p>Itens que merecem atenção</p></div><button class="text-link" data-go="estoque">Ver estoque</button></div>
+            <div id="alertList"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading"><div><h2>📊 Categorias</h2><p>Distribuição dos materiais por quantidade</p></div></div>
+            <div id="categoryChart"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- ESTOQUE -->
+    <section class="view" id="view-estoque">
+      <div class="page-heading">
+        <div><div class="eyebrow">GESTÃO DE MATERIAIS</div><h1>Controle de estoque</h1><p>Pesquise, cadastre e acompanhe todos os suprimentos.</p></div>
+        <button class="btn btn-primary" id="btnAdicionar2">＋ Novo material</button>
+      </div>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Inventário de materiais</h2><p id="textoInventario">Lista completa de materiais</p></div><button class="btn btn-light" id="exportarCSV">⇩ Exportar CSV</button></div>
+        <div class="toolbar">
+          <div class="searchbox"><span>⌕</span><input id="pesquisa" type="search" placeholder="Pesquisar por nome ou código..." aria-label="Pesquisar materiais"></div>
+          <select id="filtroCategoria" aria-label="Filtrar categoria"><option value="">Todas as categorias</option><option>Proteção</option><option>Descartáveis</option><option>Curativos</option><option>Equipamentos</option><option>Medicamentos</option><option>Higiene</option><option>Outros</option></select>
+          <select id="filtroStatus" aria-label="Filtrar situação"><option value="">Todas as situações</option><option value="ok">Normal</option><option value="baixo">Estoque baixo</option><option value="esgotado">Esgotado</option></select>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>CÓDIGO / MATERIAL</th><th>CATEGORIA</th><th>QUANTIDADE</th><th>MÍNIMO</th><th>LOCALIZAÇÃO</th><th>SITUAÇÃO</th><th>AÇÕES</th></tr></thead>
+          <tbody id="tabelaProdutos"></tbody>
+        </table></div>
+      </section>
+    </section>
+
+    <!-- MOVIMENTAÇÕES -->
+    <section class="view" id="view-movimentacoes">
+      <div class="page-heading"><div><div class="eyebrow">RASTREABILIDADE</div><h1>Movimentações</h1><p>Histórico de entradas, saídas e responsáveis.</p></div><button class="btn btn-primary" id="btnMovNova">＋ Nova movimentação</button></div>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Histórico de movimentações</h2><p>Registros realizados nesta sessão</p></div><button class="btn btn-light" id="exportarMov">⇩ Exportar histórico</button></div>
+        <div class="toolbar">
+          <div class="searchbox"><span>⌕</span><input id="pesquisaMov" type="search" placeholder="Pesquisar material ou responsável..." aria-label="Pesquisar movimentações"></div>
+          <select id="filtroTipoMov" aria-label="Filtrar tipo"><option value="">Todas as movimentações</option><option value="entrada">Entradas</option><option value="saida">Saídas</option></select>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>DATA</th><th>MATERIAL</th><th>TIPO</th><th>QUANTIDADE</th><th>RESPONSÁVEL</th><th>OBSERVAÇÃO</th></tr></thead><tbody id="tabelaMov"></tbody></table></div>
+      </section>
+    </section>
+
+    <!-- LOTES E VALIDADE -->
+    <section class="view" id="view-validade">
+      <div class="page-heading"><div><div class="eyebrow">SEGURANÇA DE ESTOQUE</div><h1>Lotes e validade</h1><p>Monitore datas de vencimento e lotes de materiais.</p></div><button class="btn btn-primary" id="btnNovoLote">＋ Registrar lote</button></div>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Controle de validade</h2><p>Cadastre lotes e acompanhe os vencimentos.</p></div></div>
+        <div class="toolbar"><div class="searchbox"><span>⌕</span><input id="pesquisaLote" type="search" placeholder="Pesquisar material ou lote..." aria-label="Pesquisar lotes"></div><select id="filtroValidade" aria-label="Filtrar vencimento"><option value="">Todos os vencimentos</option><option value="vencido">Vencidos</option><option value="proximo">Vencem em até 30 dias</option><option value="normal">Dentro da validade</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>MATERIAL</th><th>LOTE</th><th>QUANTIDADE</th><th>VALIDADE</th><th>SITUAÇÃO</th><th>AÇÕES</th></tr></thead><tbody id="tabelaLotes"></tbody></table></div>
+        <p style="color:var(--muted);font-size:10px;line-height:1.7;margin-top:15px">Importante: os alertas de validade dependem do cadastro correto dos lotes e das datas de vencimento.</p>
+      </section>
+    </section>
+
+    <!-- FORNECEDORES -->
+    <section class="view" id="view-fornecedores">
+      <div class="page-heading"><div><div class="eyebrow">CADEIA DE SUPRIMENTOS</div><h1>Fornecedores</h1><p>Organize contatos e informações dos fornecedores.</p></div><button class="btn btn-primary" id="btnNovoFornecedor">＋ Novo fornecedor</button></div>
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Cadastro de fornecedores</h2><p>Contatos comerciais e produtos fornecidos.</p></div></div>
+        <div class="toolbar"><div class="searchbox"><span>⌕</span><input id="pesquisaFornecedor" type="search" placeholder="Pesquisar fornecedor..." aria-label="Pesquisar fornecedores"></div></div>
+        <div class="table-wrap"><table><thead><tr><th>EMPRESA</th><th>CONTATO</th><th>E-MAIL</th><th>TELEFONE</th><th>AÇÕES</th></tr></thead><tbody id="tabelaFornecedores"></tbody></table></div>
+      </section>
+    </section>
+
+    <!-- RELATÓRIOS -->
+    <section class="view" id="view-relatorios">
+      <div class="page-heading"><div><div class="eyebrow">ANÁLISE E PLANEJAMENTO</div><h1>Relatórios</h1><p>Consulte os indicadores e exporte os registros do estoque.</p></div><button class="btn btn-primary" id="btnImprimirRelatorio">🖨️ Imprimir relatório</button></div>
+      <div class="stats">
+        <article class="stat"><div class="stat-label">Total de materiais</div><div class="stat-value" id="relProdutos">0</div><div class="stat-note">Itens cadastrados</div></article>
+        <article class="stat"><div class="stat-label">Unidades disponíveis</div><div class="stat-value" id="relUnidades">0</div><div class="stat-note">Quantidade registrada</div></article>
+        <article class="stat"><div class="stat-label">Entradas registradas</div><div class="stat-value" id="relEntradas">0</div><div class="stat-note">Soma das unidades recebidas</div></article>
+        <article class="stat"><div class="stat-label">Saídas registradas</div><div class="stat-value" id="relSaidas">0</div><div class="stat-note">Soma das unidades distribuídas</div></article>
+      </div>
+      <section class="panel"><div class="panel-heading"><div><h2>Resumo de estoque</h2><p>Visão consolidada dos materiais cadastrados.</p></div><button class="btn btn-light" id="exportarCSV2">⇩ Exportar CSV</button></div><div class="table-wrap"><table><thead><tr><th>CÓDIGO</th><th>MATERIAL</th><th>CATEGORIA</th><th>QUANTIDADE</th><th>SITUAÇÃO</th></tr></thead><tbody id="tabelaRelatorio"></tbody></table></div></section>
+    </section>
+
+    <footer>NEXORA Health © 2026 · Gestão hospitalar · Protótipo demonstrativo</footer>
+  </div>
+</main>
+</div>
+
+<!-- MODAL MATERIAL -->
+<div class="modal" id="modalProduto" role="dialog" aria-modal="true" aria-labelledby="tituloProduto">
+<div class="modal-box">
+  <div class="modal-head"><div><h2 id="tituloProduto">Cadastrar material</h2><p>Preencha os dados para registrar o item.</p></div><button class="close" data-close="modalProduto" aria-label="Fechar">×</button></div>
+  <form id="formProduto">
+    <input type="hidden" id="produtoId">
+    <div class="form-grid">
+      <div class="field full"><label for="nomeProduto">Nome do material *</label><input id="nomeProduto" required maxlength="100" placeholder="Ex.: Luvas de procedimento"></div>
+      <div class="field"><label for="categoriaProduto">Categoria *</label><select id="categoriaProduto" required><option value="">Selecione</option><option>Proteção</option><option>Descartáveis</option><option>Curativos</option><option>Equipamentos</option><option>Medicamentos</option><option>Higiene</option><option>Outros</option></select></div>
+      <div class="field"><label for="unidadeProduto">Unidade de medida *</label><select id="unidadeProduto" required><option value="un.">Unidade</option><option value="cx">Caixa</option><option value="pct">Pacote</option><option value="par">Par</option><option value="fr">Frasco</option><option value="L">Litro</option><option value="kg">Quilograma</option></select></div>
+      <div class="field"><label for="quantidadeProduto">Quantidade atual *</label><input type="number" id="quantidadeProduto" min="0" step="1" required value="0"></div>
+      <div class="field"><label for="minimoProduto">Estoque mínimo *</label><input type="number" id="minimoProduto" min="0" step="1" required value="10"></div>
+      <div class="field"><label for="localProduto">Localização</label><input id="localProduto" maxlength="80" placeholder="Ex.: Prateleira A1"></div>
+      <div class="field"><label for="fornecedorProduto">Fornecedor</label><select id="fornecedorProduto"><option value="">Não informado</option></select></div>
+      <div class="field full"><label for="descricaoProduto">Observações</label><textarea id="descricaoProduto" maxlength="300" placeholder="Informações adicionais sobre o material"></textarea></div>
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-light" data-close="modalProduto">Cancelar</button><button type="submit" class="btn btn-primary">Salvar material</button></div>
+  </form>
+</div>
+</div>
+
+<!-- MODAL MOVIMENTAÇÃO -->
+<div class="modal" id="modalMovimento" role="dialog" aria-modal="true" aria-labelledby="tituloMovimento">
+<div class="modal-box">
+  <div class="modal-head"><div><h2 id="tituloMovimento">Registrar movimentação</h2><p>Registre entradas e saídas com rastreabilidade.</p></div><button class="close" data-close="modalMovimento" aria-label="Fechar">×</button></div>
+  <form id="formMovimento">
+    <div class="form-grid">
+      <div class="field full"><label for="movProduto">Material *</label><select id="movProduto" required></select></div>
+      <div class="field"><label for="tipoMovimento">Operação *</label><select id="tipoMovimento"><option value="entrada">Entrada / Recebimento</option><option value="saida">Saída / Distribuição</option></select></div>
+      <div class="field"><label for="qtdMovimento">Quantidade *</label><input id="qtdMovimento" type="number" min="1" step="1" required value="1"></div>
+      <div class="field"><label for="responsavelMov">Responsável *</label><input id="responsavelMov" required maxlength="80" placeholder="Nome do responsável"></div>
+      <div class="field"><label for="setorMov">Setor de destino / origem</label><input id="setorMov" maxlength="80" placeholder="Ex.: Enfermagem"></div>
+      <div class="field"><label for="docMov">Nota fiscal / documento</label><input id="docMov" maxlength="80" placeholder="Número do documento"></div>
+      <div class="field"><label for="loteMov">Número do lote</label><input id="loteMov" maxlength="60" placeholder="Identificação do lote"></div>
+      <div class="field"><label for="validadeMov">Validade do lote</label><input id="validadeMov" type="date"></div>
+      <div class="field full"><label for="obsMov">Observação</label><textarea id="obsMov" maxlength="300" placeholder="Motivo ou detalhes da movimentação"></textarea></div>
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-light" data-close="modalMovimento">Cancelar</button><button type="submit" class="btn btn-primary">Confirmar movimentação</button></div>
+  </form>
+</div>
+</div>
+
+<!-- MODAL LOTE -->
+<div class="modal" id="modalLote" role="dialog" aria-modal="true" aria-labelledby="tituloLote">
+<div class="modal-box">
+  <div class="modal-head"><div><h2 id="tituloLote">Registrar lote</h2><p>Cadastre a identificação e a validade de um lote.</p></div><button class="close" data-close="modalLote" aria-label="Fechar">×</button></div>
+  <form id="formLote">
+    <div class="field"><label for="loteProduto">Material *</label><select id="loteProduto" required></select></div>
+    <div class="form-grid">
+      <div class="field"><label for="loteCodigo">Código do lote *</label><input id="loteCodigo" required maxlength="60"></div>
+      <div class="field"><label for="loteQuantidade">Quantidade do lote *</label><input id="loteQuantidade" type="number" min="1" step="1" required></div>
+      <div class="field"><label for="loteValidade">Data de validade *</label><input id="loteValidade" type="date" required></div>
+      <div class="field"><label for="loteObs">Observação</label><input id="loteObs" maxlength="150"></div>
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-light" data-close="modalLote">Cancelar</button><button class="btn btn-primary" type="submit">Salvar lote</button></div>
+  </form>
+</div>
+</div>
+
+<!-- MODAL FORNECEDOR -->
+<div class="modal" id="modalFornecedor" role="dialog" aria-modal="true" aria-labelledby="tituloFornecedor">
+<div class="modal-box">
+  <div class="modal-head"><div><h2 id="tituloFornecedor">Novo fornecedor</h2><p>Adicione os dados de contato comercial.</p></div><button class="close" data-close="modalFornecedor" aria-label="Fechar">×</button></div>
+  <form id="formFornecedor">
+    <input type="hidden" id="fornecedorId">
+    <div class="field"><label for="nomeFornecedor">Nome da empresa *</label><input id="nomeFornecedor" required maxlength="100"></div>
+    <div class="form-grid">
+      <div class="field"><label for="contatoFornecedor">Pessoa de contato</label><input id="contatoFornecedor" maxlength="80"></div>
+      <div class="field"><label for="telefoneFornecedor">Telefone</label><input id="telefoneFornecedor" maxlength="30" placeholder="(00) 00000-0000"></div>
+      <div class="field full"><label for="emailFornecedor">E-mail</label><input id="emailFornecedor" type="email" maxlength="120"></div>
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-light" data-close="modalFornecedor">Cancelar</button><button type="submit" class="btn btn-primary">Salvar fornecedor</button></div>
+  </form>
+</div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* PROTÓTIPO: dados iniciais de demonstração */
+const hoje = new Date();
+const dataISO = d => {
+  const x = new Date(d);
+  return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;
+};
+const dataFutura = dias => {
+  const d = new Date();
+  d.setDate(d.getDate() + dias);
+  return dataISO(d);
+};
+
+let produtos = [
+ {id:1,nome:"Luvas de procedimento",categoria:"Proteção",quantidade:850,minimo:200,unidade:"cx",local:"A-01",fornecedor:"",descricao:"",codigo:"MAT-001"},
+ {id:2,nome:"Máscaras cirúrgicas",categoria:"Proteção",quantidade:75,minimo:150,unidade:"cx",local:"A-02",fornecedor:"",descricao:"",codigo:"MAT-002"},
+ {id:3,nome:"Seringas 10 ml",categoria:"Descartáveis",quantidade:640,minimo:200,unidade:"un.",local:"B-01",fornecedor:"",descricao:"",codigo:"MAT-003"},
+ {id:4,nome:"Gaze estéril",categoria:"Curativos",quantidade:0,minimo:50,unidade:"pct",local:"B-02",fornecedor:"",descricao:"",codigo:"MAT-004"},
+ {id:5,nome:"Termômetro digital",categoria:"Equipamentos",quantidade:24,minimo:10,unidade:"un.",local:"C-01",fornecedor:"",descricao:"",codigo:"MAT-005"},
+ {id:6,nome:"Álcool 70%",categoria:"Higiene",quantidade:110,minimo:80,unidade:"fr",local:"C-02",fornecedor:"",descricao:"",codigo:"MAT-006"},
+ {id:7,nome:"Soro fisiológico",categoria:"Medicamentos",quantidade:160,minimo:100,unidade:"fr",local:"D-01",fornecedor:"",descricao:"",codigo:"MAT-007"}
+];
+
+let lotes = [
+ {id:1,produtoId:2,codigo:"LOTE-MAS-2026",quantidade:75,validade:dataFutura(20),obs:""},
+ {id:2,produtoId:3,codigo:"LOTE-SER-2027",quantidade:200,validade:dataFutura(180),obs:""},
+ {id:3,produtoId:7,codigo:"LOTE-SOR-2026",quantidade:80,validade:dataFutura(-5),obs:"Verificar lote vencido"}
+];
+
+let fornecedores = [];
+let movimentacoes = [];
+let proximoProduto = 8, proximoLote = 4, proximoFornecedor = 1;
+let toastTimer;
+
+const $ = id => document.getElementById(id);
+const escapeHTML = valor => String(valor ?? "").replace(/[&<>"']/g, c => ({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
+
+function toast(texto) {
+  const el = $("toast");
+  el.textContent = texto;
+  el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("show"), 3200);
+}
+
+function abrirModal(id) {
+  $(id).classList.add("open");
+}
+function fecharModal(id) {
+  $(id).classList.remove("open");
+}
+document.querySelectorAll("[data-close]").forEach(b => {
+  b.addEventListener("click", () => fecharModal(b.dataset.close));
+});
+document.querySelectorAll(".modal").forEach(m => {
+  m.addEventListener("click", e => {
+    if (e.target === m) fecharModal(m.id);
+  });
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") document.querySelectorAll(".modal.open").forEach(m => fecharModal(m.id));
+});
+
+function statusProduto(p) {
+  if (p.quantidade === 0) return "esgotado";
+  if (p.quantidade <= p.minimo) return "baixo";
+  return "ok";
+}
+function textoStatus(s) {
+  return ({ok:"Normal",baixo:"Estoque baixo",esgotado:"Esgotado"})[s];
+}
+function classeStatus(s) {
+  return ({ok:"pill-ok",baixo:"pill-low",esgotado:"pill-out"})[s];
+}
+function emojiCategoria(c) {
+  return ({Proteção:"🧤",Descartáveis:"💉",Curativos:"🩹",Equipamentos:"🩺",Medicamentos:"💊",Higiene:"🧴",Outros:"📦"})[c] || "📦";
+}
+function produtoPorId(id) { return produtos.find(p => p.id === Number(id)); }
+function formatarData(data) {
+  if (!data) return "—";
+  const d = new Date(data + "T12:00:00");
+  return Number.isNaN(d.getTime()) ? "—" : d.toLocaleDateString("pt-BR");
+}
+function situacaoLote(lote) {
+  const hojeISO = dataISO(new Date());
+  const limite = dataFutura(30);
+  if (lote.validade < hojeISO) return "vencido";
+  if (lote.validade <= limite) return "proximo";
+  return "normal";
+}
+function nomeSituacaoLote(s) {
+  return ({vencido:"Vencido",proximo:"Vence em até 30 dias",normal:"Dentro da validade"})[s];
+}
+function quantidadeTotal() {
+  return produtos.reduce((s,p) => s + p.quantidade, 0);
+}
+function unidadesMov(tipo) {
+  return movimentacoes.filter(m => m.tipo === tipo).reduce((s,m) => s + m.quantidade, 0);
+}
+
+/* NAVEGAÇÃO */
+function irPara(view) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  $("view-" + view).classList.add("active");
+  document.querySelectorAll("[data-view]").forEach(b => b.classList.toggle("active", b.dataset.view === view));
+  const nomes = {dashboard:"Visão geral",estoque:"Estoque",movimentacoes:"Movimentações",validade:"Lotes e validade",fornecedores:"Fornecedores",relatorios:"Relatórios"};
+  $("breadcrumb").textContent = nomes[view] || view;
+  window.scrollTo({top:0,behavior:"smooth"});
+  if (view === "relatorios") renderRelatorios();
+}
+$("nav").addEventListener("click", e => {
+  const b = e.target.closest("[data-view]");
+  if (b) irPara(b.dataset.view);
+});
+document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => irPara(b.dataset.go)));
+$("btnAdicionar").addEventListener("click", novoProduto);
+$("btnAdicionar2").addEventListener("click", novoProduto);
+$("navNovo").addEventListener("click", novoProduto);
+$("heroEstoque").addEventListener("click", () => irPara("estoque"));
+$("heroEntrada").addEventListener("click", () => abrirMovimentacao("entrada"));
+$("navEntrada").addEventListener("click", () => abrirMovimentacao("entrada"));
+$("navSaida").addEventListener("click", () => abrirMovimentacao("saida"));
+$("btnMovNova").addEventListener("click", () => abrirMovimentacao("entrada"));
+$("btnAlertas").addEventListener("click", () => {
+  irPara("dashboard");
+  $("alertList").scrollIntoView({behavior:"smooth",block:"center"});
+});
+$("btnImprimir").addEventListener("click", () => window.print());
+$("btnImprimirRelatorio").addEventListener("click", () => window.print());
+
+/* MATERIAL */
+function novoProduto() {
+  $("formProduto").reset();
+  $("produtoId").value = "";
+  $("tituloProduto").textContent = "Cadastrar material";
+  $("quantidadeProduto").value = 0;
+  $("minimoProduto").value = 10;
+  atualizarOpcoes();
+  abrirModal("modalProduto");
+  $("nomeProduto").focus();
+}
+function editarProduto(id) {
+  const p = produtoPorId(id);
+  if (!p) return;
+  $("formProduto").reset();
+  $("produtoId").value = p.id;
+  $("tituloProduto").textContent = "Editar material";
+  $("nomeProduto").value = p.nome;
+  $("categoriaProduto").value = p.categoria;
+  $("unidadeProduto").value = p.unidade;
+  $("quantidadeProduto").value = p.quantidade;
+  $("minimoProduto").value = p.minimo;
+  $("localProduto").value = p.local || "";
+  $("fornecedorProduto").value = p.fornecedor || "";
+  $("descricaoProduto").value = p.descricao || "";
+  atualizarOpcoes();
+  $("fornecedorProduto").value = p.fornecedor || "";
+  abrirModal("modalProduto");
+}
+
+$("formProduto").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = Number($("produtoId").value);
+  const nome = $("nomeProduto").value.trim();
+  const categoria = $("categoriaProduto").value;
+  const quantidade = Number($("quantidadeProduto").value);
+  const minimo = Number($("minimoProduto").value);
+  if (!nome || !categoria || !Number.isSafeInteger(quantidade) || quantidade < 0 || !Number.isSafeInteger(minimo) || minimo < 0) {
+    toast("Confira os campos e as quantidades.");
+    return;
+  }
+  if (produtos.some(p => p.nome.toLocaleLowerCase("pt-BR") === nome.toLocaleLowerCase("pt-BR") && p.id !== id)) {
+    toast("Já existe um material com esse nome.");
+    return;
+  }
+  const existente = id ? produtoPorId(id) : null;
+  if (existente && existente.quantidade !== quantidade) {
+    toast("Use Entrada/Saída para alterar a quantidade e manter o histórico.");
+    return;
+  }
+  const dados = {
+    nome,categoria,quantidade,minimo,
+    unidade:$("unidadeProduto").value,
+    local:$("localProduto").value.trim(),
+    fornecedor:$("fornecedorProduto").value,
+    descricao:$("descricaoProduto").value.trim()
+  };
+  if (existente) {
+    Object.assign(existente,dados);
+    toast("Material atualizado com sucesso.");
+  } else {
+    const novoId = proximoProduto++;
+    produtos.push({...dados,id:novoId,codigo:"MAT-"+String(novoId).padStart(3,"0")});
+    toast("Material cadastrado com sucesso.");
+  }
+  fecharModal("modalProduto");
+  renderTudo();
+});
+
+/* MOVIMENTAÇÕES */
+function atualizarOpcoes() {
+  const atual = $("movProduto").value;
+  const opcoes = produtos.map(p => `<option value="${p.id}">${escapeHTML(p.codigo)} — ${escapeHTML(p.nome)} (${p.quantidade} ${escapeHTML(p.unidade)})</option>`).join("");
+  $("movProduto").innerHTML = opcoes || '<option value="">Cadastre um material primeiro</option>';
+  if (produtos.some(p => String(p.id) === atual)) $("movProduto").value = atual;
+
+  const fornAtual = $("fornecedorProduto").value;
+  $("fornecedorProduto").innerHTML = '<option value="">Não informado</option>' + fornecedores.map(f => `<option value="${f.id}">${escapeHTML(f.nome)}</option>`).join("");
+  if (fornecedores.some(f => String(f.id) === fornAtual)) $("fornecedorProduto").value = fornAtual;
+
+  $("loteProduto").innerHTML = produtos.map(p => `<option value="${p.id}">${escapeHTML(p.codigo)} — ${escapeHTML(p.nome)}</option>`).join("");
+}
+function abrirMovimentacao(tipo) {
+  if (!produtos.length) {
+    toast("Cadastre um material antes de registrar movimentações.");
+    novoProduto();
+    return;
+  }
+  $("formMovimento").reset();
+  atualizarOpcoes();
+  $("tipoMovimento").value = tipo;
+  $("tituloMovimento").textContent = tipo === "entrada" ? "Registrar entrada" : "Registrar saída";
+  $("qtdMovimento").value = 1;
+  abrirModal("modalMovimento");
+}
+$("tipoMovimento").addEventListener("change", () => {
+  $("tituloMovimento").textContent = $("tipoMovimento").value === "entrada" ? "Registrar entrada" : "Registrar saída";
+});
+
+$("formMovimento").addEventListener("submit", e => {
+  e.preventDefault();
+  const p = produtoPorId($("movProduto").value);
+  const tipo = $("tipoMovimento").value;
+  const quantidade = Number($("qtdMovimento").value);
+  const responsavel = $("responsavelMov").value.trim();
+  if (!p || !Number.isSafeInteger(quantidade) || quantidade <= 0 || !responsavel) {
+    toast("Confira os dados da movimentação.");
+    return;
+  }
+  if (tipo === "saida" && quantidade > p.quantidade) {
+    toast("Estoque insuficiente para esta saída.");
+    return;
+  }
+  if (tipo === "entrada" && p.quantidade + quantidade > Number.MAX_SAFE_INTEGER) {
+    toast("Quantidade acima do limite permitido.");
+    return;
+  }
+  const loteCodigo = $("loteMov").value.trim();
+  const validade = $("validadeMov").value;
+  if (validade && !loteCodigo) {
+    toast("Informe o código do lote quando registrar a validade.");
+    return;
+  }
+  p.quantidade += tipo === "entrada" ? quantidade : -quantidade;
+  movimentacoes.unshift({
+    id:Date.now()+Math.random(),
+    produtoId:p.id,nome:p.nome,codigo:p.codigo,tipo,quantidade,
+    responsavel,setor:$("setorMov").value.trim(),
+    documento:$("docMov").value.trim(),
+    lote:loteCodigo,validade,obs:$("obsMov").value.trim(),
+    data:new Date().toISOString()
+  });
+
+  if (tipo === "entrada" && loteCodigo && validade) {
+    const existente = lotes.find(l => l.produtoId === p.id && l.codigo === loteCodigo && l.validade === validade);
+    if (existente) existente.quantidade += quantidade;
+    else lotes.push({id:proximoLote++,produtoId:p.id,codigo:loteCodigo,quantidade,validade,obs:"Entrada registrada"});
+  }
+  fecharModal("modalMovimento");
+  renderTudo();
+  toast((tipo === "entrada" ? "Entrada" : "Saída") + " registrada com sucesso.");
+});
+
+/* LOTES */
+$("btnNovoLote").addEventListener("click", () => {
+  if (!produtos.length) { toast("Cadastre um material primeiro."); return; }
+  $("formLote").reset();
+  atualizarOpcoes();
+  abrirModal("modalLote");
+});
+$("formLote").addEventListener("submit", e => {
+  e.preventDefault();
+  const produtoId = Number($("loteProduto").value);
+  const codigo = $("loteCodigo").value.trim();
+  const quantidade = Number($("loteQuantidade").value);
+  const validade = $("loteValidade").value;
+  if (!produtoPorId(produtoId) || !codigo || !Number.isSafeInteger(quantidade) || quantidade <= 0 || !validade) {
+    toast("Preencha corretamente os dados do lote.");
+    return;
+  }
+  if (lotes.some(l => l.produtoId === produtoId && l.codigo.toLowerCase() === codigo.toLowerCase())) {
+    toast("Esse código de lote já está cadastrado para o material.");
+    return;
+  }
+  lotes.push({id:proximoLote++,produtoId,codigo,quantidade,validade,obs:$("loteObs").value.trim()});
+  fecharModal("modalLote");
+  renderTudo();
+  toast("Lote cadastrado com sucesso.");
+});
+function removerLote(id) {
+  if (!confirm("Deseja remover este registro de lote? Esta ação não altera o estoque geral.")) return;
+  lotes = lotes.filter(l => l.id !== id);
+  renderTudo();
+  toast("Registro de lote removido.");
+}
+
+/* FORNECEDORES */
+$("btnNovoFornecedor").addEventListener("click", () => {
+  $("formFornecedor").reset();
+  $("fornecedorId").value = "";
+  $("tituloFornecedor").textContent = "Novo fornecedor";
+  abrirModal("modalFornecedor");
+});
+$("formFornecedor").addEventListener("submit", e => {
+  e.preventDefault();
+  const id = Number($("fornecedorId").value);
+  const nome = $("nomeFornecedor").value.trim();
+  const email = $("emailFornecedor").value.trim();
+  if (!nome) return;
+  const dados = {nome,email,contato:$("contatoFornecedor").value.trim(),telefone:$("telefoneFornecedor").value.trim()};
+  if (id) {
+    const f = fornecedores.find(x => x.id === id);
+    if (f) Object.assign(f,dados);
+    toast("Fornecedor atualizado.");
+  } else {
+    fornecedores.push({...dados,id:proximoFornecedor++});
+    toast("Fornecedor cadastrado.");
+  }
+  fecharModal("modalFornecedor");
+  renderTudo();
+});
+function editarFornecedor(id) {
+  const f = fornecedores.find(x => x.id === id);
+  if (!f) return;
+  $("formFornecedor").reset();
+  $("fornecedorId").value = f.id;
+  $("tituloFornecedor").textContent = "Editar fornecedor";
+  $("nomeFornecedor").value = f.nome;
+  $("contatoFornecedor").value = f.contato;
+  $("telefoneFornecedor").value = f.telefone;
+  $("emailFornecedor").value = f.email;
+  abrirModal("modalFornecedor");
+}
+function removerFornecedor(id) {
+  if (!confirm("Remover este fornecedor? Os materiais manterão o registro atual.")) return;
+  fornecedores = fornecedores.filter(f => f.id !== id);
+  produtos.forEach(p => { if (p.fornecedor === String(id)) p.fornecedor = ""; });
+  renderTudo();
+  toast("Fornecedor removido.");
+}
+
+/* TABELA DE ESTOQUE */
+function renderEstoque() {
+  const q = $("pesquisa").value.trim().toLocaleLowerCase("pt-BR");
+  const cat = $("filtroCategoria").value;
+  const st = $("filtroStatus").value;
+  const lista = produtos.filter(p =>
+    (p.nome + " " + p.codigo).toLocaleLowerCase("pt-BR").includes(q) &&
+    (!cat || p.categoria === cat) &&
+    (!st || statusProduto(p) === st)
+  );
+  $("textoInventario").textContent = `${lista.length} material(is) encontrado(s)`;
+  $("tabelaProdutos").innerHTML = lista.length ? lista.map(p => {
+    const s = statusProduto(p);
+    return `<tr>
+      <td><div class="product-cell"><div class="product-emoji">${emojiCategoria(p.categoria)}</div><div><div class="product-name">${escapeHTML(p.nome)}</div><div class="product-code">${escapeHTML(p.codigo)}</div></div></div></td>
+      <td>${escapeHTML(p.categoria)}</td>
+      <td><strong>${p.quantidade.toLocaleString("pt-BR")}</strong> ${escapeHTML(p.unidade)}</td>
+      <td>${p.minimo.toLocaleString("pt-BR")} ${escapeHTML(p.unidade)}</td>
+      <td>${escapeHTML(p.local || "Não definida")}</td>
+      <td><span class="pill ${classeStatus(s)}">${textoStatus(s)}</span></td>
+      <td><div class="row-actions"><button class="row-btn" data-action="mov" data-id="${p.id}" title="Entrada ou saída">↕</button><button class="row-btn" data-action="edit" data-id="${p.id}" title="Editar material">✎</button></div></td>
+    </tr>`;
+  }).join("") : '<tr><td colspan="7" class="empty">Nenhum material encontrado.</td></tr>';
+}
+$("tabelaProdutos").addEventListener("click", e => {
+  const b = e.target.closest("[data-action]");
+  if (!b) return;
+  if (b.dataset.action === "edit") editarProduto(Number(b.dataset.id));
+  if (b.dataset.action === "mov") abrirMovimentacao("entrada");
+  if (b.dataset.action === "mov") $("movProduto").value = b.dataset.id;
+});
+["pesquisa","filtroCategoria","filtroStatus"].forEach(id => $(id).addEventListener(id === "pesquisa" ? "input" : "change",renderEstoque));
+
+/* DASHBOARD */
+function renderDashboard() {
+  $("statProdutos").textContent = produtos.length;
+  $("statUnidades").textContent = quantidadeTotal().toLocaleString("pt-BR");
+  $("statBaixo").textContent = produtos.filter(p => statusProduto(p) !== "ok").length;
+  $("statValidade").textContent = lotes.filter(l => situacaoLote(l) !== "normal").length;
+  $("navProdutos").textContent = produtos.length;
+
+  $("dashboardTabela").innerHTML = produtos.slice(0,5).map(p => {
+    const s = statusProduto(p);
+    return `<tr><td><div class="product-cell"><div class="product-emoji">${emojiCategoria(p.categoria)}</div><div><div class="product-name">${escapeHTML(p.nome)}</div><div class="product-code">${escapeHTML(p.codigo)}</div></div></div></td><td>${p.quantidade} ${escapeHTML(p.unidade)}</td><td>${p.minimo} ${escapeHTML(p.unidade)}</td><td><span class="pill ${classeStatus(s)}">${textoStatus(s)}</span></td></tr>`;
+  }).join("") || '<tr><td colspan="4" class="empty">Cadastre materiais para visualizar o resumo.</td></tr>';
+
+  const alertas = [];
+  produtos.filter(p => statusProduto(p) !== "ok").forEach(p => {
+    alertas.push({tipo:p.quantidade===0?"red":"orange",icone:p.quantidade===0?"⛔":"📦",titulo:p.nome,descricao:p.quantidade===0?"Material esgotado.":"Restam "+p.quantidade+" "+p.unidade+"; mínimo "+p.minimo+".",tag:p.quantidade===0?"Esgotado":"Repor estoque"});
+  });
+  lotes.filter(l => situacaoLote(l) !== "normal").forEach(l => {
+    const p = produtoPorId(l.produtoId);
+    alertas.push({tipo:"red",icone:"🗓️",titulo:p?p.nome:"Material removido",descricao:"Lote "+l.codigo+" · validade "+formatarData(l.validade),tag:nomeSituacaoLote(situacaoLote(l))});
+  });
+  $("alertList").innerHTML = alertas.length ? alertas.slice(0,7).map(a => `<div class="alert-item"><div class="alert-icon ${a.tipo==="red"?"red-bg":"orange-bg"}">${a.icone}</div><div><strong>${escapeHTML(a.titulo)}</strong><p>${escapeHTML(a.descricao)}</p><span class="alert-tag ${a.tipo==="red"?"tag-red":"tag-orange"}">${escapeHTML(a.tag)}</span></div></div>`).join("") : '<div class="empty">Tudo certo! Nenhum alerta registrado.</div>';
+
+  const categorias = {};
+  produtos.forEach(p => categorias[p.categoria] = (categorias[p.categoria] || 0) + p.quantidade);
+  const max = Math.max(1,...Object.values(categorias));
+  $("categoryChart").innerHTML = Object.entries(categorias).sort((a,b)=>b[1]-a[1]).map(([c,n]) => `<div class="category-item"><div class="category-label"><span>${emojiCategoria(c)} ${escapeHTML(c)}</span><span>${n.toLocaleString("pt-BR")} un.</span></div><div class="progress"><span style="width:${n/max*100}%"></span></div></div>`).join("") || '<div class="empty">Sem dados.</div>';
+
+  renderGrafico();
+}
+function renderGrafico() {
+  const dias = [];
+  for (let i=6;i>=0;i--) {
+    const d = new Date();
+    d.setDate(d.getDate()-i);
+    dias.push({iso:dataISO(d),label:d.toLocaleDateString("pt-BR",{weekday:"short"}).replace(".",""),entrada:0,saida:0});
+  }
+  movimentacoes.forEach(m => {
+    const dia = dias.find(d => d.iso === dataISO(m.data));
+    if (dia) dia[m.tipo] += m.quantidade;
+  });
+  const max = Math.max(10,...dias.flatMap(d=>[d.entrada,d.saida]));
+  $("chartBars").innerHTML = dias.map(d => `<div class="bar-group"><div class="bar bar-in" title="Entradas: ${d.entrada}" style="height:${Math.max(2,d.entrada/max*100)}%"></div><div class="bar bar-out" title="Saídas: ${d.saida}" style="height:${Math.max(2,d.saida/max*100)}%"></div><span class="bar-label">${escapeHTML(d.label)}</span></div>`).join("");
+}
+
+/* HISTÓRICO */
+function renderMovimentacoes() {
+  const q = $("pesquisaMov").value.trim().toLocaleLowerCase("pt-BR");
+  const tipo = $("filtroTipoMov").value;
+  const lista = movimentacoes.filter(m => (m.nome+" "+m.responsavel+" "+m.codigo).toLocaleLowerCase("pt-BR").includes(q) && (!tipo || m.tipo===tipo));
+  $("tabelaMov").innerHTML = lista.length ? lista.map(m => `<tr>
+    <td>${new Date(m.data).toLocaleString("pt-BR")}</td>
+    <td><strong>${escapeHTML(m.nome)}</strong><div class="product-code">${escapeHTML(m.codigo)}</div></td>
+    <td><span class="pill ${m.tipo==="entrada"?"pill-ok":"pill-low"}">${m.tipo==="entrada"?"Entrada":"Saída"}</span></td>
+    <td><strong class="${m.tipo==="entrada"?"plus":"minus"}">${m.tipo==="entrada"?"+":"−"}${m.quantidade}</strong></td>
+    <td>${escapeHTML(m.responsavel)}</td>
+    <td>${escapeHTML([m.setor,m.documento,m.lote,m.obs].filter(Boolean).join(" · ") || "—")}</td>
+  </tr>`).join("") : '<tr><td colspan="6" class="empty">Nenhuma movimentação encontrada.</td></tr>';
+
+  const recentes = movimentacoes.slice(0,5);
+  // A seção inicial usa o mesmo histórico de forma resumida no painel.
+}
+$("pesquisaMov").addEventListener("input",renderMovimentacoes);
+$("filtroTipoMov").addEventListener("change",renderMovimentacoes);
+
+/* VALIDADE */
+function renderLotes() {
+  const q = $("pesquisaLote").value.trim().toLocaleLowerCase("pt-BR");
+  const f = $("filtroValidade").value;
+  const lista = lotes.filter(l => {
+    const p = produtoPorId(l.produtoId);
+    const texto = ((p?.nome||"") + " " + l.codigo).toLocaleLowerCase("pt-BR");
+    return texto.includes(q) && (!f || situacaoLote(l) === f);
+  });
+  $("tabelaLotes").innerHTML = lista.length ? lista.map(l => {
+    const p = produtoPorId(l.produtoId);
+    const s = situacaoLote(l);
+    return `<tr><td>${escapeHTML(p?.nome || "Material removido")}</td><td>${escapeHTML(l.codigo)}</td><td>${l.quantidade}</td><td>${formatarData(l.validade)}</td><td><span class="pill ${s==="normal"?"pill-ok":s==="proximo"?"pill-low":"pill-out"}">${nomeSituacaoLote(s)}</span></td><td><button class="row-btn" data-remover-lote="${l.id}">Remover</button></td></tr>`;
+  }).join("") : '<tr><td colspan="6" class="empty">Nenhum lote encontrado.</td></tr>';
+}
+$("pesquisaLote").addEventListener("input",renderLotes);
+$("filtroValidade").addEventListener("change",renderLotes);
+$("tabelaLotes").addEventListener("click",e=>{
+  const b=e.target.closest("[data-remover-lote]");
+  if(b) removerLote(Number(b.dataset.removerLote));
+});
+
+/* FORNECEDORES */
+function renderFornecedores() {
+  const q = $("pesquisaFornecedor").value.trim().toLocaleLowerCase("pt-BR");
+  const lista = fornecedores.filter(f => (f.nome+" "+f.contato+" "+f.email).toLocaleLowerCase("pt-BR").includes(q));
+  $("tabelaFornecedores").innerHTML = lista.length ? lista.map(f => `<tr><td><strong>${escapeHTML(f.nome)}</strong></td><td>${escapeHTML(f.contato||"—")}</td><td>${escapeHTML(f.email||"—")}</td><td>${escapeHTML(f.telefone||"—")}</td><td><div class="row-actions"><button class="row-btn" data-edit-forn="${f.id}">Editar</button><button class="row-btn" data-del-forn="${f.id}">Excluir</button></div></td></tr>`).join("") : '<tr><td colspan="5" class="empty">Nenhum fornecedor cadastrado.</td></tr>';
+}
+$("pesquisaFornecedor").addEventListener("input",renderFornecedores);
+$("tabelaFornecedores").addEventListener("click",e=>{
+  const edit=e.target.closest("[data-edit-forn]");
+  const del=e.target.closest("[data-del-forn]");
+  if(edit) editarFornecedor(Number(edit.dataset.editForn));
+  if(del) removerFornecedor(Number(del.dataset.delForn));
+});
+
+/* RELATÓRIOS */
+function renderRelatorios() {
+  $("relProdutos").textContent = produtos.length;
+  $("relUnidades").textContent = quantidadeTotal().toLocaleString("pt-BR");
+  $("relEntradas").textContent = unidadesMov("entrada").toLocaleString("pt-BR");
+  $("relSaidas").textContent = unidadesMov("saida").toLocaleString("pt-BR");
+  $("tabelaRelatorio").innerHTML = produtos.map(p => {
+    const s = statusProduto(p);
+    return `<tr><td>${escapeHTML(p.codigo)}</td><td>${escapeHTML(p.nome)}</td><td>${escapeHTML(p.categoria)}</td><td>${p.quantidade} ${escapeHTML(p.unidade)}</td><td><span class="pill ${classeStatus(s)}">${textoStatus(s)}</span></td></tr>`;
+  }).join("") || '<tr><td colspan="5" class="empty">Sem materiais cadastrados.</td></tr>';
+}
+
+/* EXPORTAÇÃO CSV */
+function baixarCSV(nome, linhas) {
+  const csv = "\uFEFF" + linhas.map(l => l.map(v => `"${String(v ?? "").replace(/"/g,'""')}"`).join(";")).join("\r\n");
+  const blob = new Blob([csv],{type:"text/csv;charset=utf-8;"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = nome;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+function exportarProdutos() {
+  baixarCSV("relatorio_estoque.csv",[
+    ["Código","Material","Categoria","Quantidade","Unidade","Mínimo","Localização","Situação"],
+    ...produtos.map(p=>[p.codigo,p.nome,p.categoria,p.quantidade,p.unidade,p.minimo,p.local,textoStatus(statusProduto(p))])
+  ]);
+}
+function exportarMovimentacoes() {
+  baixarCSV("historico_movimentacoes.csv",[
+    ["Data","Código","Material","Tipo","Quantidade","Responsável","Setor","Documento","Lote","Validade","Observação"],
+    ...movimentacoes.map(m=>[new Date(m.data).toLocaleString("pt-BR"),m.codigo,m.nome,m.tipo,m.quantidade,m.responsavel,m.setor,m.documento,m.lote,m.validade,m.obs])
+  ]);
+}
+$("exportarCSV").addEventListener("click",exportarProdutos);
+$("exportarCSV2").addEventListener("click",exportarProdutos);
+$("exportarMov").addEventListener("click",exportarMovimentacoes);
+
+/* ATUALIZAÇÃO GERAL */
+function renderTudo() {
+  atualizarOpcoes();
+  renderDashboard();
+  renderEstoque();
+  renderMovimentacoes();
+  renderLotes();
+  renderFornecedores();
+  renderRelatorios();
+}
+
+renderTudo();
+</script>
+</body>
+</html>
