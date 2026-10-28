@@ -1013,7 +1013,6 @@
         border: 1px solid #bbb;
         box-shadow: none;
         padding: 14px;
-        break-inside: avoid;
       }
 
       .paciente-banner::before,
@@ -1107,11 +1106,6 @@
       <p class="sidebar-label">Navegação</p>
 
       <nav aria-label="Navegação da alta hospitalar">
-        <a class="nav-link" href="medico.html">
-          <span class="nav-icone">⌂</span>
-          Painel Médico
-        </a>
-
         <a class="nav-link ativo" href="#inicio">
           <span class="nav-icone">✓</span>
           Alta Hospitalar
@@ -1152,7 +1146,7 @@
     <div class="conteudo" id="inicio">
 
       <div class="breadcrumb">
-        NEXORA Health &nbsp;›&nbsp; Painel Médico &nbsp;›&nbsp;
+        NEXORA Health &nbsp;›&nbsp;
         <span>Alta Hospitalar</span>
       </div>
 
@@ -1162,9 +1156,8 @@
           <p>Organize os dados, registre as orientações e prepare o documento de alta.</p>
         </div>
 
-        <!-- ALTERAÇÃO: botão para voltar à página anterior -->
         <button type="button" class="btn-voltar" onclick="voltarPagina()">
-          <span>←</span> Voltar
+          <span aria-hidden="true">←</span> Voltar
         </button>
       </section>
 
@@ -1172,9 +1165,9 @@
         <div class="avatar" id="avatarPaciente">?</div>
 
         <div class="paciente-banner-info">
-          <div class="etiqueta-superior">Paciente selecionado pelo médico</div>
+          <div class="etiqueta-superior">Identificação do paciente</div>
           <h3 id="nomePacienteTopo">Nenhum paciente selecionado</h3>
-          <p id="infoPacienteTopo">Selecione um paciente no Painel Médico.</p>
+          <p id="infoPacienteTopo">Preencha ou confira os dados do paciente.</p>
         </div>
 
         <div class="banner-badge">✓ Registro de alta</div>
@@ -1206,19 +1199,22 @@
         <div class="grid">
           <div class="campo">
             <label for="nomePaciente">Nome completo *</label>
-            <input type="text" id="nomePaciente" placeholder="Nome completo do paciente"
+            <input type="text" id="nomePaciente"
+              placeholder="Nome completo do paciente"
               autocomplete="name" oninput="atualizarPaciente()">
           </div>
 
           <div class="campo">
             <label for="prontuario">Número do prontuário</label>
-            <input type="text" id="prontuario" placeholder="Ex.: NH-2026-00125"
+            <input type="text" id="prontuario"
+              placeholder="Ex.: NH-2026-00125"
               oninput="atualizarPaciente()">
           </div>
 
           <div class="campo">
             <label for="documento">Documento</label>
-            <input type="text" id="documento" placeholder="CPF ou outro documento"
+            <input type="text" id="documento"
+              placeholder="CPF ou outro documento"
               oninput="atualizarPaciente()">
           </div>
 
@@ -1253,7 +1249,8 @@
 
           <div class="campo">
             <label for="profissional">Profissional responsável</label>
-            <input type="text" id="profissional" placeholder="Nome do profissional">
+            <input type="text" id="profissional"
+              placeholder="Nome do profissional">
           </div>
         </div>
 
@@ -1272,8 +1269,8 @@
             </div>
 
             <div class="alta-option">
-              <input type="radio" name="tipoAlta" id="altaAdministrativa"
-                value="Alta administrativa">
+              <input type="radio" name="tipoAlta"
+                id="altaAdministrativa" value="Alta administrativa">
               <label for="altaAdministrativa">
                 <div class="opcao-icone">▤</div>
                 <strong>Alta administrativa</strong>
@@ -1282,8 +1279,8 @@
             </div>
 
             <div class="alta-option">
-              <input type="radio" name="tipoAlta" id="altaTransferencia"
-                value="Transferência">
+              <input type="radio" name="tipoAlta"
+                id="altaTransferencia" value="Transferência">
               <label for="altaTransferencia">
                 <div class="opcao-icone">➜</div>
                 <strong>Transferência</strong>
@@ -1333,19 +1330,21 @@
 
         <div class="grid">
           <div class="campo full">
-            <label for="orientacoes">Orientações e cuidados</label>
-            <textarea id="orientacoes"
+            <label for="orientacoesTexto">Orientações e cuidados</label>
+            <textarea id="orientacoesTexto"
               placeholder="Registre as orientações fornecidas pela equipe responsável..."></textarea>
           </div>
 
           <div class="campo">
             <label for="retorno">Retorno / acompanhamento</label>
-            <input type="text" id="retorno" placeholder="Ex.: retorno conforme orientação médica">
+            <input type="text" id="retorno"
+              placeholder="Ex.: retorno conforme orientação médica">
           </div>
 
           <div class="campo">
             <label for="especialidade">Especialidade / setor</label>
-            <input type="text" id="especialidade" placeholder="Ex.: Cardiologia">
+            <input type="text" id="especialidade"
+              placeholder="Ex.: Cardiologia">
           </div>
         </div>
       </section>
@@ -1363,7 +1362,8 @@
 
         <div class="campo">
           <label for="observacoesTexto">Observações adicionais</label>
-          <textarea id="observacoesTexto" placeholder="Registre informações adicionais, se necessário..."></textarea>
+          <textarea id="observacoesTexto"
+            placeholder="Registre informações adicionais, se necessário..."></textarea>
         </div>
 
         <div class="resumo-box">
@@ -1387,7 +1387,8 @@
       <!-- BOTÕES -->
       <div class="acoes">
         <div class="acoes-esquerda">
-          <button type="button" class="btn btn-secondary" onclick="limparFormulario()">
+          <button type="button" class="btn btn-secondary"
+            onclick="limparFormulario()">
             ↺ Limpar formulário
           </button>
         </div>
@@ -1430,7 +1431,7 @@
       "profissional",
       "diagnostico",
       "resumo",
-      "orientacoes",
+      "orientacoesTexto",
       "retorno",
       "especialidade",
       "observacoesTexto"
@@ -1456,15 +1457,16 @@
     }
 
     /* VOLTAR À PÁGINA ANTERIOR */
+
     function voltarPagina() {
       if (window.history.length > 1) {
         window.history.back();
       } else {
-        alert("Não existe uma página anterior nesta navegação.");
+        mostrarToast("Não existe uma página anterior nesta navegação.");
       }
     }
 
-    /* CARREGAR PACIENTE SELECIONADO PELO MÉDICO */
+    /* CARREGAR PACIENTE SELECIONADO */
 
     function carregarPacienteSelecionado() {
       const dados = localStorage.getItem("pacienteAlta");
@@ -1490,13 +1492,19 @@
         definirValor("nomePaciente", nome);
         definirValor("documento", documento);
         definirValor("prontuario", prontuario);
+        definirValor("diagnostico", diagnostico);
 
-        document.getElementById("diagnostico").value = diagnostico;
-        document.getElementById("resumo").value =
-          observacao || (sintoma ? "Sintoma registrado na triagem: " + sintoma : "");
+        definirValor(
+          "resumo",
+          observacao ||
+          (sintoma ? "Sintoma registrado: " + sintoma : "")
+        );
 
         if (alergia) {
-          definirValor("observacoesTexto", "Alergia registrada: " + alergia);
+          definirValor(
+            "observacoesTexto",
+            "Alergia registrada: " + alergia
+          );
         }
 
         atualizarPaciente();
@@ -1531,7 +1539,7 @@
       document.getElementById("infoPacienteTopo").textContent =
         prontuario
           ? "Prontuário: " + prontuario
-          : "Confira a identificação antes de registrar a alta.";
+          : "Preencha ou confira os dados de identificação.";
 
       document.getElementById("avatarPaciente").textContent = iniciais;
       document.getElementById("avatarPaciente2").textContent = iniciais;
@@ -1547,9 +1555,12 @@
       });
 
       dados.paciente = dados.nomePaciente;
+      dados.orientacoes = dados.orientacoesTexto;
       dados.observacoes = dados.observacoesTexto;
+
       dados.tipoAlta =
-        document.querySelector('input[name="tipoAlta"]:checked')?.value || "Alta médica";
+        document.querySelector('input[name="tipoAlta"]:checked')?.value ||
+        "Alta médica";
 
       return dados;
     }
@@ -1560,13 +1571,12 @@
       const nome = obterValor("nomePaciente");
 
       if (!nome) {
-        alert("Selecione um paciente no Painel Médico ou informe o nome do paciente.");
+        alert("Informe o nome do paciente antes de salvar a alta.");
         document.getElementById("nomePaciente").focus();
         return;
       }
 
       const dadosAlta = coletarDadosAlta();
-
       dadosAlta.dataRegistro = new Date().toLocaleString("pt-BR");
 
       try {
@@ -1589,8 +1599,17 @@
         const alta = JSON.parse(dados);
 
         CAMPOS_ALTA.forEach(id => {
-          const chave = id === "observacoesTexto" ? "observacoesTexto" : id;
-          definirValor(id, alta[chave] || (id === "observacoesTexto" ? alta.observacoes : ""));
+          let valor = alta[id] || "";
+
+          if (id === "orientacoesTexto") {
+            valor = alta.orientacoesTexto || alta.orientacoes || "";
+          }
+
+          if (id === "observacoesTexto") {
+            valor = alta.observacoesTexto || alta.observacoes || "";
+          }
+
+          definirValor(id, valor);
         });
 
         const tipo = document.querySelector(
@@ -1619,17 +1638,18 @@
       document.getElementById("altaNormal").checked = true;
 
       localStorage.removeItem("nexoraAlta");
+
       atualizarPaciente();
       configurarDataHora();
 
       mostrarToast("Formulário limpo.");
     }
 
-    /* PDF E IMPRESSÃO */
+    /* VALIDAR DOCUMENTO */
 
     function validarPacienteParaDocumento() {
       if (!obterValor("nomePaciente")) {
-        alert("Informe ou selecione um paciente antes de emitir o documento.");
+        alert("Informe o nome do paciente antes de emitir o documento.");
         document.getElementById("nomePaciente").focus();
         return false;
       }
@@ -1637,18 +1657,23 @@
       return true;
     }
 
+    /* GERAR PDF */
+
     function baixarPDF() {
       if (!validarPacienteParaDocumento()) return;
 
       /*
         Na janela de impressão, selecione "Salvar como PDF".
-        Isso permite gerar o arquivo sem instalar uma biblioteca externa.
+        Não é necessária uma biblioteca externa.
       */
       window.print();
     }
 
+    /* IMPRIMIR */
+
     function imprimirAlta() {
       if (!validarPacienteParaDocumento()) return;
+
       window.print();
     }
 
@@ -1681,11 +1706,13 @@
       const minuto = String(agora.getMinutes()).padStart(2, "0");
 
       if (!document.getElementById("dataAlta").value) {
-        document.getElementById("dataAlta").value = `${ano}-${mes}-${dia}`;
+        document.getElementById("dataAlta").value =
+          `${ano}-${mes}-${dia}`;
       }
 
       if (!document.getElementById("horaAlta").value) {
-        document.getElementById("horaAlta").value = `${hora}:${minuto}`;
+        document.getElementById("horaAlta").value =
+          `${hora}:${minuto}`;
       }
     }
 
