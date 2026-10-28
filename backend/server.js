@@ -15,12 +15,17 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 // Banco de dados em JSON
 const DB_FILE = path.join(__dirname, "db.json");
 
+// ========================================
+// BANCO DE DADOS
+// ========================================
+
 function bancoVazio() {
   return {
     usuarios: [],
     pacientes: [],
     triagens: [],
     consultas: [],
+    altas: [],
     tv_chamada: null,
     tv_historico: []
   };
@@ -34,18 +39,21 @@ function readDB() {
   }
 
   const conteudo = fs.readFileSync(DB_FILE, "utf8");
+
   const db = conteudo.trim()
     ? JSON.parse(conteudo)
     : bancoVazio();
 
-  // Garante que as listas necessárias existam
   const padrao = bancoVazio();
 
+  // Garante que todas as listas existam,
+  // inclusive em bancos criados anteriormente.
   for (const chave of [
     "usuarios",
     "pacientes",
     "triagens",
     "consultas",
+    "altas",
     "tv_historico"
   ]) {
     if (!Array.isArray(db[chave])) {
@@ -90,7 +98,6 @@ app.post("/usuario", (req, res) => {
     }
 
     const db = readDB();
-
     const nomeUsuario = usuario.trim();
 
     const existente = db.usuarios.find(
@@ -108,7 +115,7 @@ app.post("/usuario", (req, res) => {
     const novoUsuario = {
       id: Date.now(),
       usuario: nomeUsuario,
-      senha: senha,
+      senha,
       tipo: tipo.trim(),
       createdAt: new Date().toISOString()
     };
@@ -142,7 +149,7 @@ app.get("/usuarios", (req, res) => {
   try {
     const db = readDB();
 
-    // Não envia as senhas para o navegador
+    // Não envia as senhas para o navegador.
     const usuarios = db.usuarios.map(u => ({
       id: u.id,
       usuario: u.usuario,
@@ -190,7 +197,7 @@ app.post("/login", (req, res) => {
       });
     }
 
-    // Retorna os dados necessários, sem enviar a senha
+    // Retorna os dados necessários, sem enviar a senha.
     return res.json({
       id: user.id,
       usuario: user.usuario,
@@ -430,6 +437,107 @@ app.get("/medicacoes", (req, res) => {
 });
 
 // ========================================
+// ALTA HOSPITALAR - REGISTRAR
+// ========================================
+
+app.post("/alta", (req, res) => {
+  try {
+    const dadosRecebidos = req.body || {};
+
+    // Aceita o campo "paciente" usado pelo formulário
+    // e também "nomePaciente", caso seja enviado assim.
+    const nomePaciente =
+      typeof dadosRecebidos.paciente === "string"
+        ? dadosRecebidos.paciente.trim()
+        : typeof dadosRecebidos.nomePaciente === "string"
+          ? dadosRecebidos.nomePaciente.trim()
+          : "";
+
+    if (!nomePaciente) {
+      return res.status(400).json({
+        erro: "Informe o nome do paciente para registrar a alta."
+      });
+    }
+
+    const db = readDB();
+
+    if (!Array.isArray(db.altas)) {
+      db.altas = [];
+    }
+
+    const alta = {
+      ...dadosRecebidos,
+      id: Date.now(),
+      paciente: nomePaciente,
+      dataRegistro: new Date().toISOString()
+    };
+
+    db.altas.push(alta);
+    writeDB(db);
+
+    return res.status(201).json({
+      mensagem: "Alta hospitalar registrada com sucesso!",
+      alta
+    });
+  } catch (erro) {
+    console.error("Erro ao registrar alta hospitalar:", erro);
+
+    return res.status(500).json({
+      erro: "Não foi possível registrar a alta hospitalar."
+    });
+  }
+});
+
+// ========================================
+// ALTA HOSPITALAR - LISTAR
+// ========================================
+
+app.get("/altas", (req, res) => {
+  try {
+    const db = readDB();
+
+    return res.json(
+      Array.isArray(db.altas) ? db.altas : []
+    );
+  } catch (erro) {
+    console.error("Erro ao listar altas hospitalares:", erro);
+
+    return res.status(500).json({
+      erro: "Não foi possível carregar as altas hospitalares."
+    });
+  }
+});
+
+// ========================================
+// ALTA HOSPITALAR - BUSCAR POR ID
+// ========================================
+
+app.get("/alta/:id", (req, res) => {
+  try {
+    const db = readDB();
+    const id = Number(req.params.id);
+
+    const alta = db.altas.find(
+      item => Number(item.id) === id
+    );
+
+    if (!alta) {
+      return res.status(404).json({
+        erro: "Alta hospitalar não encontrada."
+      });
+    }
+
+    return res.json(alta);
+  } catch (erro) {
+    console.error("Erro ao consultar alta hospitalar:", erro);
+
+    return res.status(500).json({
+      erro: "Não foi possível consultar a alta hospitalar."
+    });
+  }
+});
+
+// ========================================
 // ROTA NÃO ENCONTRADA - SEM HTML DE ERRO
 // ========================================
 
@@ -441,7 +549,10 @@ app.use((req, res) => {
   });
 });
 
+// ========================================
 // TRATAMENTO DE ERROS
+// ========================================
+
 app.use((erro, req, res, next) => {
   console.error("Erro no servidor:", erro);
 
