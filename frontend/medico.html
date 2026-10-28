@@ -1,18 +1,27 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#073b88">
   <title>NEXORA Health | Painel Médico</title>
 
   <style>
+    :root {
+      --azul: #0b5ed7;
+      --azul-escuro: #073b88;
+      --ciano: #12b8d4;
+      --verde: #16a36a;
+      --vermelho: #d92d20;
+      --laranja: #c47b08;
+      --texto: #172b4d;
+      --cinza: #748198;
+      --borda: #e4eaf2;
+      --fundo: #f4f7fc;
+      --branco: #ffffff;
+      --sombra: 0 8px 28px rgba(28, 56, 94, .055);
+    }
 
     * {
       margin: 0;
@@ -20,2482 +29,1887 @@
       box-sizing: border-box;
     }
 
-    :root {
-      --azul: #0b5ed7;
-      --azul-escuro: #073b88;
-      --ciano: #12b8d4;
-
-      --verde: #16a36a;
-      --verde-claro: #eafaf3;
-
-      --amarelo: #b78103;
-      --amarelo-claro: #fff8df;
-
-      --vermelho: #d92d20;
-      --vermelho-claro: #fff0ef;
-
-      --texto: #172033;
-      --cinza: #667085;
-      --cinza-claro: #98a2b3;
-
-      --borda: #dfe6ee;
-      --fundo: #f4f8fc;
-      --branco: #ffffff;
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 20px;
     }
-
 
     body {
-
-      min-height: 100vh;
-
-      font-family:
-        Inter,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-
-      background:
-        radial-gradient(
-          circle at top right,
-          rgba(18,184,212,0.12),
-          transparent 28%
-        ),
-
-        radial-gradient(
-          circle at bottom left,
-          rgba(11,94,215,0.09),
-          transparent 30%
-        ),
-
-        var(--fundo);
-
+      font-family: "Segoe UI", Inter, Arial, sans-serif;
+      background: var(--fundo);
       color: var(--texto);
-
-      padding: 25px;
+      min-height: 100vh;
     }
 
+    button, input, select, textarea {
+      font: inherit;
+    }
 
-    /* =========================
-       TOPO
-    ========================= */
+    button, a, input, select, textarea {
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    .topo {
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid #8bc7ff;
+      outline-offset: 3px;
+    }
 
-      position: relative;
+    /* ESTRUTURA PRINCIPAL */
 
-      min-height: 105px;
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+    }
 
+    /* MENU LATERAL */
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
       display: flex;
-
-      align-items: center;
-
-      padding: 20px 25px;
-
-      border-radius: 22px;
-
-      overflow: hidden;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul-escuro),
-          var(--azul),
-          #087fae
-        );
-
+      flex-direction: column;
+      padding: 25px 16px;
       color: white;
+      background: linear-gradient(
+        165deg,
+        #06285e 0%,
+        #073b88 52%,
+        #087ca9 100%
+      );
+      z-index: 5;
+    }
 
-      box-shadow:
-        0 15px 35px
-        rgba(7,59,136,0.18);
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 7px 24px;
+      border-bottom: 1px solid rgba(255,255,255,.13);
+    }
 
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.2);
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .brand h2 {
+      font-size: 16px;
+      letter-spacing: -.4px;
+    }
+
+    .brand p {
+      margin-top: 5px;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 1.7px;
+      color: rgba(255,255,255,.7);
+    }
+
+    .nav-heading {
+      padding: 27px 12px 11px;
+      color: rgba(255,255,255,.55);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 12px;
+      border-radius: 12px;
+      color: rgba(255,255,255,.78);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 650;
+      transition: background .2s, color .2s;
+    }
+
+    .nav-icon {
+      width: 25px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: rgba(255,255,255,.14);
+      color: white;
+    }
+
+    .nav-link.active {
+      box-shadow: inset 3px 0 #51dfed;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 15px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.15);
+      background: rgba(255,255,255,.07);
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 750;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: #4be0a0;
+    }
+
+    .sidebar-bottom p {
+      margin-top: 9px;
+      color: rgba(255,255,255,.7);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    /* ÁREA PRINCIPAL */
+
+    .main {
+      min-width: 0;
+      padding: 28px clamp(16px, 3vw, 38px) 30px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
       margin-bottom: 25px;
     }
 
-
-    .topo::before {
-
-      content: "";
-
-      position: absolute;
-
-      width: 230px;
-      height: 230px;
-
-      right: -80px;
-      top: -110px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(255,255,255,0.08);
-    }
-
-
-    .logo {
-
-      position: relative;
-
-      z-index: 2;
-
-      width: 62px;
-      height: 62px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 18px;
-
-      background:
-        rgba(255,255,255,0.15);
-
-      border:
-        1px solid
-        rgba(255,255,255,0.25);
-
-      font-size: 30px;
-
-      margin-right: 17px;
-    }
-
-
-    .topo-texto {
-
-      position: relative;
-
-      z-index: 2;
-    }
-
-
-    .marca {
-
-      font-size: 12px;
-
-      font-weight: 800;
-
-      letter-spacing: 1.5px;
-
+    .eyebrow {
+      color: var(--azul);
+      font-size: 10px;
+      font-weight: 850;
       text-transform: uppercase;
-
-      opacity: 0.85;
-
-      margin-bottom: 3px;
+      letter-spacing: 1.4px;
+      margin-bottom: 7px;
     }
 
-
-    .topo h1 {
-
-      font-size: 25px;
-
-      margin-bottom: 4px;
+    .page-title {
+      font-size: clamp(25px, 2.5vw, 33px);
+      font-weight: 850;
+      letter-spacing: -1px;
     }
 
-
-    .topo p {
-
-      font-size: 13px;
-
-      opacity: 0.85;
-    }
-
-
-    .status {
-
-      position: relative;
-
-      z-index: 2;
-
-      margin-left: auto;
-
-      padding:
-        9px 13px;
-
-      border-radius: 20px;
-
-      background:
-        rgba(255,255,255,0.12);
-
-      border:
-        1px solid
-        rgba(255,255,255,0.18);
-
+    .page-description {
+      margin-top: 7px;
+      color: var(--cinza);
       font-size: 12px;
-
-      font-weight: 700;
-
-      white-space: nowrap;
+      line-height: 1.6;
     }
 
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-    /* =========================
-       DASHBOARD
-    ========================= */
+    .date-box,
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      background: white;
+      border: 1px solid var(--borda);
+      border-radius: 13px;
+    }
 
-    .dashboard {
-
+    .date-icon,
+    .avatar {
       display: grid;
-
-      grid-template-columns:
-        minmax(0, 1.25fr)
-        minmax(360px, 0.75fr);
-
-      gap: 22px;
-
-      max-width: 1500px;
-
-      margin: auto;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: #eaf2ff;
+      font-size: 19px;
     }
 
+    .date-box strong,
+    .profile strong {
+      display: block;
+      font-size: 11px;
+    }
 
-    .coluna {
+    .date-box small,
+    .profile small {
+      display: block;
+      margin-top: 4px;
+      color: var(--cinza);
+      font-size: 10px;
+    }
 
+    /* BANNER */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 28px;
+      margin-bottom: 22px;
+      border-radius: 21px;
+      color: white;
+      background: linear-gradient(
+        115deg,
+        #073b88 0%,
+        #0b5ed7 57%,
+        #0787ad 100%
+      );
+      box-shadow: 0 12px 30px rgba(11,94,215,.14);
+    }
+
+    .hero::after {
+      content: "✚";
+      position: absolute;
+      right: 30px;
+      top: -38px;
+      color: rgba(255,255,255,.07);
+      font-size: 175px;
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 7px 11px;
+      margin-bottom: 13px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.18);
+      font-size: 9px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero h2 {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(20px, 2vw, 26px);
+      margin-bottom: 9px;
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 1;
+      max-width: 630px;
+      color: rgba(255,255,255,.84);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    /* INDICADORES */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
       display: flex;
+      align-items: center;
+      gap: 13px;
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--borda);
+      border-radius: 17px;
+      background: white;
+      box-shadow: var(--sombra);
+    }
 
+    .stat-icon {
+      display: grid;
+      place-items: center;
+      width: 45px;
+      height: 45px;
+      flex-shrink: 0;
+      border-radius: 14px;
+      font-size: 21px;
+    }
+
+    .blue-bg { background: #eaf2ff; }
+    .cyan-bg { background: #e4faff; }
+    .green-bg { background: #e8fbf2; }
+
+    .stat-label {
+      color: var(--cinza);
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .stat-value {
+      margin-top: 4px;
+      font-size: 24px;
+      font-weight: 850;
+      letter-spacing: -.7px;
+    }
+
+    .stat-caption {
+      margin-top: 4px;
+      color: var(--cinza);
+      font-size: 9px;
+      line-height: 1.5;
+    }
+
+    /* GRID DE CONTEÚDO */
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+      align-items: start;
+      gap: 20px;
+    }
+
+    .column {
+      display: flex;
       flex-direction: column;
-
-      gap: 22px;
+      gap: 20px;
+      min-width: 0;
     }
 
-
-    /* =========================
-       CARDS
-    ========================= */
-
-    .card {
-
-      background:
-        rgba(255,255,255,0.96);
-
-      border:
-        1px solid
-        var(--borda);
-
-      border-radius: 18px;
-
+    .panel {
+      min-width: 0;
       padding: 22px;
-
-      box-shadow:
-        0 10px 25px
-        rgba(15,35,70,0.06);
+      border: 1px solid var(--borda);
+      border-radius: 18px;
+      background: white;
+      box-shadow: var(--sombra);
+      scroll-margin-top: 20px;
     }
 
-
-    .card-header {
-
+    .panel-header {
       display: flex;
-
       align-items: flex-start;
-
       justify-content: space-between;
-
-      gap: 15px;
-
+      gap: 12px;
       margin-bottom: 20px;
     }
 
-
-    .card-header h2 {
-
-      font-size: 18px;
-
-      margin-bottom: 5px;
-    }
-
-
-    .card-header p {
-
-      color: var(--cinza);
-
-      font-size: 13px;
-    }
-
-
-    /* =========================
-       CONTADOR
-    ========================= */
-
-    .contador {
-
-      min-width: 38px;
-      height: 38px;
-
+    .panel-title-group {
       display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      min-width: 0;
+    }
 
+    .panel-icon {
+      display: grid;
+      place-items: center;
+      width: 41px;
+      height: 41px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: #eaf2ff;
+      font-size: 19px;
+    }
+
+    .panel-icon.cyan { background: #e4faff; }
+    .panel-icon.green { background: #e8fbf2; }
+    .panel-icon.orange { background: #fff4df; }
+
+    .panel h2 {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .panel-subtitle {
+      margin-top: 5px;
+      color: var(--cinza);
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .counter {
+      display: grid;
+      place-items: center;
+      min-width: 35px;
+      height: 35px;
+      padding: 0 8px;
+      border-radius: 11px;
+      background: #eaf2ff;
+      color: var(--azul);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    /* PESQUISA E FILTRO */
+
+    .patient-tools {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 135px;
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+
+    .search-wrap {
+      position: relative;
+    }
+
+    .search-wrap span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--cinza);
+      pointer-events: none;
+    }
+
+    .search-input,
+    .filter-select {
+      width: 100%;
+      height: 42px;
+      padding: 0 12px;
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      background: #fbfcfe;
+      color: var(--texto);
+      outline: none;
+      font-size: 11px;
+    }
+
+    .search-input {
+      padding-left: 35px;
+    }
+
+    .search-input:focus,
+    .filter-select:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(11,94,215,.08);
+    }
+
+    /* PACIENTES */
+
+    .patient-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .patient-card {
+      padding: 15px;
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      background: #fcfdff;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .patient-card:hover {
+      border-color: #bfd5ef;
+      box-shadow: 0 7px 18px rgba(20,50,90,.06);
+    }
+
+    .patient-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 13px;
+    }
+
+    .patient-identity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .patient-avatar {
+      display: grid;
+      place-items: center;
+      width: 39px;
+      height: 39px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      background: #eaf2ff;
+      font-size: 18px;
+    }
+
+    .patient-name {
+      font-size: 12px;
+      font-weight: 850;
+      overflow-wrap: anywhere;
+    }
+
+    .patient-label {
+      margin-top: 4px;
+      color: var(--cinza);
+      font-size: 9px;
+    }
+
+    .priority {
+      display: inline-block;
+      padding: 6px 9px;
+      border-radius: 20px;
+      font-size: 9px;
+      font-weight: 850;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .priority.high {
+      color: var(--vermelho);
+      background: #fff0ef;
+    }
+
+    .priority.medium {
+      color: #a86600;
+      background: #fff5df;
+    }
+
+    .priority.low {
+      color: var(--verde);
+      background: #e8fbf2;
+    }
+
+    .patient-data {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    .data-item {
+      min-width: 0;
+      padding: 10px;
+      border: 1px solid #edf1f6;
+      border-radius: 10px;
+      background: white;
+    }
+
+    .data-item span {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--cinza);
+      font-size: 9px;
+    }
+
+    .data-item strong {
+      display: block;
+      font-size: 10px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .patient-observation {
+      padding: 10px 11px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      background: #f3f7fc;
+      color: #607087;
+      font-size: 10px;
+      line-height: 1.7;
+      overflow-wrap: anywhere;
+    }
+
+    /* BOTÕES */
+
+    .button {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 7px;
+      min-height: 41px;
+      padding: 10px 13px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 800;
+      transition: .2s;
+    }
 
-      border-radius: 12px;
+    .button:hover {
+      filter: brightness(.97);
+      transform: translateY(-1px);
+    }
 
-      background:
-        var(--azul);
-
+    .button-primary {
       color: white;
-
-      font-size: 14px;
-
-      font-weight: 800;
+      background: linear-gradient(120deg, var(--azul-escuro), var(--azul));
     }
 
+    .button-cyan {
+      color: white;
+      background: linear-gradient(120deg, #087fae, var(--ciano));
+    }
 
-    /* =========================
-       PACIENTES
-    ========================= */
+    .button-full {
+      width: 100%;
+    }
 
-    .lista-pacientes {
-
+    .patient-actions {
       display: flex;
-
-      flex-direction: column;
-
-      gap: 13px;
-    }
-
-
-    .paciente-card {
-
-      border:
-        1px solid
-        var(--borda);
-
-      border-radius: 14px;
-
-      padding: 16px;
-
-      background:
-        #fbfdff;
-
-      transition: 0.2s ease;
-    }
-
-
-    .paciente-card:hover {
-
-      transform:
-        translateY(-2px);
-
-      box-shadow:
-        0 8px 20px
-        rgba(15,35,70,0.07);
-
-      border-color:
-        #cbd9e8;
-    }
-
-
-    .paciente-topo {
-
-      display: flex;
-
-      justify-content: space-between;
-
-      align-items: center;
-
-      gap: 10px;
-
-      margin-bottom: 12px;
-    }
-
-
-    .paciente-nome {
-
-      font-size: 15px;
-
-      font-weight: 800;
-    }
-
-
-    .risco {
-
-      padding:
-        5px 9px;
-
-      border-radius: 20px;
-
-      font-size: 10px;
-
-      font-weight: 800;
-
-      text-transform: uppercase;
-    }
-
-
-    .risco.alto {
-
-      color:
-        var(--vermelho);
-
-      background:
-        var(--vermelho-claro);
-    }
-
-
-    .risco.medio {
-
-      color:
-        var(--amarelo);
-
-      background:
-        var(--amarelo-claro);
-    }
-
-
-    .risco.baixo {
-
-      color:
-        var(--verde);
-
-      background:
-        var(--verde-claro);
-    }
-
-
-    .dados-paciente {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(2, 1fr);
-
-      gap: 9px;
-
-      margin-bottom: 13px;
-    }
-
-
-    .dado {
-
-      padding: 10px;
-
-      border-radius: 9px;
-
-      background:
-        white;
-
-      border:
-        1px solid
-        #edf1f5;
-    }
-
-
-    .dado span {
-
-      display: block;
-
-      color:
-        var(--cinza);
-
-      font-size: 10px;
-
-      margin-bottom: 3px;
-    }
-
-
-    .dado strong {
-
-      font-size: 12px;
-    }
-
-
-    .observacao {
-
-      padding: 10px;
-
-      border-radius: 9px;
-
-      background:
-        #f5f8fc;
-
-      color:
-        var(--cinza);
-
-      font-size: 12px;
-
-      margin-bottom: 13px;
-    }
-
-
-    .acoes-paciente {
-
-      display: flex;
-
       gap: 8px;
     }
 
-
-    .btn {
-
+    .patient-actions .button {
       flex: 1;
-
-      min-height: 39px;
-
-      border-radius: 9px;
-
-      padding: 8px 10px;
-
-      font-family: inherit;
-
-      font-size: 11px;
-
-      font-weight: 800;
-
-      cursor: pointer;
-
-      transition: 0.2s ease;
     }
 
+    /* FORMULÁRIOS */
 
-    .btn:hover {
-
-      transform:
-        translateY(-1px);
+    .consult-panel {
+      border-top: 3px solid var(--azul);
     }
 
-
-    .btn-atender {
-
-      border: none;
-
-      color: white;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul-escuro),
-          var(--azul)
-        );
+    .discharge-panel {
+      border-top: 3px solid var(--verde);
     }
 
-
-    /* =========================
-       ALTA
-    ========================= */
-
-    .alta-card {
-
-      border:
-        1px solid
-        #cfe0f5;
-
-      background:
-        linear-gradient(
-          180deg,
-          #ffffff,
-          #f7fbff
-        );
+    .tv-panel {
+      border-top: 3px solid var(--ciano);
     }
 
-
-    .alta-icon {
-
-      width: 43px;
-      height: 43px;
-
+    .form-field {
       display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      border-radius: 12px;
-
-      background:
-        #eaf3ff;
-
-      font-size: 21px;
-    }
-
-
-    .campo {
-
-      display: flex;
-
       flex-direction: column;
-
       gap: 7px;
-
-      margin-bottom: 16px;
+      margin-bottom: 15px;
     }
 
-
-    .campo label {
-
-      font-size: 12px;
-
+    .form-field label {
+      color: var(--texto);
+      font-size: 10px;
       font-weight: 800;
-
-      color:
-        var(--texto);
     }
 
-
-    .select-alta {
-
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
       width: 100%;
-
-      height: 46px;
-
-      padding: 0 14px;
-
-      border:
-        1px solid
-        var(--borda);
-
+      padding: 12px;
+      border: 1px solid #dce5ef;
       border-radius: 10px;
-
-      background:
-        white;
-
-      color:
-        var(--texto);
-
-      font-family: inherit;
-
-      font-size: 13px;
-
+      background: #fbfcfe;
+      color: var(--texto);
       outline: none;
-
-      cursor: pointer;
-
-      transition: 0.2s;
+      font-size: 11px;
+      transition: .2s;
     }
 
-
-    .select-alta:focus {
-
-      border-color:
-        var(--azul);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(11,94,215,0.10);
-    }
-
-
-    /* =========================
-       CAMPOS CONSULTA
-    ========================= */
-
-    .campo input,
-    .campo textarea,
-    .campo select {
-
-      width: 100%;
-
-      border:
-        1px solid
-        var(--borda);
-
-      border-radius: 10px;
-
-      background:
-        white;
-
-      color:
-        var(--texto);
-
-      font-family: inherit;
-
-      font-size: 13px;
-
-      outline: none;
-
-      transition: 0.2s;
-
-      padding: 12px 13px;
-    }
-
-
-    .campo input,
-    .campo select {
-
-      height: 45px;
-    }
-
-
-    .campo textarea {
-
-      min-height: 110px;
-
-      resize: vertical;
-    }
-
-
-    .campo input:focus,
-    .campo textarea:focus,
-    .campo select:focus {
-
-      border-color:
-        var(--azul);
-
-      box-shadow:
-        0 0 0 3px
-        rgba(11,94,215,0.09);
-    }
-
-
-    /* =========================
-       ALERTA ALERGIA
-    ========================= */
-
-    .alerta-alergia {
-
-      display: none;
-
-      padding: 12px 14px;
-
-      border-radius: 10px;
-
-      background:
-        var(--vermelho-claro);
-
-      color:
-        var(--vermelho);
-
-      border:
-        1px solid
-        #ffd1cd;
-
-      font-size: 12px;
-
-      font-weight: 700;
-
-      margin-bottom: 16px;
-    }
-
-
-    /* =========================
-       BOTÃO PRINCIPAL
-    ========================= */
-
-    .botao-principal {
-
-      width: 100%;
-
-      min-height: 46px;
-
-      border: none;
-
-      border-radius: 10px;
-
-      padding: 13px 18px;
-
-      background:
-        linear-gradient(
-          135deg,
-          var(--azul-escuro),
-          var(--azul)
-        );
-
-      color: white;
-
-      font-family: inherit;
-
-      font-weight: 800;
-
-      font-size: 13px;
-
-      cursor: pointer;
-
-      transition: 0.2s;
-    }
-
-
-    .botao-principal:hover {
-
-      transform:
-        translateY(-1px);
-
-      box-shadow:
-        0 8px 18px
-        rgba(11,94,215,0.20);
-    }
-
-
-    /* =========================
-       ÁREA DE CHAMADA
-    ========================= */
-
-    .chamada-card {
-
-      border:
-        1px solid
-        #cfe0f5;
-
-      background:
-        linear-gradient(
-          180deg,
-          #ffffff,
-          #f7fbff
-        );
-    }
-
-
-    .chamada-icon {
-
-      width: 43px;
+    .form-field input,
+    .form-field select {
       height: 43px;
+    }
 
-      display: flex;
+    .form-field textarea {
+      min-height: 95px;
+      resize: vertical;
+      line-height: 1.65;
+    }
 
-      align-items: center;
-      justify-content: center;
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(11,94,215,.08);
+    }
 
+    .form-field input[readonly] {
+      background: #f0f5fb;
+      color: #53657e;
+    }
+
+    .allergy-alert {
+      display: none;
+      margin-bottom: 15px;
+      padding: 12px;
+      border: 1px solid #ffd3cf;
+      border-radius: 10px;
+      color: #a51f17;
+      background: #fff0ef;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .form-note {
+      margin-top: 12px;
+      color: var(--cinza);
+      font-size: 9px;
+      line-height: 1.7;
+    }
+
+    .quick-info {
+      padding: 12px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      background: #f3f8ff;
+      color: #526984;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+
+    .empty-state {
+      padding: 27px 15px;
+      border: 1px dashed #d8e3ef;
       border-radius: 12px;
-
-      background:
-        #eaf3ff;
-
-      font-size: 21px;
-    }
-
-
-    .botao-tv {
-
-      margin-top: 4px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #087fae,
-          var(--ciano)
-        );
-    }
-
-
-    /* =========================
-       ESTADOS
-    ========================= */
-
-    .vazio {
-
-      padding: 30px;
-
+      background: #f9fbfe;
+      color: var(--cinza);
       text-align: center;
-
-      color:
-        var(--cinza);
-
-      font-size: 13px;
+      font-size: 11px;
+      line-height: 1.8;
     }
 
-
-    .carregando {
-
-      padding: 25px;
-
-      text-align: center;
-
-      color:
-        var(--cinza);
-
-      font-size: 13px;
+    .empty-icon {
+      margin-bottom: 7px;
+      font-size: 28px;
     }
 
-
-    /* =========================
-       RESPONSIVO
-    ========================= */
-
-    @media (max-width: 1000px) {
-
-      .dashboard {
-
-        grid-template-columns:
-          1fr;
-      }
-
+    .notice {
+      display: none;
+      margin-bottom: 18px;
+      padding: 12px 15px;
+      border-radius: 11px;
+      font-size: 11px;
+      line-height: 1.6;
     }
 
+    .notice.success {
+      display: block;
+      color: #087548;
+      background: #e8fbf2;
+      border: 1px solid #bcebd4;
+    }
 
-    @media (max-width: 650px) {
+    .notice.error {
+      display: block;
+      color: #a51f17;
+      background: #fff0ef;
+      border: 1px solid #ffd3cf;
+    }
 
-      body {
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 23px 2px 0;
+      color: #8492a6;
+      font-size: 10px;
+    }
 
-        padding: 13px;
+    /* RESPONSIVIDADE */
+
+    @media (max-width: 1180px) {
+      .app {
+        grid-template-columns: 220px minmax(0, 1fr);
       }
 
+      .workspace {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
 
-      .topo {
-
-        padding: 17px;
-
-        min-height: auto;
+    @media (max-width: 780px) {
+      .app {
+        grid-template-columns: 1fr;
       }
 
-
-      .logo {
-
-        width: 48px;
-        height: 48px;
-
-        font-size: 23px;
-
-        margin-right: 11px;
+      .sidebar {
+        position: relative;
+        height: auto;
+        padding: 15px;
+        gap: 10px;
       }
 
-
-      .topo h1 {
-
-        font-size: 20px;
+      .brand {
+        padding-bottom: 14px;
       }
 
-
-      .topo p {
-
-        font-size: 11px;
-      }
-
-
-      .status {
-
+      .nav-heading,
+      .sidebar-bottom {
         display: none;
       }
 
-
-      .dados-paciente {
-
-        grid-template-columns:
-          1fr;
+      .nav-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
       }
 
+      .nav-link {
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        padding: 9px 3px;
+        text-align: center;
+        font-size: 9px;
+      }
 
-      .acoes-paciente {
+      .main {
+        padding: 20px 14px 25px;
+      }
 
+      .topbar {
+        align-items: flex-start;
+      }
+
+      .date-box {
+        display: none;
+      }
+
+      .stats {
+        gap: 9px;
+      }
+
+      .stat {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+        padding: 13px;
+      }
+
+      .stat-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+
+      .stat-value {
+        font-size: 20px;
+      }
+
+      .panel {
+        padding: 17px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile {
+        padding: 7px;
+      }
+
+      .profile > div:last-child {
+        display: none;
+      }
+
+      .hero {
+        padding: 20px;
+      }
+
+      .hero::after {
+        right: 4px;
+        font-size: 105px;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .stat {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .patient-tools {
+        grid-template-columns: 1fr;
+      }
+
+      .patient-top {
+        align-items: flex-start;
+      }
+
+      .patient-actions {
         flex-direction: column;
       }
 
+      .footer {
+        flex-direction: column;
+      }
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+      }
+    }
   </style>
-
 </head>
 
-
 <body>
+<div class="app">
 
-
-  <!-- =========================
-       TOPO
-  ========================= -->
-
-  <header class="topo">
-
-    <div class="logo">
-      🩺
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo" aria-hidden="true">✚</div>
+      <div>
+        <h2>NEXORA Health</h2>
+        <p>Sistema hospitalar</p>
+      </div>
     </div>
 
+    <div class="nav-heading">Menu principal</div>
 
-    <div class="topo-texto">
+    <nav class="nav-list" aria-label="Navegação médica">
+      <a href="#inicio" class="nav-link active">
+        <span class="nav-icon">⌂</span>
+        <span>Visão geral</span>
+      </a>
 
-      <div class="marca">
-        NEXORA Health
+      <a href="#pacientes" class="nav-link">
+        <span class="nav-icon">♧</span>
+        <span>Pacientes</span>
+      </a>
+
+      <a href="#consulta" class="nav-link">
+        <span class="nav-icon">🩺</span>
+        <span>Consultas</span>
+      </a>
+
+      <a href="#alta" class="nav-link">
+        <span class="nav-icon">📄</span>
+        <span>Alta hospitalar</span>
+      </a>
+
+      <a href="#chamada" class="nav-link">
+        <span class="nav-icon">📺</span>
+        <span>Chamada para TV</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="status-line">
+        <span class="status-dot"></span>
+        Área médica
+      </div>
+      <p>Central de atendimento do NEXORA Health.</p>
+    </div>
+  </aside>
+
+  <main class="main" id="inicio">
+
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">NEXORA Health / Área médica</div>
+        <h1 class="page-title">Painel Médico</h1>
+        <p class="page-description">
+          Organize a fila e acompanhe os atendimentos do hospital.
+        </p>
       </div>
 
-      <h1>
-        Painel Médico
-      </h1>
-
-      <p>
-        Gerenciamento de consultas e prescrições
-      </p>
-
-    </div>
-
-
-    <div class="status">
-      Médico conectado
-    </div>
-
-  </header>
-
-
-
-  <!-- =========================
-       DASHBOARD
-  ========================= -->
-
-  <main class="dashboard">
-
-
-    <!-- COLUNA ESQUERDA -->
-
-    <div class="coluna">
-
-
-      <!-- PACIENTES EM ESPERA -->
-
-      <section class="card">
-
-        <div class="card-header">
-
+      <div class="topbar-right">
+        <div class="date-box">
+          <div class="date-icon">📅</div>
           <div>
+            <strong id="dataAtual">Carregando...</strong>
+            <small id="horaAtual">--:--</small>
+          </div>
+        </div>
 
-            <h2>
-              👥 Pacientes em espera
-            </h2>
+        <div class="profile">
+          <div class="avatar">🩺</div>
+          <div>
+            <strong>Área médica</strong>
+            <small>Gerenciamento clínico</small>
+          </div>
+        </div>
+      </div>
+    </header>
 
-            <p>
-              Pacientes aguardando atendimento médico.
-            </p>
+    <div id="mensagem" class="notice" role="status" aria-live="polite"></div>
 
+    <section class="hero">
+      <div class="hero-tag">✦ Central de atendimento</div>
+      <h2>Bem-vindo ao seu painel médico!</h2>
+      <p>
+        Aqui você pode acompanhar pacientes, registrar consultas,
+        preparar altas hospitalares e encaminhar chamadas para a TV.
+        Tudo organizado em um único ambiente.
+      </p>
+    </section>
+
+    <section class="stats" aria-label="Resumo do painel">
+      <article class="stat">
+        <div class="stat-icon blue-bg">👥</div>
+        <div>
+          <div class="stat-label">Pacientes em espera</div>
+          <div class="stat-value" id="resumoPacientes">0</div>
+          <div class="stat-caption">Registros carregados na fila</div>
+        </div>
+      </article>
+
+      <article class="stat">
+        <div class="stat-icon cyan-bg">📺</div>
+        <div>
+          <div class="stat-label">Central de chamadas</div>
+          <div class="stat-value">TV</div>
+          <div class="stat-caption">Encaminhamento de pacientes</div>
+        </div>
+      </article>
+
+      <article class="stat">
+        <div class="stat-icon green-bg">✓</div>
+        <div>
+          <div class="stat-label">Registro clínico</div>
+          <div class="stat-value">Consulta</div>
+          <div class="stat-caption">Área de registro do atendimento</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="workspace">
+
+      <div class="column">
+
+        <!-- PACIENTES -->
+        <section class="panel" id="pacientes">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon">👥</div>
+              <div>
+                <h2>Fila de pacientes</h2>
+                <p class="panel-subtitle">
+                  Pesquise, filtre e selecione um paciente para atendimento.
+                </p>
+              </div>
+            </div>
+            <div class="counter" id="contadorPacientes">0</div>
           </div>
 
+          <div class="patient-tools">
+            <div class="search-wrap">
+              <span>⌕</span>
+              <input
+                class="search-input"
+                type="search"
+                id="pesquisaPaciente"
+                placeholder="Pesquisar pelo nome..."
+                aria-label="Pesquisar pacientes pelo nome"
+              >
+            </div>
+
+            <select
+              class="filter-select"
+              id="filtroPrioridade"
+              aria-label="Filtrar por prioridade"
+            >
+              <option value="">Todas as prioridades</option>
+              <option value="alta">Alta</option>
+              <option value="media">Média</option>
+              <option value="baixa">Baixa</option>
+            </select>
+          </div>
+
+          <div class="patient-list" id="triagens">
+            <div class="empty-state">
+              Carregando pacientes...
+            </div>
+          </div>
+
+          <p class="form-note">
+            A lista é atualizada automaticamente a cada 30 segundos.
+          </p>
+        </section>
+
+        <!-- ALTA HOSPITALAR -->
+        <section class="panel discharge-panel" id="alta">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon green">📄</div>
+              <div>
+                <h2>Alta hospitalar</h2>
+                <p class="panel-subtitle">
+                  Selecione o paciente para continuar o processo de alta.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-info">
+            ℹ️ Confirme a identificação do paciente antes de abrir o
+            formulário de alta hospitalar.
+          </div>
+
+          <div class="form-field">
+            <label for="pacienteAlta">Paciente</label>
+            <select id="pacienteAlta">
+              <option value="">Selecione um paciente</option>
+            </select>
+          </div>
+
+          <button
+            type="button"
+            class="button button-primary button-full"
+            onclick="irParaAlta()"
+          >
+            📄 Continuar para alta
+          </button>
+        </section>
+
+        <!-- CHAMADA PARA TV -->
+        <section class="panel tv-panel" id="chamada">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon cyan">📺</div>
+              <div>
+                <h2>Chamada para TV</h2>
+                <p class="panel-subtitle">
+                  Organize a chamada do paciente para a sala correta.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="pacienteChamada">Paciente</label>
+            <select id="pacienteChamada">
+              <option value="">Selecione um paciente</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="salaPaciente">Sala de atendimento</label>
+            <select id="salaPaciente">
+              <option value="">Selecione a sala</option>
+              <option value="Sala 01">Sala 01</option>
+              <option value="Sala 02">Sala 02</option>
+              <option value="Sala 03">Sala 03</option>
+              <option value="Sala 04">Sala 04</option>
+              <option value="Sala 05">Sala 05</option>
+              <option value="Sala 06">Sala 06</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="guichePaciente">Guichê</label>
+            <select id="guichePaciente">
+              <option value="">Selecione o guichê</option>
+              <option value="Guichê 01">Guichê 01</option>
+              <option value="Guichê 02">Guichê 02</option>
+              <option value="Guichê 03">Guichê 03</option>
+              <option value="Guichê 04">Guichê 04</option>
+              <option value="Guichê 05">Guichê 05</option>
+            </select>
+          </div>
+
+          <button
+            type="button"
+            class="button button-cyan button-full"
+            onclick="enviarParaTV()"
+          >
+            📺 Enviar chamada
+          </button>
+
+          <p class="form-note">
+            A página tv.html deve ler a chave chamadaTV do localStorage
+            para exibir a chamada.
+          </p>
+        </section>
+
+      </div>
+
+      <div class="column">
+
+        <!-- REGISTRO DA CONSULTA -->
+        <section class="panel consult-panel" id="consulta">
+          <div class="panel-header">
+            <div class="panel-title-group">
+              <div class="panel-icon">🩺</div>
+              <div>
+                <h2>Registro de consulta</h2>
+                <p class="panel-subtitle">
+                  Registre as informações do atendimento.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="pacienteSelecionado">Paciente selecionado</label>
+            <input
+              type="text"
+              id="pacienteSelecionado"
+              placeholder="Selecione um paciente na fila"
+              readonly
+            >
+          </div>
 
           <div
-            class="contador"
-            id="contadorPacientes"
+            class="allergy-alert"
+            id="alertaAlergia"
+            role="alert"
+          ></div>
+
+          <div class="form-field">
+            <label for="diagnostico">Diagnóstico / avaliação</label>
+            <textarea
+              id="diagnostico"
+              placeholder="Descreva a avaliação clínica..."
+            ></textarea>
+          </div>
+
+          <div class="form-field">
+            <label for="medicacao">Medicação / prescrição</label>
+            <select id="medicacao">
+              <option value="">Selecione uma medicação</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="observacoes">Observações</label>
+            <textarea
+              id="observacoes"
+              placeholder="Adicione as observações relevantes..."
+            ></textarea>
+          </div>
+
+          <button
+            type="button"
+            class="button button-primary button-full"
+            id="botaoSalvar"
+            onclick="salvar()"
           >
-            0
-          </div>
-
-        </div>
-
-
-        <div
-          class="lista-pacientes"
-          id="triagens"
-        >
-
-          <div class="carregando">
-            Carregando pacientes...
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =========================
-           ALTA HOSPITALAR
-      ========================= -->
-
-      <section class="card alta-card">
-
-        <div class="card-header">
-
-          <div>
-
-            <h2>
-              🏥 Alta hospitalar
-            </h2>
-
-            <p>
-              Escolha o paciente que receberá alta.
-            </p>
-
-          </div>
-
-
-          <div class="alta-icon">
-            📄
-          </div>
-
-        </div>
-
-
-        <div class="campo">
-
-          <label for="pacienteAlta">
-            Selecione o paciente
-          </label>
-
-
-          <select
-            id="pacienteAlta"
-            class="select-alta"
-          >
-
-            <option value="">
-              Selecione um paciente
-            </option>
-
-          </select>
-
-        </div>
-
-
-        <button
-          class="botao-principal"
-          onclick="irParaAlta()"
-        >
-          📄 Dar alta ao paciente
-        </button>
-
-      </section>
-
-
-
-      <!-- =========================
-           ENVIAR PARA TV
-      ========================= -->
-
-      <section class="card chamada-card">
-
-        <div class="card-header">
-
-          <div>
-
-            <h2>
-              📺 Chamada de paciente
-            </h2>
-
-            <p>
-              Defina a sala e o guichê para o paciente.
-            </p>
-
-          </div>
-
-
-          <div class="chamada-icon">
-            📺
-          </div>
-
-        </div>
-
-
-
-        <!-- PACIENTE -->
-
-        <div class="campo">
-
-          <label for="pacienteChamada">
-            Paciente
-          </label>
-
-
-          <select
-            id="pacienteChamada"
-            class="select-alta"
-          >
-
-            <option value="">
-              Selecione um paciente
-            </option>
-
-          </select>
-
-        </div>
-
-
-
-        <!-- SALA -->
-
-        <div class="campo">
-
-          <label for="salaPaciente">
-            Sala
-          </label>
-
-
-          <select
-            id="salaPaciente"
-            class="select-alta"
-          >
-
-            <option value="">
-              Selecione a sala
-            </option>
-
-            <option value="Sala 01">
-              Sala 01
-            </option>
-
-            <option value="Sala 02">
-              Sala 02
-            </option>
-
-            <option value="Sala 03">
-              Sala 03
-            </option>
-
-            <option value="Sala 04">
-              Sala 04
-            </option>
-
-            <option value="Sala 05">
-              Sala 05
-            </option>
-
-            <option value="Sala 06">
-              Sala 06
-            </option>
-
-          </select>
-
-        </div>
-
-
-
-        <!-- GUICHÊ -->
-
-        <div class="campo">
-
-          <label for="guichePaciente">
-            Guichê
-          </label>
-
-
-          <select
-            id="guichePaciente"
-            class="select-alta"
-          >
-
-            <option value="">
-              Selecione o guichê
-            </option>
-
-            <option value="Guichê 01">
-              Guichê 01
-            </option>
-
-            <option value="Guichê 02">
-              Guichê 02
-            </option>
-
-            <option value="Guichê 03">
-              Guichê 03
-            </option>
-
-            <option value="Guichê 04">
-              Guichê 04
-            </option>
-
-            <option value="Guichê 05">
-              Guichê 05
-            </option>
-
-          </select>
-
-        </div>
-
-
-
-        <button
-          class="botao-principal botao-tv"
-          onclick="enviarParaTV()"
-        >
-          📺 Enviar chamada para TV
-        </button>
-
-      </section>
-
-
-    </div>
-
-
-
-    <!-- COLUNA DIREITA -->
-
-    <div class="coluna">
-
-
-      <!-- REGISTRAR CONSULTA -->
-
-      <section class="card">
-
-        <div class="card-header">
-
-          <div>
-
-            <h2>
-              🩺 Registrar consulta
-            </h2>
-
-            <p>
-              Registre o atendimento e a prescrição.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <div class="campo">
-
-          <label for="pacienteSelecionado">
-            Paciente
-          </label>
-
-          <input
-            type="text"
-            id="pacienteSelecionado"
-            placeholder="Selecione um paciente na lista"
-            readonly
-          >
-
-        </div>
-
-
-
-        <div
-          class="alerta-alergia"
-          id="alertaAlergia"
-        >
-        </div>
-
-
-
-        <div class="campo">
-
-          <label for="diagnostico">
-            Diagnóstico
-          </label>
-
-          <textarea
-            id="diagnostico"
-            placeholder="Digite o diagnóstico do paciente..."
-          ></textarea>
-
-        </div>
-
-
-
-        <div class="campo">
-
-          <label for="medicacao">
-            Medicação / Prescrição
-          </label>
-
-          <select id="medicacao">
-
-            <option value="">
-              Selecione uma medicação
-            </option>
-
-          </select>
-
-        </div>
-
-
-
-        <div class="campo">
-
-          <label for="observacoes">
-            Observações
-          </label>
-
-          <textarea
-            id="observacoes"
-            placeholder="Digite observações sobre o atendimento..."
-          ></textarea>
-
-        </div>
-
-
-
-        <button
-          class="botao-principal"
-          onclick="salvar()"
-        >
-          ✓ Finalizar e salvar consulta
-        </button>
-
-      </section>
-
-
-    </div>
-
+            ✓ Salvar consulta
+          </button>
+
+          <p class="form-note">
+            Confira os dados antes de salvar. Este painel é uma interface
+            de projeto e não substitui um sistema clínico validado.
+          </p>
+        </section>
+
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>© 2026 NEXORA Health · Sistema hospitalar</span>
+      <span>Interface da área médica</span>
+    </footer>
 
   </main>
+</div>
 
+<script>
+  let pacientesAtuais = [];
+  let pacienteSelecionadoIndex = null;
 
+  /* UTILITÁRIOS */
 
-  <script>
+  function escaparHTML(valor) {
+    return String(valor ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
 
-    let pacientesAtuais = [];
+  function nomeDoPaciente(paciente, index) {
+    return paciente.nome ||
+      paciente.paciente ||
+      `Paciente ${index + 1}`;
+  }
 
-    let pacienteSelecionadoIndex = null;
+  function mostrarMensagem(texto, tipo = "success") {
+    const elemento = document.getElementById("mensagem");
 
+    elemento.textContent = texto;
+    elemento.className = `notice ${tipo}`;
 
+    elemento.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
 
-    /* =========================
-       ESCAPAR HTML
-    ========================= */
+    window.setTimeout(() => {
+      elemento.className = "notice";
+      elemento.textContent = "";
+    }, 5000);
+  }
 
-    function escaparHTML(texto) {
+  function atualizarDataHora() {
+    const agora = new Date();
 
-      if (
-        texto === null ||
-        texto === undefined
-      ) {
+    document.getElementById("dataAtual").textContent =
+      agora.toLocaleDateString("pt-BR", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
 
-        return "";
+    document.getElementById("horaAtual").textContent =
+      agora.toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
+      });
+  }
 
-      }
+  /* CLASSIFICAR PRIORIDADE */
 
+  function classificarPrioridade(paciente) {
+    const valor = String(
+      paciente.prioridade || paciente.risco || ""
+    ).toLowerCase();
 
-      return String(texto)
-
-        .replace(/&/g, "&amp;")
-
-        .replace(/</g, "&lt;")
-
-        .replace(/>/g, "&gt;")
-
-        .replace(/"/g, "&quot;")
-
-        .replace(/'/g, "&#039;");
-
+    if (
+      valor.includes("alta") ||
+      valor.includes("alto") ||
+      valor.includes("urgente") ||
+      valor.includes("vermelho")
+    ) {
+      return {
+        classe: "high",
+        filtro: "alta",
+        texto: paciente.prioridade || paciente.risco || "Alta"
+      };
     }
 
+    if (
+      valor.includes("media") ||
+      valor.includes("média") ||
+      valor.includes("medio") ||
+      valor.includes("médio") ||
+      valor.includes("amarelo")
+    ) {
+      return {
+        classe: "medium",
+        filtro: "media",
+        texto: paciente.prioridade || paciente.risco || "Média"
+      };
+    }
 
+    return {
+      classe: "low",
+      filtro: "baixa",
+      texto: paciente.prioridade || paciente.risco || "Normal"
+    };
+  }
 
-    /* =========================
-       CARREGAR
-    ========================= */
+  /* CARREGAR PACIENTES */
 
-    async function carregar() {
+  async function carregar() {
+    try {
+      const resposta = await fetch("/triagens");
 
-      try {
+      if (!resposta.ok) {
+        throw new Error("Não foi possível carregar a fila.");
+      }
 
-        const resposta =
-          await fetch("/triagens");
+      const dados = await resposta.json();
 
+      pacientesAtuais = Array.isArray(dados) ? dados : [];
 
-        if (!resposta.ok) {
+      mostrarPacientes();
+      carregarPacientesAlta();
+      carregarPacientesChamada();
 
-          throw new Error(
-            "Erro ao carregar pacientes."
-          );
+      // Preserva o paciente selecionado se ele ainda estiver na lista.
+      if (pacienteSelecionadoIndex !== null) {
+        const paciente = pacientesAtuais[pacienteSelecionadoIndex];
 
+        if (paciente) {
+          document.getElementById("pacienteSelecionado").value =
+            nomeDoPaciente(paciente, pacienteSelecionadoIndex);
+
+          mostrarAlertaAlergia(paciente);
+        } else {
+          limparSelecao();
         }
-
-
-        const pacientes =
-          await resposta.json();
-
-
-        pacientesAtuais =
-          Array.isArray(pacientes)
-            ? pacientes
-            : [];
-
-
-        mostrarPacientes(
-          pacientesAtuais
-        );
-
-
-        carregarPacientesAlta();
-
-        carregarPacientesChamada();
-
-        carregarMedicacoes();
-
       }
 
-      catch (erro) {
+    } catch (erro) {
+      console.error("Erro ao carregar pacientes:", erro);
 
-        console.error(
-          erro
-        );
+      document.getElementById("triagens").innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">⚠️</div>
+          <strong>Não foi possível carregar a fila.</strong>
+          <br>Verifique se o servidor está funcionando.
+        </div>
+      `;
+    }
+  }
 
+  /* EXIBIR PACIENTES COM PESQUISA E FILTRO */
 
-        document.getElementById(
-          "triagens"
-        ).innerHTML = `
+  function mostrarPacientes() {
+    const container = document.getElementById("triagens");
+    const pesquisa = document.getElementById("pesquisaPaciente")
+      .value.trim().toLowerCase();
 
-          <div class="vazio">
+    const filtro = document.getElementById("filtroPrioridade").value;
 
-            Não foi possível carregar
-            os pacientes.
+    document.getElementById("contadorPacientes").textContent =
+      pacientesAtuais.length;
 
-          </div>
+    document.getElementById("resumoPacientes").textContent =
+      pacientesAtuais.length;
 
-        `;
+    const filtrados = pacientesAtuais
+      .map((paciente, index) => ({ paciente, index }))
+      .filter(({ paciente, index }) => {
+        const nome = nomeDoPaciente(paciente, index).toLowerCase();
+        const prioridade = classificarPrioridade(paciente);
 
-      }
+        return nome.includes(pesquisa) &&
+          (!filtro || prioridade.filtro === filtro);
+      });
 
+    if (!filtrados.length) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">🔎</div>
+          <strong>Nenhum paciente encontrado</strong>
+          <br>Tente alterar a pesquisa ou o filtro.
+        </div>
+      `;
+      return;
     }
 
-
-
-    /* =========================
-       MOSTRAR PACIENTES
-    ========================= */
-
-    function mostrarPacientes(
-      pacientes
-    ) {
-
-      const container =
-        document.getElementById(
-          "triagens"
-        );
-
-
-      const contador =
-        document.getElementById(
-          "contadorPacientes"
-        );
-
-
-      contador.textContent =
-        pacientes.length;
-
-
-      if (!pacientes.length) {
-
-        container.innerHTML = `
-
-          <div class="vazio">
-
-            Nenhum paciente aguardando
-            atendimento.
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        pacientes.map(
-          (paciente, index) => {
-
-            const nome =
-              paciente.nome ||
-              paciente.paciente ||
-              `Paciente ${index + 1}`;
-
-
-            const risco =
-              paciente.risco ||
-              paciente.prioridade ||
-              "Normal";
-
-
-            const riscoTexto =
-              String(risco);
-
-
-            let classeRisco =
-              "baixo";
-
-
-            if (
-              riscoTexto
-                .toLowerCase()
-                .includes("alto")
-            ) {
-
-              classeRisco =
-                "alto";
-
-            }
-
-            else if (
-              riscoTexto
-                .toLowerCase()
-                .includes("medio") ||
-              riscoTexto
-                .toLowerCase()
-                .includes("médio")
-            ) {
-
-              classeRisco =
-                "medio";
-
-            }
-
-
-            return `
-
-              <div class="paciente-card">
-
-                <div class="paciente-topo">
-
-                  <div class="paciente-nome">
-
-                    ${escaparHTML(nome)}
-
-                  </div>
-
-
-                  <span
-                    class="risco ${classeRisco}"
-                  >
-
-                    ${escaparHTML(
-                      riscoTexto
-                    )}
-
-                  </span>
-
-                </div>
-
-
-                <div class="dados-paciente">
-
-                  <div class="dado">
-
-                    <span>
-                      Sintoma
-                    </span>
-
-                    <strong>
-                      ${escaparHTML(
-                        paciente.sintoma ||
-                        paciente.sintomas ||
-                        "Não informado"
-                      )}
-                    </strong>
-
-                  </div>
-
-
-                  <div class="dado">
-
-                    <span>
-                      Temperatura
-                    </span>
-
-                    <strong>
-                      ${escaparHTML(
-                        paciente.temperatura ||
-                        "Não informada"
-                      )}
-                    </strong>
-
-                  </div>
-
-
-                  <div class="dado">
-
-                    <span>
-                      Alergia
-                    </span>
-
-                    <strong>
-                      ${escaparHTML(
-                        paciente.alergia ||
-                        "Nenhuma informada"
-                      )}
-                    </strong>
-
-                  </div>
-
-
-                  <div class="dado">
-
-                    <span>
-                      Prioridade
-                    </span>
-
-                    <strong>
-                      ${escaparHTML(
-                        paciente.prioridade ||
-                        "Normal"
-                      )}
-                    </strong>
-
-                  </div>
-
-                </div>
-
-
-                <div class="observacao">
-
-                  <strong>
-                    Observação:
-                  </strong>
-
-                  ${escaparHTML(
-                    paciente.observacao ||
-                    paciente.observacoes ||
-                    "Nenhuma observação."
-                  )}
-
-                </div>
-
-
-                <div class="acoes-paciente">
-
-                  <button
-                    class="btn btn-atender"
-                    onclick="selecionar(${index})"
-                  >
-                    🩺 Atender paciente
-                  </button>
-
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        ).join("");
-
-    }
-
-
-
-    /* =========================
-       SELECIONAR PARA CONSULTA
-    ========================= */
-
-    function selecionar(index) {
-
-      const paciente =
-        pacientesAtuais[index];
-
-
-      if (!paciente) {
-
-        alert(
-          "Paciente não encontrado."
-        );
-
-        return;
-
-      }
-
-
-      pacienteSelecionadoIndex =
-        index;
-
-
-      const nome =
-        paciente.nome ||
-        paciente.paciente ||
-        `Paciente ${index + 1}`;
-
-
-      document.getElementById(
-        "pacienteSelecionado"
-      ).value = nome;
-
-
-      /*
-        Também seleciona automaticamente
-        o paciente na área de chamada.
-      */
-
-      const pacienteChamada =
-        document.getElementById(
-          "pacienteChamada"
-        );
-
-      if (pacienteChamada) {
-
-        pacienteChamada.value =
-          String(index);
-
-      }
-
-
-      mostrarAlertaAlergia(
-        paciente
-      );
-
-
-      document.getElementById(
-        "diagnostico"
-      ).focus();
-
-
-      document
-        .querySelector(
-          ".coluna:last-child .card"
-        )
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-
-    }
-
-
-
-    /* =========================
-       ALERTA ALERGIA
-    ========================= */
-
-    function mostrarAlertaAlergia(
-      paciente
-    ) {
-
-      const alerta =
-        document.getElementById(
-          "alertaAlergia"
-        );
-
+    container.innerHTML = filtrados.map(({ paciente, index }) => {
+      const nome = nomeDoPaciente(paciente, index);
+      const prioridade = classificarPrioridade(paciente);
 
       const alergia =
-        paciente.alergia;
-
-
-      if (
-        alergia &&
-        String(alergia)
-          .toLowerCase() !== "nenhuma" &&
-        String(alergia)
-          .toLowerCase() !== "não" &&
-        String(alergia)
-          .toLowerCase() !== "nao"
-      ) {
-
-        alerta.style.display =
-          "block";
-
-
-        alerta.innerHTML = `
-
-          ⚠️ <strong>Atenção:</strong>
-
-          paciente possui alergia registrada:
-
-          ${escaparHTML(
-            alergia
-          )}
-
-        `;
-
-      }
-
-      else {
-
-        alerta.style.display =
-          "none";
-
-        alerta.innerHTML = "";
-
-      }
-
-    }
-
-
-
-    /* =========================
-       CARREGAR MEDICAÇÕES
-    ========================= */
-
-    async function carregarMedicacoes() {
-
-      const select =
-        document.getElementById(
-          "medicacao"
-        );
-
-
-      try {
-
-        const resposta =
-          await fetch(
-            "/lista-medicacoes"
-          );
-
-
-        if (!resposta.ok) {
-
-          throw new Error(
-            "Erro ao carregar medicações."
-          );
-
-        }
-
-
-        const medicacoes =
-          await resposta.json();
-
-
-        select.innerHTML = `
-
-          <option value="">
-            Selecione uma medicação
-          </option>
-
-        `;
-
-
-        if (
-          Array.isArray(
-            medicacoes
-          )
-        ) {
-
-          medicacoes.forEach(
-            med => {
-
-              const option =
-                document.createElement(
-                  "option"
-                );
-
-
-              const nome =
-                typeof med === "string"
-                  ? med
-                  : med.nome ||
-                    med.medicacao ||
-                    "";
-
-
-              if (!nome) return;
-
-
-              option.value =
-                nome;
-
-
-              option.textContent =
-                nome;
-
-
-              select.appendChild(
-                option
-              );
-
-            }
-          );
-
-        }
-
-      }
-
-      catch (erro) {
-
-        console.error(
-          "Erro ao carregar medicações:",
-          erro
-        );
-
-      }
-
-    }
-
-
-
-    /* =========================
-       CARREGAR PACIENTES PARA ALTA
-    ========================= */
-
-    function carregarPacientesAlta() {
-
-      const select =
-        document.getElementById(
-          "pacienteAlta"
-        );
-
-
-      if (!select) return;
-
-
-      select.innerHTML = `
-
-        <option value="">
-          Selecione um paciente
-        </option>
-
+        paciente.alergia || "Não informada";
+
+      const sintoma =
+        paciente.sintoma ||
+        paciente.sintomas ||
+        "Não informado";
+
+      const temperatura =
+        paciente.temperatura || "Não informada";
+
+      const observacao =
+        paciente.observacao ||
+        paciente.observacoes ||
+        "Nenhuma observação registrada.";
+
+      return `
+        <article class="patient-card">
+          <div class="patient-top">
+            <div class="patient-identity">
+              <div class="patient-avatar">👤</div>
+              <div>
+                <div class="patient-name">
+                  ${escaparHTML(nome)}
+                </div>
+                <div class="patient-label">
+                  Registro da fila de atendimento
+                </div>
+              </div>
+            </div>
+
+            <span class="priority ${prioridade.classe}">
+              ${escaparHTML(prioridade.texto)}
+            </span>
+          </div>
+
+          <div class="patient-data">
+            <div class="data-item">
+              <span>Sintomas</span>
+              <strong>${escaparHTML(sintoma)}</strong>
+            </div>
+
+            <div class="data-item">
+              <span>Temperatura</span>
+              <strong>${escaparHTML(temperatura)}</strong>
+            </div>
+
+            <div class="data-item">
+              <span>Alergias registradas</span>
+              <strong>${escaparHTML(alergia)}</strong>
+            </div>
+
+            <div class="data-item">
+              <span>Prioridade</span>
+              <strong>${escaparHTML(prioridade.texto)}</strong>
+            </div>
+          </div>
+
+          <div class="patient-observation">
+            <strong>Observações:</strong>
+            ${escaparHTML(observacao)}
+          </div>
+
+          <div class="patient-actions">
+            <button
+              type="button"
+              class="button button-primary"
+              onclick="selecionar(${index})"
+            >
+              🩺 Selecionar para consulta
+            </button>
+          </div>
+        </article>
       `;
+    }).join("");
+  }
 
+  /* SELECIONAR PACIENTE */
 
-      pacientesAtuais.forEach(
-        (paciente, index) => {
+  function selecionar(index) {
+    const paciente = pacientesAtuais[index];
 
-          const option =
-            document.createElement(
-              "option"
-            );
-
-
-          const nome =
-            paciente.nome ||
-            paciente.paciente ||
-            `Paciente ${index + 1}`;
-
-
-          option.value =
-            index;
-
-
-          option.textContent =
-            nome;
-
-
-          select.appendChild(
-            option
-          );
-
-        }
-      );
-
+    if (!paciente) {
+      mostrarMensagem("Paciente não encontrado.", "error");
+      return;
     }
 
+    pacienteSelecionadoIndex = index;
 
+    document.getElementById("pacienteSelecionado").value =
+      nomeDoPaciente(paciente, index);
 
-    /* =========================
-       CARREGAR PACIENTES PARA CHAMADA
-    ========================= */
+    document.getElementById("pacienteChamada").value =
+      String(index);
 
-    function carregarPacientesChamada() {
+    document.getElementById("pacienteAlta").value =
+      String(index);
 
-      const select =
-        document.getElementById(
-          "pacienteChamada"
-        );
+    mostrarAlertaAlergia(paciente);
 
+    document.getElementById("consulta").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-      if (!select) return;
+  function limparSelecao() {
+    pacienteSelecionadoIndex = null;
 
+    document.getElementById("pacienteSelecionado").value = "";
+    document.getElementById("alertaAlergia").style.display = "none";
+    document.getElementById("alertaAlergia").textContent = "";
+  }
 
-      select.innerHTML = `
+  /* ALERTA DE ALERGIA */
 
-        <option value="">
-          Selecione um paciente
-        </option>
+  function mostrarAlertaAlergia(paciente) {
+    const alerta = document.getElementById("alertaAlergia");
+    const alergia = String(paciente.alergia || "").trim();
 
-      `;
+    const semAlergia = [
+      "",
+      "nenhuma",
+      "não",
+      "nao",
+      "não informado",
+      "nao informado"
+    ];
 
+    if (!semAlergia.includes(alergia.toLowerCase())) {
+      alerta.textContent =
+        `⚠️ Atenção: alergia registrada para este paciente: ${alergia}. Confira essa informação antes de registrar a prescrição.`;
 
-      pacientesAtuais.forEach(
-        (paciente, index) => {
+      alerta.style.display = "block";
+    } else {
+      alerta.textContent = "";
+      alerta.style.display = "none";
+    }
+  }
 
-          const option =
-            document.createElement(
-              "option"
-            );
+  /* LISTAS DE PACIENTES PARA ALTA E TV */
 
+  function preencherSelectPacientes(id) {
+    const select = document.getElementById(id);
+    const valorAnterior = select.value;
 
-          const nome =
-            paciente.nome ||
-            paciente.paciente ||
-            `Paciente ${index + 1}`;
+    select.innerHTML = "";
 
+    const inicial = document.createElement("option");
+    inicial.value = "";
+    inicial.textContent = "Selecione um paciente";
+    select.appendChild(inicial);
 
-          option.value =
-            index;
+    pacientesAtuais.forEach((paciente, index) => {
+      const option = document.createElement("option");
+      option.value = String(index);
+      option.textContent = nomeDoPaciente(paciente, index);
+      select.appendChild(option);
+    });
 
+    if (
+      valorAnterior !== "" &&
+      pacientesAtuais[Number(valorAnterior)]
+    ) {
+      select.value = valorAnterior;
+    }
+  }
 
-          option.textContent =
-            nome;
+  function carregarPacientesAlta() {
+    preencherSelectPacientes("pacienteAlta");
+  }
 
+  function carregarPacientesChamada() {
+    preencherSelectPacientes("pacienteChamada");
+  }
 
-          select.appendChild(
-            option
-          );
+  /* CARREGAR MEDICAÇÕES */
 
-        }
+  async function carregarMedicacoes() {
+    const select = document.getElementById("medicacao");
+
+    try {
+      const resposta = await fetch("/lista-medicacoes");
+
+      if (!resposta.ok) {
+        throw new Error("Falha ao consultar medicações.");
+      }
+
+      const dados = await resposta.json();
+
+      select.innerHTML =
+        '<option value="">Selecione uma medicação</option>';
+
+      if (!Array.isArray(dados)) return;
+
+      dados.forEach(item => {
+        const nome = typeof item === "string"
+          ? item
+          : item.nome || item.medicacao || "";
+
+        if (!nome) return;
+
+        const option = document.createElement("option");
+        option.value = nome;
+        option.textContent = nome;
+        select.appendChild(option);
+      });
+
+    } catch (erro) {
+      console.error("Erro ao carregar medicações:", erro);
+      // Mantém o formulário disponível caso a rota esteja indisponível.
+    }
+  }
+
+  /* ENCAMINHAR PARA ALTA */
+
+  function irParaAlta() {
+    const select = document.getElementById("pacienteAlta");
+
+    if (select.value === "") {
+      mostrarMensagem(
+        "Selecione um paciente antes de continuar para a alta.",
+        "error"
       );
-
+      return;
     }
 
+    const index = Number(select.value);
+    const paciente = pacientesAtuais[index];
 
-
-    /* =========================
-       ENVIAR PARA TV
-    ========================= */
-
-    function enviarParaTV() {
-
-      const pacienteSelect =
-        document.getElementById(
-          "pacienteChamada"
-        );
-
-
-      const sala =
-        document.getElementById(
-          "salaPaciente"
-        ).value;
-
-
-      const guiche =
-        document.getElementById(
-          "guichePaciente"
-        ).value;
-
-
-      if (!pacienteSelect.value) {
-
-        alert(
-          "Selecione um paciente."
-        );
-
-        return;
-
-      }
-
-
-      if (!sala) {
-
-        alert(
-          "Selecione a sala."
-        );
-
-        return;
-
-      }
-
-
-      if (!guiche) {
-
-        alert(
-          "Selecione o guichê."
-        );
-
-        return;
-
-      }
-
-
-      const index =
-        Number(
-          pacienteSelect.value
-        );
-
-
-      const paciente =
-        pacientesAtuais[index];
-
-
-      if (!paciente) {
-
-        alert(
-          "Paciente não encontrado."
-        );
-
-        return;
-
-      }
-
-
-      const nome =
-        paciente.nome ||
-        paciente.paciente ||
-        `Paciente ${index + 1}`;
-
-
-      const chamada = {
-
-        nome: nome,
-
-        sala: sala,
-
-        guiche: guiche,
-
-        prioridade:
-          paciente.prioridade ||
-          paciente.risco ||
-          "Normal",
-
-        horario:
-          new Date()
-            .toLocaleTimeString(
-              "pt-BR",
-              {
-                hour: "2-digit",
-                minute: "2-digit"
-              }
-            ),
-
-        paciente: paciente
-
-      };
-
-
-      localStorage.setItem(
-        "chamadaTV",
-        JSON.stringify(
-          chamada
-        )
-      );
-
-
-      /*
-        Abre a página da TV.
-      */
-
-      window.location.href =
-        "tv.html";
-
+    if (!paciente) {
+      mostrarMensagem("Paciente não encontrado.", "error");
+      return;
     }
 
-
-
-    /* =========================
-       IR PARA ALTA
-    ========================= */
-
-    function irParaAlta() {
-
-      const select =
-        document.getElementById(
-          "pacienteAlta"
-        );
-
-
-      if (!select.value) {
-
-        alert(
-          "Selecione um paciente para dar alta."
-        );
-
-        return;
-
-      }
-
-
-      const index =
-        Number(
-          select.value
-        );
-
-
-      const paciente =
-        pacientesAtuais[index];
-
-
-      if (!paciente) {
-
-        alert(
-          "Paciente não encontrado."
-        );
-
-        return;
-
-      }
-
-
-      localStorage.setItem(
-        "pacienteAlta",
-        JSON.stringify(
-          paciente
-        )
-      );
-
-
-      localStorage.setItem(
-        "pacienteAltaIndex",
-        String(index)
-      );
-
-
-      window.location.href =
-        "alta.html";
-
-    }
-
-
-
-    /* =========================
-       SALVAR CONSULTA
-    ========================= */
-
-    async function salvar() {
-
-      if (
-        pacienteSelecionadoIndex === null
-      ) {
-
-        alert(
-          "Selecione um paciente primeiro."
-        );
-
-        return;
-
-      }
-
-
-      const paciente =
-        pacientesAtuais[
-          pacienteSelecionadoIndex
-        ];
-
-
-      const diagnostico =
-        document.getElementById(
-          "diagnostico"
-        ).value.trim();
-
-
-      const medicacao =
-        document.getElementById(
-          "medicacao"
-        ).value;
-
-
-      const observacoes =
-        document.getElementById(
-          "observacoes"
-        ).value.trim();
-
-
-      if (!diagnostico) {
-
-        alert(
-          "Digite o diagnóstico do paciente."
-        );
-
-        document
-          .getElementById(
-            "diagnostico"
-          )
-          .focus();
-
-        return;
-
-      }
-
-
-      if (!medicacao) {
-
-        alert(
-          "Selecione uma medicação."
-        );
-
-        document
-          .getElementById(
-            "medicacao"
-          )
-          .focus();
-
-        return;
-
-      }
-
-
-      const dadosConsulta = {
-
-        paciente:
-          paciente.nome ||
-          paciente.paciente ||
-          "",
-
-        pacienteId:
-          paciente.id ||
-          null,
-
-        diagnostico:
-          diagnostico,
-
-        medicacao:
-          medicacao,
-
-        observacoes:
-          observacoes,
-
-        alergia:
-          paciente.alergia ||
-          "",
-
-        data:
-          new Date()
-            .toISOString()
-
-      };
-
-
-      try {
-
-        const resposta =
-          await fetch(
-            "/consulta",
-            {
-
-              method: "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body:
-                JSON.stringify(
-                  dadosConsulta
-                )
-
-            }
-          );
-
-
-        if (!resposta.ok) {
-
-          throw new Error(
-            "Erro ao salvar consulta."
-          );
-
-        }
-
-
-        alert(
-          "Consulta salva com sucesso!"
-        );
-
-
-        document.getElementById(
-          "pacienteSelecionado"
-        ).value = "";
-
-
-        document.getElementById(
-          "diagnostico"
-        ).value = "";
-
-
-        document.getElementById(
-          "medicacao"
-        ).value = "";
-
-
-        document.getElementById(
-          "observacoes"
-        ).value = "";
-
-
-        document.getElementById(
-          "alertaAlergia"
-        ).style.display =
-          "none";
-
-
-        pacienteSelecionadoIndex =
-          null;
-
-
-        carregar();
-
-      }
-
-      catch (erro) {
-
-        console.error(
-          erro
-        );
-
-
-        alert(
-          "Não foi possível salvar a consulta."
-        );
-
-      }
-
-    }
-
-
-
-    /* =========================
-       INICIALIZAÇÃO
-    ========================= */
-
-    carregar();
-
-
-    setInterval(
-      carregar,
-      30000
+    localStorage.setItem(
+      "pacienteAlta",
+      JSON.stringify(paciente)
     );
 
-  </script>
+    localStorage.setItem("pacienteAltaIndex", String(index));
 
+    window.location.href = "alta.html";
+  }
 
+  /* ENVIAR CHAMADA PARA TV */
+
+  function enviarParaTV() {
+    const select = document.getElementById("pacienteChamada");
+    const sala = document.getElementById("salaPaciente").value;
+    const guiche = document.getElementById("guichePaciente").value;
+
+    if (select.value === "") {
+      mostrarMensagem("Selecione um paciente para chamar.", "error");
+      return;
+    }
+
+    if (!sala || !guiche) {
+      mostrarMensagem(
+        "Selecione a sala e o guichê antes de enviar a chamada.",
+        "error"
+      );
+      return;
+    }
+
+    const index = Number(select.value);
+    const paciente = pacientesAtuais[index];
+
+    if (!paciente) {
+      mostrarMensagem("Paciente não encontrado.", "error");
+      return;
+    }
+
+    const chamada = {
+      nome: nomeDoPaciente(paciente, index),
+      sala: sala,
+      guiche: guiche,
+      prioridade: paciente.prioridade || paciente.risco || "Normal",
+      horario: new Date().toLocaleTimeString("pt-BR", {
+        hour: "2-digit",
+        minute: "2-digit"
+      }),
+      paciente: paciente
+    };
+
+    localStorage.setItem("chamadaTV", JSON.stringify(chamada));
+
+    window.location.href = "tv.html";
+  }
+
+  /* SALVAR CONSULTA */
+
+  async function salvar() {
+    if (pacienteSelecionadoIndex === null) {
+      mostrarMensagem(
+        "Selecione um paciente na fila antes de registrar a consulta.",
+        "error"
+      );
+      return;
+    }
+
+    const paciente = pacientesAtuais[pacienteSelecionadoIndex];
+
+    if (!paciente) {
+      mostrarMensagem(
+        "O paciente não está mais disponível na lista. Atualize e selecione novamente.",
+        "error"
+      );
+      return;
+    }
+
+    const diagnostico =
+      document.getElementById("diagnostico").value.trim();
+
+    const medicacao =
+      document.getElementById("medicacao").value;
+
+    const observacoes =
+      document.getElementById("observacoes").value.trim();
+
+    if (!diagnostico) {
+      mostrarMensagem("Preencha o diagnóstico ou a avaliação.", "error");
+      document.getElementById("diagnostico").focus();
+      return;
+    }
+
+    if (!medicacao) {
+      mostrarMensagem("Selecione a medicação ou prescrição.", "error");
+      document.getElementById("medicacao").focus();
+      return;
+    }
+
+    const botao = document.getElementById("botaoSalvar");
+    botao.disabled = true;
+    botao.textContent = "Salvando...";
+
+    const dadosConsulta = {
+      paciente: nomeDoPaciente(paciente, pacienteSelecionadoIndex),
+      pacienteId: paciente.id || null,
+      diagnostico: diagnostico,
+      medicacao: medicacao,
+      observacoes: observacoes,
+      alergia: paciente.alergia || "",
+      data: new Date().toISOString()
+    };
+
+    try {
+      const resposta = await fetch("/consulta", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dadosConsulta)
+      });
+
+      if (!resposta.ok) {
+        const detalhe = await resposta.text();
+        throw new Error(detalhe || "Não foi possível salvar a consulta.");
+      }
+
+      mostrarMensagem("Consulta registrada com sucesso!");
+
+      document.getElementById("diagnostico").value = "";
+      document.getElementById("medicacao").value = "";
+      document.getElementById("observacoes").value = "";
+
+      limparSelecao();
+
+      await carregar();
+
+    } catch (erro) {
+      console.error("Erro ao salvar consulta:", erro);
+
+      mostrarMensagem(
+        "Não foi possível salvar a consulta. Confira a conexão com o servidor.",
+        "error"
+      );
+    } finally {
+      botao.disabled = false;
+      botao.textContent = "✓ Salvar consulta";
+    }
+  }
+
+  /* PESQUISA E FILTRO */
+
+  document.getElementById("pesquisaPaciente")
+    .addEventListener("input", mostrarPacientes);
+
+  document.getElementById("filtroPrioridade")
+    .addEventListener("change", mostrarPacientes);
+
+  /* MENU COM INDICAÇÃO DA SEÇÃO */
+
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.addEventListener("click", () => {
+      document.querySelectorAll(".nav-link").forEach(item => {
+        item.classList.remove("active");
+      });
+
+      link.classList.add("active");
+    });
+  });
+
+  /* INICIALIZAÇÃO */
+
+  atualizarDataHora();
+  setInterval(atualizarDataHora, 60000);
+
+  carregar();
+  carregarMedicacoes();
+
+  // Atualiza a fila sem recarregar a página inteira.
+  setInterval(carregar, 30000);
+</script>
 </body>
-
 </html>
