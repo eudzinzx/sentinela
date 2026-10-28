@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#073b88">
 
     <title>NEXORA Health | Administração</title>
 
@@ -40,20 +41,27 @@
             font: inherit;
         }
 
+        a:focus-visible, button:focus-visible,
+        input:focus-visible, select:focus-visible {
+            outline: 3px solid var(--ciano);
+            outline-offset: 3px;
+        }
+
         .layout {
             display: flex;
             min-height: 100vh;
         }
 
         /* MENU LATERAL */
+
         .sidebar {
             width: 255px;
             min-width: 255px;
-            background: linear-gradient(180deg, #073b88, #062b60);
-            color: white;
             padding: 30px 18px 20px;
             display: flex;
             flex-direction: column;
+            background: linear-gradient(180deg, #073b88, #062b60);
+            color: white;
         }
 
         .logo {
@@ -68,8 +76,8 @@
             height: 46px;
             display: grid;
             place-items: center;
-            background: linear-gradient(135deg, #12b8d4, #0b5ed7);
             border-radius: 14px;
+            background: linear-gradient(135deg, var(--ciano), var(--azul));
             font-size: 25px;
             font-weight: 800;
         }
@@ -102,17 +110,17 @@
             gap: 12px;
             padding: 14px 13px;
             margin-bottom: 7px;
+            border-radius: 10px;
             color: #d8e6fa;
             text-decoration: none;
-            border-radius: 10px;
             font-size: 13px;
             transition: .2s;
         }
 
         .menu-item span {
-            width: 22px;
+            width: 24px;
             text-align: center;
-            font-size: 21px;
+            font-size: 20px;
         }
 
         .menu-item:hover,
@@ -129,8 +137,8 @@
             margin-top: auto;
             padding: 18px 10px 0;
             border-top: 1px solid #ffffff20;
-            font-size: 12px;
             color: #dce8f8;
+            font-size: 12px;
             line-height: 1.8;
         }
 
@@ -143,11 +151,12 @@
             width: 8px;
             height: 8px;
             margin-right: 6px;
-            background: #37d996;
             border-radius: 50%;
+            background: #37d996;
         }
 
-        /* CONTEÚDO PRINCIPAL */
+        /* CONTEÚDO */
+
         .main-content {
             flex: 1;
             min-width: 0;
@@ -164,15 +173,15 @@
 
         .breadcrumb {
             display: block;
+            margin-bottom: 8px;
             color: var(--azul);
             font-size: 12px;
             font-weight: 600;
-            margin-bottom: 8px;
         }
 
         .topbar h1 {
-            font-size: clamp(22px, 2vw, 29px);
             margin-bottom: 8px;
+            font-size: clamp(22px, 2vw, 29px);
         }
 
         .topbar p,
@@ -187,20 +196,20 @@
             align-items: center;
             gap: 11px;
             padding: 10px 14px;
+            flex-shrink: 0;
             background: white;
             border: 1px solid var(--borda);
             border-radius: 13px;
-            flex-shrink: 0;
         }
 
         .admin-avatar {
-            display: grid;
-            place-items: center;
             width: 39px;
             height: 39px;
+            display: grid;
+            place-items: center;
             border-radius: 12px;
-            color: white;
             background: var(--azul);
+            color: white;
             font-weight: 700;
         }
 
@@ -219,7 +228,8 @@
             font-size: 10px;
         }
 
-        /* BANNER */
+        /* BANNER PRINCIPAL */
+
         .welcome-banner {
             display: flex;
             justify-content: space-between;
@@ -230,19 +240,16 @@
             border-radius: 18px;
             color: white;
             background: linear-gradient(
-                110deg,
-                #073b88,
-                #0b5ed7 65%,
-                #12b8d4
+                110deg, #073b88, #0b5ed7 65%, #12b8d4
             );
             box-shadow: 0 10px 25px #0b5ed71a;
         }
 
         .banner-label {
+            color: #aeefff;
             font-size: 10px;
             letter-spacing: 2px;
             font-weight: 700;
-            color: #aeefff;
         }
 
         .welcome-banner h2 {
@@ -258,10 +265,10 @@
         }
 
         .banner-icon {
-            display: grid;
-            place-items: center;
             min-width: 90px;
             height: 90px;
+            display: grid;
+            place-items: center;
             border: 1px solid #ffffff45;
             border-radius: 25px;
             background: #ffffff17;
@@ -269,6 +276,7 @@
         }
 
         /* INDICADORES */
+
         .stats {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -287,10 +295,10 @@
         }
 
         .stat-icon {
-            display: grid;
-            place-items: center;
             min-width: 48px;
             height: 48px;
+            display: grid;
+            place-items: center;
             border-radius: 13px;
             font-size: 24px;
         }
@@ -330,7 +338,124 @@
             font-size: 21px;
         }
 
+        /* ACESSO AO ALMOXARIFADO */
+
+        .almoxarifado-card {
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            gap: 22px;
+            padding: 28px;
+            margin-bottom: 27px;
+            overflow: hidden;
+            background: linear-gradient(
+                120deg, #ffffff, #eef8ff 60%, #e0f7fa
+            );
+            border: 1px solid #cfe8f5;
+            border-radius: 19px;
+            box-shadow: 0 10px 30px #073b880b;
+            transition: transform .25s, box-shadow .25s;
+        }
+
+        .almoxarifado-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 32px #073b8821;
+        }
+
+        .almoxarifado-icone {
+            width: 68px;
+            height: 68px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 19px;
+            color: white;
+            font-size: 31px;
+            background: linear-gradient(135deg, var(--azul), var(--ciano));
+            box-shadow: 0 8px 18px #0b5ed72b;
+        }
+
+        .almoxarifado-info {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .almoxarifado-tag {
+            display: inline-block;
+            margin-bottom: 8px;
+            color: var(--azul);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .almoxarifado-info h2 {
+            margin-bottom: 9px;
+            color: var(--azul-escuro);
+            font-size: 23px;
+        }
+
+        .almoxarifado-info p {
+            max-width: 620px;
+            margin-bottom: 16px;
+            color: var(--cinza);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .almoxarifado-recursos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .almoxarifado-recursos span {
+            padding: 8px 10px;
+            color: #344054;
+            background: white;
+            border: 1px solid #d9eaf3;
+            border-radius: 9px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .btn-almoxarifado {
+            min-height: 44px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 10px;
+            color: white;
+            background: linear-gradient(135deg, var(--azul), var(--azul-escuro));
+            box-shadow: 0 6px 15px #0b5ed72b;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: .2s;
+        }
+
+        .btn-almoxarifado:hover {
+            background: linear-gradient(135deg, var(--ciano), var(--azul));
+            transform: translateY(-2px);
+        }
+
+        .almoxarifado-decoracao {
+            position: absolute;
+            right: 20px;
+            bottom: -33px;
+            color: #0b5ed70d;
+            font-size: 145px;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
         /* PAINÉIS */
+
         .content-grid {
             display: grid;
             grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
@@ -356,10 +481,10 @@
         }
 
         .header-icon {
-            display: grid;
-            place-items: center;
             min-width: 46px;
             height: 46px;
+            display: grid;
+            place-items: center;
             border-radius: 13px;
             background: #eaf2ff;
             color: var(--azul);
@@ -372,11 +497,12 @@
         }
 
         .panel-header h2 {
-            font-size: 17px;
             margin-bottom: 5px;
+            font-size: 17px;
         }
 
         /* FORMULÁRIO */
+
         .form-group {
             margin-bottom: 20px;
         }
@@ -390,13 +516,13 @@
 
         .form-group input,
         .form-group select {
-            display: block;
             width: 100%;
             min-height: 48px;
+            display: block;
             padding: 12px 14px;
-            outline: none;
             border: 1px solid #d6e0eb;
             border-radius: 10px;
+            outline: none;
             background: #fbfdff;
             color: var(--texto);
             font-size: 13px;
@@ -423,26 +549,22 @@
         }
 
         #btnCadastrar {
+            width: 100%;
+            min-height: 49px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 9px;
-            width: 100%;
-            min-height: 49px;
             padding: 12px;
             border: none;
             border-radius: 10px;
             color: white;
-            background: linear-gradient(100deg, #0b5ed7, #0849aa);
+            background: linear-gradient(100deg, var(--azul), #0849aa);
             font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 5px 12px #0b5ed725;
             transition: .2s;
-        }
-
-        #btnCadastrar span {
-            font-size: 21px;
         }
 
         #btnCadastrar:hover {
@@ -482,6 +604,7 @@
         }
 
         /* MENSAGENS */
+
         .mensagem {
             display: none;
             margin-bottom: 15px;
@@ -509,6 +632,7 @@
         }
 
         /* LISTA DE USUÁRIOS */
+
         .lista-topo {
             display: flex;
             justify-content: space-between;
@@ -520,9 +644,9 @@
         }
 
         .lista-topo > span:first-child {
+            color: var(--cinza);
             font-size: 10px;
             letter-spacing: 1px;
-            color: var(--cinza);
             font-weight: 700;
         }
 
@@ -549,15 +673,15 @@
         }
 
         .usuario-avatar {
-            display: grid;
-            place-items: center;
             min-width: 42px;
             height: 42px;
+            display: grid;
+            place-items: center;
             border-radius: 12px;
             background: linear-gradient(135deg, #e5f2ff, #dffaff);
             color: var(--azul);
-            font-weight: 800;
             font-size: 16px;
+            font-weight: 800;
         }
 
         .usuario-info {
@@ -611,14 +735,14 @@
         }
 
         .estado-vazio h3 {
+            margin-bottom: 7px;
             color: var(--texto);
             font-size: 14px;
-            margin-bottom: 7px;
         }
 
         .estado-vazio > div {
-            font-size: 30px;
             margin-bottom: 10px;
+            font-size: 30px;
         }
 
         .btn-atualizar {
@@ -626,10 +750,10 @@
             min-height: 43px;
             margin-top: 20px;
             padding: 10px;
-            color: var(--azul);
-            background: white;
             border: 1px solid #cbdcf4;
             border-radius: 9px;
+            color: var(--azul);
+            background: white;
             font-size: 12px;
             font-weight: 700;
             cursor: pointer;
@@ -640,6 +764,8 @@
             background: #eff6ff;
             border-color: var(--azul);
         }
+
+        /* RODAPÉ */
 
         footer {
             display: flex;
@@ -653,7 +779,8 @@
             font-size: 10px;
         }
 
-        /* TABLETS */
+        /* RESPONSIVIDADE */
+
         @media (max-width: 1150px) {
             .sidebar {
                 width: 220px;
@@ -678,7 +805,6 @@
             }
         }
 
-        /* CELULARES */
         @media (max-width: 700px) {
             .layout {
                 flex-direction: column;
@@ -793,23 +919,39 @@
                 font-size: 9px;
             }
 
+            .almoxarifado-card {
+                flex-direction: column;
+                padding: 21px 18px;
+                gap: 15px;
+            }
+
+            .almoxarifado-info h2 {
+                font-size: 21px;
+            }
+
+            .almoxarifado-recursos {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-almoxarifado {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .almoxarifado-decoracao {
+                right: 4px;
+                font-size: 90px;
+            }
+
             footer {
                 flex-direction: column;
                 line-height: 1.5;
             }
         }
 
-        /* ACESSIBILIDADE */
-        button:focus-visible,
-        a:focus-visible {
-            outline: 3px solid #12b8d4;
-            outline-offset: 3px;
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
+            *, *::before, *::after {
                 scroll-behavior: auto !important;
                 transition: none !important;
             }
@@ -818,499 +960,532 @@
 </head>
 
 <body>
+<div class="layout">
 
-    <div class="layout">
+    <!-- MENU LATERAL -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">N+</div>
+            <div>
+                <h2>NEXORA</h2>
+                <span>HEALTH SYSTEM</span>
+            </div>
+        </div>
 
-        <aside class="sidebar">
+        <div class="menu-titulo">ADMINISTRAÇÃO</div>
 
-            <div class="logo">
-                <div class="logo-icon">N+</div>
+        <a href="index.html" class="menu-item">
+            <span>⌂</span> Página de login
+        </a>
 
+        <a href="#cadastro" class="menu-item ativo">
+            <span>♙</span> Cadastrar usuário
+        </a>
+
+        <a href="#usuarios" class="menu-item">
+            <span>☷</span> Usuários cadastrados
+        </a>
+
+        <!-- NOVO ACESSO AO ALMOXARIFADO -->
+        <a href="almoxarifado.html" class="menu-item">
+            <span>📦</span> Almoxarifado
+        </a>
+
+        <div class="sidebar-footer">
+            <div class="status"></div>
+            Sistema hospitalar
+            <br>
+            <small>Gestão de acessos e materiais</small>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <span class="breadcrumb">Painel / Administração</span>
+                <h1>Gerenciamento de usuários</h1>
+                <p>Cadastre e gerencie os acessos da equipe hospitalar.</p>
+            </div>
+
+            <div class="admin-badge">
+                <div class="admin-avatar">A</div>
                 <div>
-                    <h2>NEXORA</h2>
-                    <span>HEALTH SYSTEM</span>
+                    <strong>Administrador</strong>
+                    <small>Gestão do sistema</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- BANNER -->
+        <section class="welcome-banner">
+            <div>
+                <span class="banner-label">NEXORA HEALTH</span>
+                <h2>Controle de acesso hospitalar</h2>
+                <p>
+                    Organize os usuários, os setores e os recursos
+                    hospitalares em um só lugar.
+                </p>
+            </div>
+            <div class="banner-icon" aria-hidden="true">✚</div>
+        </section>
+
+        <!-- INDICADORES -->
+        <section class="stats">
+            <div class="stat-card">
+                <div class="stat-icon azul">♙</div>
+                <div>
+                    <span>Total de usuários</span>
+                    <h3 id="totalUsuarios">0</h3>
+                    <small>Contas cadastradas</small>
                 </div>
             </div>
 
-            <div class="menu-titulo">ADMINISTRAÇÃO</div>
-
-            <a href="index.html" class="menu-item">
-                <span>⌂</span> Página de login
-            </a>
-
-            <a href="#cadastro" class="menu-item ativo">
-                <span>♙</span> Cadastrar usuário
-            </a>
-
-            <a href="#usuarios" class="menu-item">
-                <span>☷</span> Usuários cadastrados
-            </a>
-
-            <div class="sidebar-footer">
-                <div class="status"></div>
-                Sistema hospitalar
-                <br>
-                <small>Gestão de acessos</small>
+            <div class="stat-card">
+                <div class="stat-icon ciano">✚</div>
+                <div>
+                    <span>Setores disponíveis</span>
+                    <h3>3</h3>
+                    <small>Atendimento, triagem e médico</small>
+                </div>
             </div>
 
-        </aside>
-
-        <main class="main-content">
-
-            <header class="topbar">
+            <div class="stat-card">
+                <div class="stat-icon verde">✓</div>
                 <div>
-                    <span class="breadcrumb">Painel / Administração</span>
+                    <span>Status do painel</span>
+                    <h3 class="status-texto">Ativo</h3>
+                    <small>Gerenciamento de acessos</small>
+                </div>
+            </div>
+        </section>
 
-                    <h1>Gerenciamento de usuários</h1>
+        <!-- CARD DE ACESSO AO ALMOXARIFADO -->
+        <section class="almoxarifado-card"
+                 aria-labelledby="tituloAlmoxarifado">
 
-                    <p>
-                        Cadastre e gerencie os acessos da equipe hospitalar.
-                    </p>
+            <div class="almoxarifado-icone" aria-hidden="true">
+                📦
+            </div>
+
+            <div class="almoxarifado-info">
+                <span class="almoxarifado-tag">GESTÃO HOSPITALAR</span>
+
+                <h2 id="tituloAlmoxarifado">
+                    Almoxarifado hospitalar
+                </h2>
+
+                <p>
+                    Acesse o controle de materiais e insumos do hospital.
+                    Organize o estoque, acompanhe entradas e saídas e consulte
+                    alertas de produtos com estoque baixo e lotes próximos
+                    do vencimento.
+                </p>
+
+                <div class="almoxarifado-recursos">
+                    <span>📦 Controle de estoque</span>
+                    <span>📋 Entradas e saídas</span>
+                    <span>⚠️ Alertas de estoque</span>
+                    <span>🗓️ Lotes e validade</span>
                 </div>
 
-                <div class="admin-badge">
-                    <div class="admin-avatar">A</div>
+                <a href="almoxarifado.html" class="btn-almoxarifado">
+                    Acessar Almoxarifado
+                    <span aria-hidden="true">→</span>
+                </a>
+            </div>
 
+            <div class="almoxarifado-decoracao" aria-hidden="true">
+                ▣
+            </div>
+        </section>
+
+        <!-- CADASTRO E LISTAGEM -->
+        <section class="content-grid">
+
+            <!-- FORMULÁRIO DE CADASTRO -->
+            <div class="panel cadastro-panel" id="cadastro">
+                <div class="panel-header">
+                    <div class="header-icon">♙</div>
                     <div>
-                        <strong>Administrador</strong>
-                        <small>Gestão do sistema</small>
-                    </div>
-                </div>
-            </header>
-
-            <section class="welcome-banner">
-                <div>
-                    <span class="banner-label">NEXORA HEALTH</span>
-
-                    <h2>Controle de acesso hospitalar</h2>
-
-                    <p>
-                        Organize os usuários e seus setores em um só lugar,
-                        com praticidade e segurança.
-                    </p>
-                </div>
-
-                <div class="banner-icon">✚</div>
-            </section>
-
-            <section class="stats">
-
-                <div class="stat-card">
-                    <div class="stat-icon azul">♙</div>
-
-                    <div>
-                        <span>Total de usuários</span>
-                        <h3 id="totalUsuarios">0</h3>
-                        <small>Contas cadastradas</small>
+                        <h2>Cadastrar usuário</h2>
+                        <p>Preencha os dados para criar uma conta.</p>
                     </div>
                 </div>
 
-                <div class="stat-card">
-                    <div class="stat-icon ciano">✚</div>
-
-                    <div>
-                        <span>Setores disponíveis</span>
-                        <h3>3</h3>
-                        <small>Atendimento, triagem e médico</small>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-icon verde">✓</div>
-
-                    <div>
-                        <span>Status do painel</span>
-                        <h3 class="status-texto">Ativo</h3>
-                        <small>Gerenciamento de acessos</small>
-                    </div>
-                </div>
-
-            </section>
-
-            <section class="content-grid">
-
-                <!-- CADASTRO -->
-                <div class="panel cadastro-panel" id="cadastro">
-
-                    <div class="panel-header">
-                        <div class="header-icon">♙</div>
-
-                        <div>
-                            <h2>Cadastrar usuário</h2>
-                            <p>Preencha os dados para criar uma conta.</p>
-                        </div>
+                <form id="formUsuario">
+                    <div class="form-group">
+                        <label for="usuario">Nome de usuário</label>
+                        <input
+                            type="text"
+                            id="usuario"
+                            name="usuario"
+                            placeholder="Ex.: joao.silva"
+                            autocomplete="username"
+                            minlength="3"
+                            required
+                        >
+                        <small>
+                            Nome utilizado para identificar o acesso.
+                        </small>
                     </div>
 
-                    <form id="formUsuario">
-
-                        <div class="form-group">
-                            <label for="usuario">Nome de usuário</label>
-
-                            <input
-                                type="text"
-                                id="usuario"
-                                placeholder="Ex.: joao.silva"
-                                autocomplete="username"
-                                minlength="3"
-                                required
-                            >
-
-                            <small>
-                                Utilize pelo menos 3 caracteres.
-                            </small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="senha">Senha de acesso</label>
-
-                            <input
-                                type="password"
-                                id="senha"
-                                placeholder="Digite uma senha"
-                                autocomplete="new-password"
-                                minlength="8"
-                                required
-                            >
-
-                            <small>
-                                Utilize pelo menos 8 caracteres.
-                            </small>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="tipo">Setor do hospital</label>
-
-                            <select id="tipo" required>
-                                <option value="">Selecione um setor</option>
-                                <option value="atendimento">Atendimento</option>
-                                <option value="triagem">Triagem</option>
-                                <option value="medico">Médico</option>
-                            </select>
-                        </div>
-
-                        <div
-                            id="mensagem"
-                            class="mensagem"
-                            role="status"
-                            aria-live="polite">
-                        </div>
-
-                        <button type="submit" id="btnCadastrar">
-                            <span>＋</span> Cadastrar usuário
-                        </button>
-
-                    </form>
-
-                    <div class="security-note">
-                        <span>🔒</span>
-
-                        <p>
-                            <strong>Segurança</strong>
-                            <br>
-                            Proteja as credenciais e conceda acesso somente
-                            às pessoas autorizadas.
-                        </p>
+                    <div class="form-group">
+                        <label for="senha">Senha de acesso</label>
+                        <input
+                            type="password"
+                            id="senha"
+                            name="senha"
+                            placeholder="Digite uma senha"
+                            autocomplete="new-password"
+                            minlength="8"
+                            required
+                        >
+                        <small>
+                            Utilize uma senha com pelo menos 8 caracteres.
+                        </small>
                     </div>
 
-                </div>
-
-                <!-- LISTA DE USUÁRIOS -->
-                <div class="panel usuarios-panel" id="usuarios">
-
-                    <div class="panel-header">
-                        <div class="header-icon ciano-bg">☷</div>
-
-                        <div>
-                            <h2>Usuários cadastrados</h2>
-                            <p>Visualize as contas registradas no sistema.</p>
-                        </div>
+                    <div class="form-group">
+                        <label for="tipo">Setor do hospital</label>
+                        <select id="tipo" name="tipo" required>
+                            <option value="">Selecione um setor</option>
+                            <option value="atendimento">Atendimento</option>
+                            <option value="triagem">Triagem</option>
+                            <option value="medico">Médico</option>
+                        </select>
                     </div>
 
-                    <div class="lista-topo">
-                        <span>LISTA DE ACESSOS</span>
+                    <div id="mensagem"
+                         class="mensagem"
+                         role="status"
+                         aria-live="polite"></div>
 
-                        <span class="contador" id="contadorUsuarios">
-                            0 usuários
-                        </span>
-                    </div>
-
-                    <div id="listaUsuarios" class="lista-usuarios">
-                        <div class="carregando">
-                            Carregando usuários...
-                        </div>
-                    </div>
-
-                    <button
-                        type="button"
-                        class="btn-atualizar"
-                        id="btnAtualizar">
-                        ↻ Atualizar lista
+                    <button type="submit" id="btnCadastrar">
+                        ＋ Cadastrar usuário
                     </button>
+                </form>
 
+                <div class="security-note">
+                    <span>🔒</span>
+                    <p>
+                        <strong>Segurança</strong>
+                        <br>
+                        Proteja as credenciais e conceda acesso somente
+                        às pessoas autorizadas.
+                    </p>
+                </div>
+            </div>
+
+            <!-- LISTA DE USUÁRIOS -->
+            <div class="panel usuarios-panel" id="usuarios">
+                <div class="panel-header">
+                    <div class="header-icon ciano-bg">☷</div>
+                    <div>
+                        <h2>Usuários cadastrados</h2>
+                        <p>Visualize as contas registradas no sistema.</p>
+                    </div>
                 </div>
 
-            </section>
+                <div class="lista-topo">
+                    <span>LISTA DE ACESSOS</span>
+                    <span class="contador" id="contadorUsuarios">
+                        0 usuários
+                    </span>
+                </div>
 
-            <footer>
-                <span>© 2026 NEXORA Health</span>
-                <span>Sistema de gerenciamento hospitalar</span>
-            </footer>
+                <div id="listaUsuarios" class="lista-usuarios">
+                    <div class="carregando">
+                        Carregando usuários...
+                    </div>
+                </div>
 
-        </main>
+                <button
+                    type="button"
+                    class="btn-atualizar"
+                    id="btnAtualizar">
+                    ↻ Atualizar lista
+                </button>
+            </div>
+        </section>
 
-    </div>
+        <footer>
+            <span>© 2026 NEXORA Health</span>
+            <span>Sistema de gerenciamento hospitalar</span>
+        </footer>
+    </main>
+</div>
 
-    <script>
-        const form = document.getElementById("formUsuario");
-        const lista = document.getElementById("listaUsuarios");
-        const mensagem = document.getElementById("mensagem");
-        const btnCadastrar = document.getElementById("btnCadastrar");
+<script>
+    const form = document.getElementById("formUsuario");
+    const lista = document.getElementById("listaUsuarios");
+    const mensagem = document.getElementById("mensagem");
+    const btnCadastrar = document.getElementById("btnCadastrar");
 
-        // MOSTRAR MENSAGENS
-        function mostrarMensagem(texto, tipo) {
-            mensagem.textContent = texto;
-            mensagem.className = "mensagem " + tipo;
-        }
+    const textoOriginalBotao = "＋ Cadastrar usuário";
 
-        // TRADUZIR O NOME DO SETOR
-        function nomeSetor(tipo) {
-            const setores = {
-                atendimento: "Atendimento",
-                triagem: "Triagem",
-                medico: "Médico"
-            };
+    function mostrarMensagem(texto, tipo) {
+        mensagem.textContent = texto;
+        mensagem.className = "mensagem " + tipo;
+    }
 
-            return setores[tipo] || "Não informado";
-        }
+    function nomeSetor(tipo) {
+        const setores = {
+            atendimento: "Atendimento",
+            triagem: "Triagem",
+            medico: "Médico"
+        };
 
-        // EVITAR INSERÇÃO DE HTML NÃO CONFIÁVEL
-        function escaparHTML(valor) {
-            return String(valor ?? "").replace(/[&<>"']/g, function (caractere) {
-                return {
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    '"': "&quot;",
-                    "'": "&#039;"
-                }[caractere];
-            });
-        }
+        return setores[tipo] || "Setor não identificado";
+    }
 
-        // LER A RESPOSTA DO SERVIDOR SEM QUEBRAR QUANDO FOR HTML
-        async function lerRespostaJSON(resposta) {
-            const texto = await resposta.text();
+    function escaparHTML(valor) {
+        return String(valor ?? "").replace(/[&<>"']/g, function (caractere) {
+            return {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#039;"
+            }[caractere];
+        });
+    }
 
-            let dados;
+    // Lê JSON e identifica quando o servidor retorna HTML por engano.
+    async function lerRespostaJSON(resposta) {
+        const texto = await resposta.text();
+        const contentType = resposta.headers.get("content-type") || "";
 
-            try {
-                dados = texto ? JSON.parse(texto) : {};
-            } catch {
-                if (texto.trim().startsWith("<")) {
-                    throw new Error(
-                        "O servidor retornou HTML em vez de JSON. " +
-                        "Verifique se a rota da API existe e se o endereço está correto."
-                    );
-                }
-
+        if (!texto.trim()) {
+            if (!resposta.ok) {
                 throw new Error(
-                    "O servidor retornou uma resposta inválida."
+                    `O servidor respondeu com erro HTTP ${resposta.status}.`
                 );
             }
+
+            return {};
+        }
+
+        try {
+            return JSON.parse(texto);
+        } catch {
+            const pareceHTML =
+                /<!doctype html|<html|<head|<body/i.test(texto);
+
+            if (pareceHTML || contentType.includes("text/html")) {
+                throw new Error(
+                    `A rota respondeu HTML em vez de JSON (HTTP ${resposta.status}). ` +
+                    "Confira se o backend possui a rota correta."
+                );
+            }
+
+            throw new Error(
+                "O servidor retornou uma resposta inválida. Verifique o backend."
+            );
+        }
+    }
+
+    // CADASTRAR USUÁRIO
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const usuario = document.getElementById("usuario").value.trim();
+        const senha = document.getElementById("senha").value;
+        const tipo = document.getElementById("tipo").value;
+
+        if (!usuario || !senha || !tipo) {
+            mostrarMensagem("Preencha todos os campos.", "erro");
+            return;
+        }
+
+        if (usuario.length < 3) {
+            mostrarMensagem(
+                "O nome de usuário deve ter pelo menos 3 caracteres.",
+                "erro"
+            );
+            return;
+        }
+
+        if (senha.length < 8) {
+            mostrarMensagem(
+                "Use uma senha com pelo menos 8 caracteres.",
+                "erro"
+            );
+            return;
+        }
+
+        btnCadastrar.disabled = true;
+        btnCadastrar.textContent = "Cadastrando...";
+
+        mostrarMensagem(
+            "Enviando cadastro para o servidor...",
+            "sucesso"
+        );
+
+        try {
+            const resposta = await fetch("/usuario", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({ usuario, senha, tipo })
+            });
+
+            const dados = await lerRespostaJSON(resposta);
+
+            if (!resposta.ok || dados.erro) {
+                throw new Error(
+                    dados.mensagem ||
+                    dados.erro ||
+                    `Não foi possível cadastrar o usuário (HTTP ${resposta.status}).`
+                );
+            }
+
+            mostrarMensagem(
+                dados.mensagem || "Usuário cadastrado com sucesso!",
+                "sucesso"
+            );
+
+            form.reset();
+
+            await carregarUsuarios({ manterMensagem: true });
+
+        } catch (erro) {
+            console.error("Erro ao cadastrar usuário:", erro);
+
+            mostrarMensagem(
+                erro.message || "Erro ao conectar com o servidor.",
+                "erro"
+            );
+        } finally {
+            btnCadastrar.disabled = false;
+            btnCadastrar.textContent = textoOriginalBotao;
+        }
+    });
+
+    // CARREGAR USUÁRIOS
+    async function carregarUsuarios(opcoes = {}) {
+        lista.innerHTML =
+            '<div class="carregando">Carregando usuários...</div>';
+
+        try {
+            const resposta = await fetch("/usuarios", {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+
+            const dados = await lerRespostaJSON(resposta);
 
             if (!resposta.ok) {
                 throw new Error(
-                    dados.erro ||
                     dados.mensagem ||
-                    "Erro na solicitação ao servidor."
+                    dados.erro ||
+                    `Falha ao buscar usuários (HTTP ${resposta.status}).`
                 );
             }
 
-            if (dados.erro) {
-                throw new Error(dados.erro);
+            // Aceita um array direto ou um objeto { usuarios: [...] }.
+            const usuarios = Array.isArray(dados)
+                ? dados
+                : dados.usuarios;
+
+            if (!Array.isArray(usuarios)) {
+                throw new Error(
+                    "A rota GET /usuarios precisa retornar uma lista JSON de usuários."
+                );
             }
 
-            return dados;
-        }
+            document.getElementById("totalUsuarios").textContent =
+                usuarios.length;
 
-        // CADASTRAR USUÁRIO
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
+            document.getElementById("contadorUsuarios").textContent =
+                usuarios.length +
+                (usuarios.length === 1 ? " usuário" : " usuários");
 
-            const usuario = document
-                .getElementById("usuario")
-                .value.trim();
-
-            const senha = document.getElementById("senha").value;
-            const tipo = document.getElementById("tipo").value;
-
-            if (usuario.length < 3) {
-                mostrarMensagem(
-                    "O nome de usuário precisa ter pelo menos 3 caracteres.",
-                    "erro"
-                );
-                return;
-            }
-
-            if (senha.length < 8) {
-                mostrarMensagem(
-                    "A senha precisa ter pelo menos 8 caracteres.",
-                    "erro"
-                );
-                return;
-            }
-
-            if (!tipo) {
-                mostrarMensagem(
-                    "Selecione o setor do usuário.",
-                    "erro"
-                );
-                return;
-            }
-
-            btnCadastrar.disabled = true;
-            btnCadastrar.textContent = "Cadastrando...";
-
-            try {
-                const resposta = await fetch("/usuario", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                    body: JSON.stringify({
-                        usuario: usuario,
-                        senha: senha,
-                        tipo: tipo
-                    })
-                });
-
-                await lerRespostaJSON(resposta);
-
-                mostrarMensagem(
-                    "Usuário cadastrado com sucesso!",
-                    "sucesso"
-                );
-
-                form.reset();
-
-                await carregarUsuarios();
-
-            } catch (erro) {
-                console.error("Erro ao cadastrar usuário:", erro);
-
-                mostrarMensagem(
-                    erro.message ||
-                    "Não foi possível conectar ao servidor.",
-                    "erro"
-                );
-            } finally {
-                btnCadastrar.disabled = false;
-                btnCadastrar.innerHTML =
-                    "<span>＋</span> Cadastrar usuário";
-            }
-        });
-
-        // CARREGAR USUÁRIOS
-        async function carregarUsuarios() {
-            lista.innerHTML =
-                '<div class="carregando">Carregando usuários...</div>';
-
-            try {
-                const resposta = await fetch("/usuarios", {
-                    headers: {
-                        "Accept": "application/json"
-                    }
-                });
-
-                const dados = await lerRespostaJSON(resposta);
-
-                // Aceita tanto um array quanto { usuarios: [...] }
-                const usuarios = Array.isArray(dados)
-                    ? dados
-                    : dados.usuarios;
-
-                if (!Array.isArray(usuarios)) {
-                    throw new Error(
-                        "A API precisa retornar uma lista de usuários em JSON."
-                    );
-                }
-
-                document.getElementById("totalUsuarios").textContent =
-                    usuarios.length;
-
-                document.getElementById("contadorUsuarios").textContent =
-                    usuarios.length +
-                    (usuarios.length === 1 ? " usuário" : " usuários");
-
-                if (usuarios.length === 0) {
-                    lista.innerHTML = `
-                        <div class="estado-vazio">
-                            <div>♙</div>
-                            <h3>Nenhum usuário cadastrado</h3>
-                            <p>
-                                Cadastre o primeiro usuário usando o formulário.
-                            </p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                lista.innerHTML = usuarios.map(function (u) {
-                    const usuarioSeguro = escaparHTML(u.usuario);
-                    const setorSeguro = escaparHTML(nomeSetor(u.tipo));
-
-                    const inicial = escaparHTML(
-                        String(u.usuario || "?").charAt(0).toUpperCase()
-                    );
-
-                    const tipoSeguro = [
-                        "atendimento",
-                        "triagem",
-                        "medico"
-                    ].includes(u.tipo) ? u.tipo : "";
-
-                    return `
-                        <div class="usuario-card">
-                            <div class="usuario-avatar">${inicial}</div>
-
-                            <div class="usuario-info">
-                                <strong>${usuarioSeguro}</strong>
-                                <span>Conta hospitalar</span>
-                            </div>
-
-                            <span class="setor-badge setor-${tipoSeguro}">
-                                ${setorSeguro}
-                            </span>
-                        </div>
-                    `;
-                }).join("");
-
-            } catch (erro) {
-                console.error("Erro ao carregar usuários:", erro);
-
-                document.getElementById("totalUsuarios").textContent = "—";
-                document.getElementById("contadorUsuarios").textContent =
-                    "Indisponível";
-
+            if (usuarios.length === 0) {
                 lista.innerHTML = `
                     <div class="estado-vazio">
-                        <h3>Não foi possível carregar</h3>
-                        <p>${escaparHTML(erro.message)}</p>
-                        <p>Verifique se o servidor está funcionando.</p>
+                        <div>♙</div>
+                        <h3>Nenhum usuário cadastrado</h3>
+                        <p>Cadastre o primeiro usuário usando o formulário.</p>
                     </div>
                 `;
+
+                return;
+            }
+
+            lista.innerHTML = usuarios.map(function (u) {
+                const nome = escaparHTML(
+                    u.usuario || "Usuário sem nome"
+                );
+
+                const setor = escaparHTML(nomeSetor(u.tipo));
+
+                const inicial = escaparHTML(
+                    String(u.usuario || "?").charAt(0).toUpperCase()
+                );
+
+                const tipoSeguro = [
+                    "atendimento",
+                    "triagem",
+                    "medico"
+                ].includes(u.tipo) ? u.tipo : "";
+
+                return `
+                    <div class="usuario-card">
+                        <div class="usuario-avatar">${inicial}</div>
+
+                        <div class="usuario-info">
+                            <strong>${nome}</strong>
+                            <span>Conta hospitalar</span>
+                        </div>
+
+                        <span class="setor-badge setor-${tipoSeguro}">
+                            ${setor}
+                        </span>
+                    </div>
+                `;
+            }).join("");
+
+        } catch (erro) {
+            console.error("Erro ao carregar usuários:", erro);
+
+            document.getElementById("totalUsuarios").textContent = "—";
+            document.getElementById("contadorUsuarios").textContent =
+                "Indisponível";
+
+            lista.innerHTML = `
+                <div class="estado-vazio">
+                    <h3>Não foi possível carregar os usuários</h3>
+                    <p>${escaparHTML(
+                        erro.message || "Verifique se o servidor está funcionando."
+                    )}</p>
+                </div>
+            `;
+
+            if (!opcoes.manterMensagem) {
+                mostrarMensagem(
+                    "Não foi possível atualizar a lista. Confira a rota GET /usuarios no backend.",
+                    "erro"
+                );
             }
         }
+    }
 
-        // ATUALIZAR A LISTA
-        document.getElementById("btnAtualizar").addEventListener(
-            "click",
-            carregarUsuarios
-        );
+    // ATUALIZAR LISTA
+    document.getElementById("btnAtualizar").addEventListener(
+        "click",
+        function () {
+            carregarUsuarios();
+        }
+    );
 
-        // CARREGAR QUANDO ABRIR A PÁGINA
-        carregarUsuarios();
-    </script>
-
+    // CARREGAR USUÁRIOS AO ABRIR A PÁGINA
+    carregarUsuarios();
+</script>
 </body>
 </html>
